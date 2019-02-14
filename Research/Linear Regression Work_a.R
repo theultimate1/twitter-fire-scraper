@@ -1,25 +1,67 @@
-#install.packages("randomForest")
-#install.packages("caret")
-#install.packages("pracma")
-#install.packages("lars")
-#install.packages("rpart.plot")
-library("randomForest", lib.loc="~/R/win-library/3.4")
-library(multcomp)
-library('caret')
-library(pracma)
-library(stats)
-library(MASS)
-library(lars)
-library(rpart)
-library(e1071)
-library(rpart.plot)
+# Utility fn to install packages.
+usePackage <- function(p) 
+{
+  if (!is.element(p, installed.packages()[,1]))
+  {
+    install.packages(p, dependencies = TRUE)
+  }
+  require(p, character.only = TRUE)
+}
+
+# Run this section if you need dependencies.
+if(FALSE) {
+  install.packages("yaml", dependencies=TRUE)
+  install.packages("randomForest", dependencies=TRUE)
+  install.packages("pracma", dependencies=TRUE)
+  install.packages("lars", dependencies=TRUE)
+  install.packages("rpart.plot", dependencies=TRUE)
+  install.packages('multcomp', dependencies=TRUE)
+  install.packages('e1071', dependencies=TRUE)
+  install.packages('mvtnorm', dependencies=TRUE)
+  install.packages('zoo', dependencies=TRUE)
+  install.packages('ggplot2', dependencies=TRUE)
+  install.packages('lazyeval', dependencies=TRUE)
+  install.packages('tibble', dependencies=TRUE)
+  install.packages('stringi', dependencies=TRUE)
+  install.packages('datatable', dependencies=TRUE)
+  install.packages('reshape2', dependencies=TRUE)
+  install.packages('plyr', dependencies=TRUE)
+  install.packages('rlang', dependencies=TRUE)
+  install.packages("Rcpp", dependencies=TRUE)
+  install.packages("colorspace", dependencies=TRUE)
+  install.packages("scales", dependencies=TRUE)
+  install.packages("backports", dependencies=TRUE)
+  install.packages("caret", dependencies=TRUE)
+}
+
+# Our dependencies.
+{
+  #library("randomForest", lib.loc="~/R/win-library/3.4")
+  usePackage("mvtnorm")
+  usePackage("zoo")
+  usePackage("multcomp")
+  usePackage("caret")
+  usePackage("pracma")
+  usePackage("stats")
+  usePackage("MASS")
+  usePackage("lars")
+  usePackage("rpart")
+  usePackage("e1071")
+  usePackage("rpart.plot")
+}
+
+# Configuring for our directory structure.
+data_dir <- normalizePath(file.path("./Data/Data"))
+
+Income_Data_csv <- file.path(data_dir, 'Income_Data_2014.csv')
+Census_Data_csv <- file.path(data_dir, 'Census_2010.csv')
+Fire_Data_csv <- file.path(data_dir, 'hereyagoben.csv')
+
+income <- na.omit(read.csv(Income_Data_csv)) #Income data from data portal 
 
 
-income <- na.omit(read.csv('Income_Data_2014.csv')) #Income data from data portal 
-
-
-census_2010 <- na.omit(read.csv('Census_2010.csv')) #Census data
-fire_inc <-na.omit(read.csv('hereyagoben.csv'))
+census_2010 <- na.omit(read.csv(Census_Data_csv)) #Census data
+fire_inc <-na.omit(read.csv(Fire_Data_csv))
 
 #Merge fire data with census data
 data<- merge(census_2010,fire_inc, by.x = "GeogKey", by.y = "area_numbe") 
