@@ -2,6 +2,10 @@
 
 # Install pacman if it isn't installed.
 # Note that R version must be ≥ 3.5.0.
+#
+# You can just download R 3.5.0 from their site if you're using Windows/OSX,
+# but must either build from source or download a .DEB file if using Linux.
+#
 # See https://stackoverflow.com/questions/44567499/install-r-latest-verison-on-ubuntu-16-04
 #   and https://cran.r-project.org/bin/linux/ubuntu/
 #   and https://askubuntu.com/questions/1031597/r-3-5-0-for-ubuntu
@@ -14,12 +18,39 @@ if (!require("pacman")) {
 #
 # If you can't build or get errors, try installing the R Build Tools.
 #
+# If it asks if you want to build from source due to no appropriate
+# version being available, click `Yes` if you have the build tools.
+# 
 # If this fails to automatically install and/or compile packages (like on Windows),
 # go to  `Tools > Install Packages` and install that way.
 pacman::p_load(
+  colorspace,
+  scales,
+  lazyeval,
+  plyr,
+  rlang,
+  tibble,
+  stringi,
   survival,
-  multcomp,
+  ggplot2,
+  
+  reshape2,
+  data.table,
+  ModelMetrics,
+  bindrcpp,
+  glue,
+  purrr,
+  tidyselect,
+  dplyr,
+  gower,
+  prodlim,
+  ipred,
+  lubridate,
   caret,
+  
+  zoo,
+  multcomp,
+  
   pracma,
   stats,
   MASS,
