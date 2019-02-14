@@ -1,54 +1,34 @@
-# Utility fn to install packages.
-usePackage <- function(p) 
-{
-  if (!is.element(p, installed.packages()[,1]))
-  {
-    install.packages(p, dependencies = TRUE)
-  }
-  require(p, character.only = TRUE)
-}
+#library("randomForest", lib.loc="~/R/win-library/3.4") # Not sure what this was supposed to do. -H.P.
 
-# Run this section if you need dependencies.
-if(FALSE) {
-  install.packages("yaml", dependencies=TRUE)
-  install.packages("randomForest", dependencies=TRUE)
-  install.packages("pracma", dependencies=TRUE)
-  install.packages("lars", dependencies=TRUE)
-  install.packages("rpart.plot", dependencies=TRUE)
-  install.packages('multcomp', dependencies=TRUE)
-  install.packages('e1071', dependencies=TRUE)
-  install.packages('mvtnorm', dependencies=TRUE)
-  install.packages('zoo', dependencies=TRUE)
-  install.packages('ggplot2', dependencies=TRUE)
-  install.packages('lazyeval', dependencies=TRUE)
-  install.packages('tibble', dependencies=TRUE)
-  install.packages('stringi', dependencies=TRUE)
-  install.packages('datatable', dependencies=TRUE)
-  install.packages('reshape2', dependencies=TRUE)
-  install.packages('plyr', dependencies=TRUE)
-  install.packages('rlang', dependencies=TRUE)
-  install.packages("Rcpp", dependencies=TRUE)
-  install.packages("colorspace", dependencies=TRUE)
-  install.packages("scales", dependencies=TRUE)
-  install.packages("backports", dependencies=TRUE)
-  install.packages("caret", dependencies=TRUE)
+# Install pacman if it isn't installed.
+# Note that R version must be ≥ 3.5.0.
+# See https://stackoverflow.com/questions/44567499/install-r-latest-verison-on-ubuntu-16-04
+#   and https://cran.r-project.org/bin/linux/ubuntu/
+#   and https://askubuntu.com/questions/1031597/r-3-5-0-for-ubuntu
+if (!require("pacman")) {
+  install.packages("pacman")
+  require("pacman")
 }
 
 # Our dependencies.
-{
-  #library("randomForest", lib.loc="~/R/win-library/3.4")
-  usePackage("mvtnorm")
-  usePackage("zoo")
-  usePackage("multcomp")
-  usePackage("caret")
-  usePackage("pracma")
-  usePackage("stats")
-  usePackage("MASS")
-  usePackage("lars")
-  usePackage("rpart")
-  usePackage("e1071")
-  usePackage("rpart.plot")
-}
+#
+# If you can't build or get errors, try installing the R Build Tools.
+#
+# If this fails to automatically install and/or compile packages (like on Windows),
+# go to  `Tools > Install Packages` and install that way.
+pacman::p_load(
+  survival,
+  multcomp,
+  caret,
+  pracma,
+  stats,
+  MASS,
+  lars,
+  rpart,
+  e1071,
+  rpart.plot,
+  randomForest
+)
 
 # Configuring for our directory structure.
 data_dir <- normalizePath(file.path("./Data/Data"))
@@ -128,25 +108,25 @@ lascof <- predict.lars(las, type = "coefficients", mode = "fraction", s = frac)
 ridge <- lm.ridge(formula = NUMPOINTS~.,data = Train,lambda = seq(0,100,50))
 
 
-#random forest
-#df <- data.frame(data3)
-#write.csv(df,'data.csv')
-#data3.rf = randomForest(NUMPOINTS~.,data = df,importance = T, ntree = 6, maxnodes = 5, keep.forest = TRUE)
-
-#importance(data3.rf,type = 1)
-#plot(data3.rf)
-#varImpPlot(data3.rf)
-
-#Create a model (Chicago Fire Index)
-#rev_Dat <- data3[c(3,19,29,31,8,15,25,28,30,22,23,26,18,21,20)]
-#myModel <- lm(NUMPOINTS~.,data = rev_Dat)
-#summary(myModel)
-#myAOV <- aov(myModel)
-#summary(myAOV)
-#plot(myAOV)
-#emptyModel <- lm(NUMPOINTS~1,data = data3)
-#fullModel <-lm(NUMPOINTS~.,data = data3)
-#ModelA <- step(emptyModel, scope = list(lower = formula(emptyModel), upper = formula(fullModel)), direction = "both")
-
-#Test model
-#data3a <- data3(1:40)
+# #random forest
+# df <- data.frame(data3)
+# write.csv(df,'data.out.csv')
+# data3.rf = randomForest(NUMPOINTS~.,data = df,importance = T, ntree = 6, maxnodes = 5, keep.forest = TRUE)
+# 
+# importance(data3.rf,type = 1)
+# plot(data3.rf)
+# varImpPlot(data3.rf)
+# 
+# #Create a model (Chicago Fire Index)
+# rev_Dat <- data3[c(3,19,29,31,8,15,25,28,30,22,23,26,18,21,20)]
+# myModel <- lm(NUMPOINTS~.,data = rev_Dat)
+# summary(myModel)
+# myAOV <- aov(myModel)
+# summary(myAOV)
+# plot(myAOV)
+# emptyModel <- lm(NUMPOINTS~1,data = data3)
+# fullModel <-lm(NUMPOINTS~.,data = data3)
+# ModelA <- step(emptyModel, scope = list(lower = formula(emptyModel), upper = formula(fullModel)), direction = "both")
+# 
+# #Test model
+# data3a <- data3[1:40]
