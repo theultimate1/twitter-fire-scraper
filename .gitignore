@@ -10,3 +10,12 @@ packrat/lib*/
 
 # Compiled CSVs
 *.out.csv
+
+# Geo files
+geo_export_*
+*.shp
+*.shx
+*.dbf
+*.prj
+*.sbn
+*.sbx
