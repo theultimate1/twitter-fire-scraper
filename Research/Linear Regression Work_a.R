@@ -1,25 +1,78 @@
-#install.packages("randomForest")
-#install.packages("caret")
-#install.packages("pracma")
-#install.packages("lars")
-#install.packages("rpart.plot")
-library("randomForest", lib.loc="~/R/win-library/3.4")
-library(multcomp)
-library('caret')
-library(pracma)
-library(stats)
-library(MASS)
-library(lars)
-library(rpart)
-library(e1071)
-library(rpart.plot)
+#library("randomForest", lib.loc="~/R/win-library/3.4") # Not sure what this was supposed to do. -H.P.
+
+# Install pacman if it isn't installed.
+# Note that R version must be ≥ 3.5.0.
+#
+# You can just download R 3.5.0 from their site if you're using Windows/OSX,
+# but must either build from source or download a .DEB file if using Linux.
+#
+# See https://stackoverflow.com/questions/44567499/install-r-latest-verison-on-ubuntu-16-04
+#   and https://cran.r-project.org/bin/linux/ubuntu/
+#   and https://askubuntu.com/questions/1031597/r-3-5-0-for-ubuntu
+if (!require("pacman")) {
+  install.packages("pacman")
+  require("pacman")
+}
+
+# Our dependencies.
+#
+# If you can't build or get errors, try installing the R Build Tools.
+#
+# If it asks if you want to build from source due to no appropriate
+# version being available, click `Yes` if you have the build tools.
+# 
+# If this fails to automatically install and/or compile packages (like on Windows),
+# go to  `Tools > Install Packages` and install that way.
+pacman::p_load(
+  colorspace,
+  scales,
+  lazyeval,
+  plyr,
+  rlang,
+  tibble,
+  stringi,
+  survival,
+  ggplot2,
+  
+  reshape2,
+  data.table,
+  ModelMetrics,
+  bindrcpp,
+  glue,
+  purrr,
+  tidyselect,
+  dplyr,
+  gower,
+  prodlim,
+  ipred,
+  lubridate,
+  caret,
+  
+  zoo,
+  multcomp,
+  
+  pracma,
+  stats,
+  MASS,
+  lars,
+  rpart,
+  e1071,
+  rpart.plot,
+  randomForest
+)
+
+# Configuring for our directory structure.
+data_dir <- normalizePath(file.path("./Data/Data"))
+
+Income_Data_csv <- file.path(data_dir, 'Income_Data_2014.csv')
+Census_Data_csv <- file.path(data_dir, 'Census_2010.csv')
+Fire_Data_csv <- file.path(data_dir, 'hereyagoben.csv')
+
+income <- na.omit(read.csv(Income_Data_csv)) #Income data from data portal 
 
 
-income <- na.omit(read.csv('Income_Data_2014.csv')) #Income data from data portal 
-
-
-census_2010 <- na.omit(read.csv('Census_2010.csv')) #Census data
-fire_inc <-na.omit(read.csv('hereyagoben.csv'))
+census_2010 <- na.omit(read.csv(Census_Data_csv)) #Census data
+fire_inc <-na.omit(read.csv(Fire_Data_csv))
 
 #Merge fire data with census data
 data<- merge(census_2010,fire_inc, by.x = "GeogKey", by.y = "area_numbe") 
@@ -86,25 +139,25 @@ lascof <- predict.lars(las, type = "coefficients", mode = "fraction", s = frac)
 ridge <- lm.ridge(formula = NUMPOINTS~.,data = Train,lambda = seq(0,100,50))
 
 
-#random forest
-#df <- data.frame(data3)
-#write.csv(df,'data.csv')
-#data3.rf = randomForest(NUMPOINTS~.,data = df,importance = T, ntree = 6, maxnodes = 5, keep.forest = TRUE)
-
-#importance(data3.rf,type = 1)
-#plot(data3.rf)
-#varImpPlot(data3.rf)
-
-#Create a model (Chicago Fire Index)
-#rev_Dat <- data3[c(3,19,29,31,8,15,25,28,30,22,23,26,18,21,20)]
-#myModel <- lm(NUMPOINTS~.,data = rev_Dat)
-#summary(myModel)
-#myAOV <- aov(myModel)
-#summary(myAOV)
-#plot(myAOV)
-#emptyModel <- lm(NUMPOINTS~1,data = data3)
-#fullModel <-lm(NUMPOINTS~.,data = data3)
-#ModelA <- step(emptyModel, scope = list(lower = formula(emptyModel), upper = formula(fullModel)), direction = "both")
-
-#Test model
-#data3a <- data3(1:40)
+# #random forest
+# df <- data.frame(data3)
+# write.csv(df,'data.out.csv')
+# data3.rf = randomForest(NUMPOINTS~.,data = df,importance = T, ntree = 6, maxnodes = 5, keep.forest = TRUE)
+# 
+# importance(data3.rf,type = 1)
+# plot(data3.rf)
+# varImpPlot(data3.rf)
+# 
+# #Create a model (Chicago Fire Index)
+# rev_Dat <- data3[c(3,19,29,31,8,15,25,28,30,22,23,26,18,21,20)]
+# myModel <- lm(NUMPOINTS~.,data = rev_Dat)
+# summary(myModel)
+# myAOV <- aov(myModel)
+# summary(myAOV)
+# plot(myAOV)
+# emptyModel <- lm(NUMPOINTS~1,data = data3)
+# fullModel <-lm(NUMPOINTS~.,data = data3)
+# ModelA <- step(emptyModel, scope = list(lower = formula(emptyModel), upper = formula(fullModel)), direction = "both")
+# 
+# #Test model
+# data3a <- data3[1:40]

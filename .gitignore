@@ -1,0 +1,12 @@
+# R metadata.
+
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.RProfile
+*.Rproj
+packrat/lib*/
+
+# Compiled CSVs
+*.out.csv
