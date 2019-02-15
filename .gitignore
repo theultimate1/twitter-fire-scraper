@@ -13,3 +13,9 @@ packrat/lib*/
 
 # Geo files
 geo_export_*
+*.shp
+*.shx
+*.dbf
+*.prj
+*.sbn
+*.sbx
