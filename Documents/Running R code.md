@@ -5,7 +5,7 @@
 
 # How do I install R?
 
-## Install R &geq; 3.5
+## Install R >= 3.5
 
 ### Windows
 
