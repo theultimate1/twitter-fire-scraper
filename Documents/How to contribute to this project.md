@@ -230,8 +230,8 @@ That adds a reference to the team repository, which is now called `team`.
 
 When you have finished some meaningful unit of work, make a commit!
 
-Say you've added a file, `my-report.txt`, that's a finished report. That's
-great!
+Say you've added a file, `JoeSchmoe-report.txt`, that's a finished report.
+That's great!
 
 1.  Stage the file with `git add JoeSchmoe-report.txt`.
 
