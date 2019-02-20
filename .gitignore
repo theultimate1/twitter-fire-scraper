@@ -20,3 +20,6 @@ geo_export_*
 *.sbn
 *.sbx
 *.qgz
+
+# Mac stuff
+.DS_Store
