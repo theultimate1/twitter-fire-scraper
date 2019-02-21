@@ -105,7 +105,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
 
-        if SimpleFireStreamListener.is_relevant(status):
+        if SimpleFireStreamListener.is_relevant(status, verbose=True):
             text = status.text
 
             # Make it pop out.
