@@ -12,16 +12,24 @@ def try_get(object, key):
 
 
 class Config:
-    # Path to secrets.
-    SECRETS_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "secrets.json")
+    """Holds configuration information like filepaths, keys, etc."""
+
+    # Filename of secrets file.
+    SECRETS_FILE_NAME = "secrets.json"
+
+    # Path to secrets file.
+    SECRETS_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), SECRETS_FILE_NAME)
+
+    # Does it exist?
+    if not os.path.exists(SECRETS_PATH):
+        raise IOError(
+            "Could not find the file {0} located at {1}. Did you read the README?".format(SECRETS_FILE_NAME,
+                                                                                          SECRETS_PATH))
 
     # Load secrets JSON into dictlike object.
 
     with open(SECRETS_PATH) as file:
         _json_object = json.load(file)
-
-    # The Movie Database API Key
-    TMDB_API_KEY = try_get(_json_object, 'tmdb_api_key')
 
     # Twitter username.
     TWITTER_HANDLE = try_get(_json_object, 'twitter_handle')

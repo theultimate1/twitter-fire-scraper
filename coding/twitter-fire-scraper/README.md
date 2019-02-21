@@ -14,11 +14,11 @@ You will need:
     - An access token
     - An access secret
 
-- A "The Movie DB" API key
+- A twitter handle you're authorized to make queries on behalf of
 
 You are to put these into a file called `secrets.json` at the root of this directory.
 
-An example file is provided for you to base your file off of.
+An example file is provided for you to base your file off of, called `secrets.example.json`.
 
 # What was this adapted from?
 
