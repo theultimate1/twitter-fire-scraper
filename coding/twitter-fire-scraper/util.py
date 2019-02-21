@@ -2,15 +2,18 @@ import colorama
 
 
 def strtobool(v):
+    # type: (str) -> bool
     return v.lower() in ["yes", "true", "t", "1"]
 
 
 def colorama_reset():
+    #type: () -> None
     print colorama.Fore.WHITE,
     print colorama.Back.BLACK,
 
 
 def colorama_highlight_red(text, keyword):
+    # type: (str, str) -> str
     """
     Highlights text red for a terminal.
     :param text: Text.

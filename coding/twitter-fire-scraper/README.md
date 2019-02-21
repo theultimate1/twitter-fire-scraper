@@ -50,7 +50,7 @@ Then, you can run the app with
     
 or run tests with
 
-    pipenv run python tests.py
+    pipenv run python tests/<TESTNAME>.py
 
 #### Troubleshooting Python2/3 issues
 

@@ -39,3 +39,8 @@ class Config:
     CONSUMER_SECRET = try_get(_json_object, 'consumer_secret')
     ACCESS_TOKEN = try_get(_json_object, 'access_token')
     ACCESS_TOKEN_SECRET = try_get(_json_object, 'access_token_secret')
+
+    # MongoDB connection string.
+    MONGODB_CONNECTION_STRING = try_get(_json_object, 'mongodb_connection_string')
+
+    MONGODB_DATABASE_NAME = "twitter-fires"

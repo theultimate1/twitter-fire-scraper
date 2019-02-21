@@ -4,8 +4,10 @@ import time
 from pprint import pprint
 
 import colorama
+import pymongo
 import tweepy
 from colorama import Fore
+from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 from textblob import TextBlob
 
@@ -33,47 +35,6 @@ class TwitterAuthentication(object):
     def get_api(self):
         """Generates a Tweepy API object."""
         return tweepy.API(self.oauth_handler)
-
-
-class TwitterClient(object):
-    '''
-    Generic Twitter Class for the App
-    '''
-
-    def __init__(self):
-
-        self.twitter_auth = TwitterAuthentication()
-
-        self.api = self.twitter_auth.get_api()
-
-    @staticmethod
-    def clean_tweet(tweet):
-        # type: (str) -> str
-        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
-
-    @staticmethod
-    def get_tweet_sentiment(tweet):
-        # type: (str) -> str
-
-        # thresholds to classify pos and neg
-        POS_THRESH = 0.2
-        NEG_THRESH = 0
-        analysis = TextBlob(TwitterClient.clean_tweet(tweet))
-        if analysis.sentiment.polarity > POS_THRESH:
-            return 'positive'
-        elif analysis.sentiment.polarity < NEG_THRESH:
-            return 'negative'
-        else:
-            return 'neutral'
-
-    def get_tweets(self):
-        return "nope."
-
-
-class MongoDBFileStreamListener(tweepy.StreamListener):
-    """A twitter stream listener that logs flagged tweets to a MongoDB database."""
-
-    # TODO implement it :)
 
 
 # override tweepy.StreamListener to add logic to on_status
@@ -104,6 +65,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         return False
 
     def on_status(self, status):
+        # type: (SimpleFireStreamListener, Status) -> None
 
         if SimpleFireStreamListener.is_relevant(status, verbose=True):
             text = status.text
@@ -114,45 +76,43 @@ class SimpleFireStreamListener(tweepy.StreamListener):
             print(text.encode("UTF-8"))
 
 
-if __name__ == "__main__":
-    """Does some tests if you run this file directly."""
+class MongoDBStreamListener(tweepy.StreamListener):
+    """A twitter stream listener that logs flagged tweets to a MongoDB database."""
 
-    # Set up terminal color.
-    colorama.init()
+    @staticmethod
+    def is_relevant(status, verbose=False):
+        # type: (Status, bool) -> bool
+        """
+        Tells you if a Status is relevant.
+        :param status: The status.
+        :param verbose: Should we print irrelevant statuses?
+        :return: Whether or not the status is relevant.
+        """
 
-    tc = TwitterClient()
-    twauth = TwitterAuthentication()
-    api = twauth.get_api()
+        if 'fire' in status.text:
+            return True
 
+        return False
 
-    def firesDemo():
-        """Demonstrates the ability to search for fire regardless of location."""
+    def __init__(self):
+        super(MongoDBStreamListener, self).__init__()
 
-        print("Just searching for 'fire'... Probably not going to get us Chicago fire incidents, "
-              "perhaps will get us SoundCloud tracks.")
-        pprint([(status.text,) for status in tc.api.search("fire")])
+        # MongoDB client.
+        self.mongoclient = MongoClient(Config.MONGODB_CONNECTION_STRING)
 
+        # MongoDB database name.
+        self.mongodatabase = self.mongoclient[Config.MONGODB_DATABASE_NAME]
 
-    def geoFiresDemo():
-        """Demonstrates the ability"""
+        # Table to which tweets are saved.
+        self.TWEETS_TABLE = 'tweets'
 
-        print("Using our simple 'fire' stream listener, let's see what Chicago geotagged tweets have 'fire' in them.")
+    def on_status(self, status):
+        # type: (MongoDBStreamListener, Status) -> None
 
-        simpleFireStreamListener = SimpleFireStreamListener()
-        simpleFireStream = tweepy.Stream(auth=api.auth, listener=simpleFireStreamListener)
-
-        print("Streaming for 60 seconds.")
-        simpleFireStream.filter(locations=GEOBOX_CHICAGO, async=True)
-        try:
-            time.sleep(60)
-        except KeyboardInterrupt:
-            simpleFireStream.disconnect()
-        finally:
-            simpleFireStream.disconnect()
-
-        print("As you can see, either none or few of these tweets actually contain the word 'fire'.")
-
-
-    firesDemo()
-
-    geoFiresDemo()
+        # If the status is relevant,
+        if MongoDBStreamListener.is_relevant(status):
+            # Insert it into our database.
+            self.mongodatabase[self.TWEETS_TABLE].insert_one(status._json)
+            print("Hit: " + status.text)
+        else:
+            print("Ign: " + status.text)
