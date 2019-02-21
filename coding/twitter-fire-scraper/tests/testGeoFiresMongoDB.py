@@ -1,8 +1,12 @@
 """
 Demonstrates the ability to listen in a geographical area for a keyword tweet and save it to a MongoDB database.
 """
+import os
+import sys
 
-import colorama
+# Append parent directory to enhance portability.
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import tweepy
 
 from twitter import TwitterAuthentication, MongoDBStreamListener, GEOBOX_CHICAGO
