@@ -10,6 +10,7 @@ from tweepy import OAuthHandler
 from textblob import TextBlob
 
 from config import Config
+from util import colorama_highlight_red, colorama_reset
 
 GEOBOX_WORLD = [-180, -90, 180, 90]
 
@@ -79,7 +80,8 @@ class SimpleFireStreamListener(tweepy.StreamListener):
             return True
 
         # Show snapshot of irrelevant tweet
-        print("Not relevant: {}".format(text.replace("\n", "\\n").replace("\r", "\\r")[0:50]+"..."))
+        print("Not relevant: {}".format(text.replace("\n", "\\n").replace("\r", "\\r")[0:50] + "..."))
+        colorama_reset()
 
         return False
 
@@ -88,18 +90,17 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         if SimpleFireStreamListener.is_relevant(status):
             text = status.text
 
-            colorama.init()
-
             # Make it pop out.
-            text = text.replace("fire", (colorama.Fore.WHITE + colorama.Back.RED +
-                                         "fire" +
-                                         colorama.Fore.WHITE + colorama.Back.BLACK))
+            text = colorama_highlight_red(text, "fire")
 
             print(text.encode("UTF-8"))
 
 
 if __name__ == "__main__":
     """Does some tests if you run this file directly."""
+
+    # Set up terminal color.
+    colorama.init()
 
     tc = TwitterClient()
     twauth = TwitterAuthentication()
@@ -109,7 +110,7 @@ if __name__ == "__main__":
           "perhaps will get us SoundCloud tracks.")
     pprint([(status.text,) for status in tc.api.search("fire")])
 
-    print("Using our simple 'fire' stream listener, let's see what twitter thinks 'fire' is.")
+    print("Using our simple 'fire' stream listener, let's see what Chicago geotagged tweets have 'fire' in them.")
 
     simpleFireStreamListener = SimpleFireStreamListener()
     simpleFireStream = tweepy.Stream(auth=api.auth, listener=simpleFireStreamListener)
@@ -120,5 +121,7 @@ if __name__ == "__main__":
         time.sleep(60)
     except KeyboardInterrupt:
         simpleFireStream.disconnect()
+    finally:
+        simpleFireStream.disconnect()
 
-    simpleFireStream.disconnect()
+    print("As you can see, either none or few of these tweets actually contain the word 'fire'.")
