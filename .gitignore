@@ -1,5 +1,11 @@
-# R metadata.
+# Python stuff
+venv/
+env/
+__pycache__/
+*.pyc
+*.idea/
 
+# R metadata.
 .Rproj.user
 .Rhistory
 .RData
@@ -23,3 +29,6 @@ geo_export_*
 
 # Mac stuff
 .DS_Store
+
+# Secrets!
+secrets.json
