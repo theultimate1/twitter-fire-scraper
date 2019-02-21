@@ -126,6 +126,7 @@ if __name__ == "__main__":
 
 
     def firesDemo():
+        """Demonstrates the ability to search for fire regardless of location."""
 
         print("Just searching for 'fire'... Probably not going to get us Chicago fire incidents, "
               "perhaps will get us SoundCloud tracks.")
@@ -133,6 +134,8 @@ if __name__ == "__main__":
 
 
     def geoFiresDemo():
+        """Demonstrates the ability"""
+
         print("Using our simple 'fire' stream listener, let's see what Chicago geotagged tweets have 'fire' in them.")
 
         simpleFireStreamListener = SimpleFireStreamListener()
