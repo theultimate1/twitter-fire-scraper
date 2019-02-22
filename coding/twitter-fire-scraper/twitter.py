@@ -1,18 +1,8 @@
-import re
-import threading
-import time
-from pprint import pprint
-
-import colorama
-import pymongo
 import tweepy
-from colorama import Fore
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
-from textblob import TextBlob
 
 from config import Config
-from util import colorama_highlight_red, colorama_reset
 
 GEOBOX_WORLD = [-180, -90, 180, 90]
 
@@ -55,12 +45,12 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         text = status.text.encode("UTF-8")
 
         if 'fire' in text:
+            print("Relevant:")
             return True
 
         if verbose:
             # Show snapshot of irrelevant tweet
-            print("Not relevant: {}".format(text.replace("\n", "\\n").replace("\r", "\\r")[0:50] + "..."))
-            colorama_reset()
+            print("Not relevant: {}".format(text[0:50] + "..."))
 
         return False
 
@@ -69,9 +59,6 @@ class SimpleFireStreamListener(tweepy.StreamListener):
 
         if SimpleFireStreamListener.is_relevant(status, verbose=True):
             text = status.text
-
-            # Make it pop out.
-            text = colorama_highlight_red(text, "fire")
 
             print(text.encode("UTF-8"))
 
