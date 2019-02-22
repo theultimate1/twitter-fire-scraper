@@ -12,7 +12,7 @@ def colorama_reset():
     print colorama.Back.BLACK,
 
 
-def colorama_highlight_red(text, keyword):
+def colorama_highlight_red(text, keyword=None):
     # type: (str, str) -> str
     """
     Highlights text red for a terminal.
@@ -20,6 +20,10 @@ def colorama_highlight_red(text, keyword):
     :param keyword: Keyword to highlight.
     :return: Highlighted text.
     """
+
+    if keyword is None:
+        keyword = text
+
     return text.replace(keyword, (colorama.Fore.WHITE + colorama.Back.RED +
                                   keyword +
                                   colorama.Fore.WHITE + colorama.Back.BLACK))

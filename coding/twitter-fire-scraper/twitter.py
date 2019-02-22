@@ -109,10 +109,13 @@ class MongoDBStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         # type: (MongoDBStreamListener, Status) -> None
 
+        # Make text safe to print in console.
+        safe_text = status.text.encode('UTF-8')
+
         # If the status is relevant,
         if MongoDBStreamListener.is_relevant(status):
             # Insert it into our database.
             self.mongodatabase[self.TWEETS_TABLE].insert_one(status._json)
-            print("Hit: " + status.text)
+            print("Hit: " + safe_text)
         else:
-            print("Ign: " + status.text)
+            print("Ign: " + safe_text)
