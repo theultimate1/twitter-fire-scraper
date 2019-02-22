@@ -5,8 +5,6 @@ import os
 import sys
 
 # Append parent directory to enhance portability.
-import colorama
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import time
 
@@ -15,8 +13,6 @@ import tweepy
 from twitter import SimpleFireStreamListener, TwitterAuthentication, GEOBOX_CHICAGO
 
 if __name__ == "__main__":
-
-    colorama.init()
 
     # Set up twitter auth.
     twauth = TwitterAuthentication()
