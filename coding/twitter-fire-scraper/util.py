@@ -1,5 +1,11 @@
 import colorama
+from tweepy import Status
 
+
+def is_retweet(status):
+    # type: (Status) -> bool
+    """Tells you if this Status is a retweet."""
+    return "RT @" in status.text
 
 def strtobool(v):
     # type: (str) -> bool
