@@ -7,13 +7,9 @@ import sys
 # Append parent directory to enhance portability.
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
 from pprint import pprint
 
-import colorama
-
 from twitter import TwitterAuthentication
-
 
 # Set up twitter auth.
 twauth = TwitterAuthentication()
