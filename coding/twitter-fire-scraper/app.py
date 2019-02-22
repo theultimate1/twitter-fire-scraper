@@ -1,12 +1,7 @@
 import os
 from flask import Flask, request, render_template, jsonify, url_for
 
-from config import Config
-from twitter import TwitterClient
-from util import strtobool
-
 flask_app = Flask(__name__, static_path="/static")
-twitter_api = TwitterClient()
 
 
 @flask_app.route('/')
