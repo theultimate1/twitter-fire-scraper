@@ -2,7 +2,7 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
-from config import Config
+from config import SecretsConfig
 
 GEOBOX_WORLD = [-180, -90, 180, 90]
 
@@ -14,10 +14,10 @@ class TwitterAuthentication(object):
     """Twitter authentication object."""
 
     def __init__(self):
-        self.consumer_key = Config.CONSUMER_KEY
-        self.consumer_secret = Config.CONSUMER_SECRET
-        self.access_token = Config.ACCESS_TOKEN
-        self.access_token_secret = Config.ACCESS_TOKEN_SECRET
+        self.consumer_key = SecretsConfig.CONSUMER_KEY
+        self.consumer_secret = SecretsConfig.CONSUMER_SECRET
+        self.access_token = SecretsConfig.ACCESS_TOKEN
+        self.access_token_secret = SecretsConfig.ACCESS_TOKEN_SECRET
 
         self.oauth_handler = OAuthHandler(self.consumer_key, self.consumer_secret)
         self.oauth_handler.set_access_token(self.access_token, self.access_token_secret)
@@ -85,10 +85,10 @@ class MongoDBStreamListener(tweepy.StreamListener):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
-        self.mongoclient = MongoClient(Config.MONGODB_CONNECTION_STRING)
+        self.mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
 
         # MongoDB database name.
-        self.mongodatabase = self.mongoclient[Config.MONGODB_DATABASE_NAME]
+        self.mongodatabase = self.mongoclient[SecretsConfig.MONGODB_DATABASE_NAME]
 
         # Table to which tweets are saved.
         self.TWEETS_TABLE = 'tweets'

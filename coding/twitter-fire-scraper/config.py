@@ -11,8 +11,8 @@ def try_get(object, key):
     return object[key]
 
 
-class Config:
-    """Holds configuration information like filepaths, keys, etc."""
+class SecretsConfig:
+    """Holds secrets configuration information like filepaths, keys, etc."""
 
     # Filename of secrets file.
     SECRETS_FILE_NAME = "secrets.json"
