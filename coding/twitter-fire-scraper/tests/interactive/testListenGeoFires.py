@@ -1,11 +1,9 @@
 """
 Demonstrates the ability to listen in a geo-location for the keyword 'fire'.
 """
-import os
-import sys
+# noinspection PyUnresolvedReferences
+import __init__
 
-# Append parent directory to enhance portability.
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import time
 
 import tweepy

@@ -1,11 +1,9 @@
 """
 Demonstrates the ability to search for fire regardless of location.
 """
-import os
-import sys
 
-# Append parent directory to enhance portability.
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# noinspection PyUnresolvedReferences
+import __init__
 
 from pprint import pprint
 

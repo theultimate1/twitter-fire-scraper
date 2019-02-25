@@ -1,11 +1,8 @@
 """
 Demonstrates the ability to listen in a geographical area for a keyword tweet and save it to a MongoDB database.
 """
-import os
-import sys
-
-# Append parent directory to enhance portability.
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# noinspection PyUnresolvedReferences
+import __init__
 
 import tweepy
 
