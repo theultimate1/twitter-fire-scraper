@@ -4,6 +4,7 @@ A file that contains utilities to detect if a hashtag refers to a disaster, as w
 utilities.
 """
 import re
+from typing import Union
 
 
 def contains_hashtag(text, hashtag):
@@ -35,7 +36,7 @@ def ensure_hashtag(text):
 
 
 def extract_hashtags(text):
-    # type: (str) -> set[str]
+    # type: (Union[str, unicode]) -> set[str]
     """Given text, will return all hashtags present in the text.
     This assumes hashtags are alphabetic.
 
