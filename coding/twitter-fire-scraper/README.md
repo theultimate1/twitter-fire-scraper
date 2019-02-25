@@ -2,7 +2,17 @@
 
 This is a Python Twitter "Fire event" scraper/listener.
 
-It can either scrape or listen for tweets made on twitter
+It is an application that will listen for or scrape data relating to house fires 
+(Chicago specifically) in order to analyze how people use Twitter as a platform
+to report and talk about disasters.
+
+# How will this use Twitter data?
+
+This application is to help the American Red Cross analyze data about house fires
+for an Illinois Institute of Technology Interprofessional Project class.
+
+This data collected will not be sold or marketed at all and is only going to be
+used to understand house fires in Chicago.
 
 # How do I run this?
 
