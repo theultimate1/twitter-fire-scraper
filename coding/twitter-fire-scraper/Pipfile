@@ -21,6 +21,8 @@ tmdbsimple = "*"
 colorama = "*"
 pymongo = "*"
 typing = "*"
+pyyaml = "*"
+twisted = "*"
 
 [dev-packages]
 
