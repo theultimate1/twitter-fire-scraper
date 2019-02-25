@@ -11,7 +11,7 @@ from twitter import TwitterAuthentication, MongoDBStreamListener, GEOBOX_CHICAGO
 if __name__ == "__main__":
     # Set up twitter auth.
     twauth = TwitterAuthentication()
-    api = twauth.get_api()
+    api = tweepy.API(twauth.oauth_handler)
 
     print("Listening for fires and logging to a MongoDB database.")
     mongolistener = MongoDBStreamListener()

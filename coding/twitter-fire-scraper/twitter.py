@@ -22,10 +22,6 @@ class TwitterAuthentication(object):
         self.oauth_handler = OAuthHandler(self.consumer_key, self.consumer_secret)
         self.oauth_handler.set_access_token(self.access_token, self.access_token_secret)
 
-    def get_api(self):
-        """Generates a Tweepy API object."""
-        return tweepy.API(self.oauth_handler)
-
 
 # override tweepy.StreamListener to add logic to on_status
 class SimpleFireStreamListener(tweepy.StreamListener):

@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     # Set up twitter auth.
     twauth = TwitterAuthentication()
-    api = twauth.get_api()
+    api = tweepy.API(twauth.oauth_handler)
 
     print("Using our simple 'fire' stream listener, let's see what Chicago geotagged tweets have 'fire' in them.")
 
