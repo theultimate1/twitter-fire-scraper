@@ -68,7 +68,7 @@ if __name__ == "__main__":
             print("<https://www.twitter.com/statuses/{id}> :".format(id=str(status.id)))  # URL of tweet.
 
             print(" " * 4),  # Status belonging to URL.
-            print(status.text)  # Status text.
+            print(status.text.encode("UTF-8"))  # Status text.
             print
 
     print("Final results of scraping {n} tweets each from these search terms:".format(
@@ -86,6 +86,9 @@ if __name__ == "__main__":
         for status in statuses:
             unique_status_ids.add(status.id)  # Add the ID as it can be enumerated in a set and is unique.
             total_statuses += 1  # 1 more status!
+
+    for keyword, statuses in all_tweets.items():
+        print("{keyword:20s}: {n} hits".format(keyword=keyword, n=len(statuses)))
 
     print("{uq} unique statuses out of {tot} total statuses".format(
         uq=len(unique_status_ids), tot=total_statuses))
