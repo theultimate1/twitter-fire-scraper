@@ -1,4 +1,63 @@
 import colorama
+from tweepy import Status
+from typing import Union
+
+from models import Point
+
+
+def geobox_from_points(points):
+    # type: (list[Point]) -> list[float]
+    """Given a list of points, flatten them starting from y and going to x.
+
+    This function exists because for some reason Tweepy/Twitter API likes to
+    have a bounding box with flipped lat/long coordinates.
+
+    Example:
+        `flatten_points([Point(x=1,y=2), Point(x=2,y=3)])`
+        -->
+        `[2, 1, 3, 2]`"""
+    numbers = []
+
+    for point in points:
+        numbers.append(point.y)
+        numbers.append(point.x)
+
+    return numbers
+
+def flatten_points(points):
+    # type: (list[Point]) -> list[float]
+    """Given a list of points, flatten them starting from x and going to y.
+
+    Example:
+        `flatten_points([Point(x=1,y=2), Point(x=2,y=3)])`
+        -->
+        `[1, 2, 2, 3]`"""
+
+    numbers = []
+
+    for point in points:
+        numbers.append(point.x)
+        numbers.append(point.y)
+
+    return numbers
+
+
+def geobox_to_geocode(geobox, radius):
+    # type: (list[Point, Point], str) -> str
+    """Given a geobox and a radius, return a valid Twitter geocode consisting of a point and radius."""
+    midpoint = geobox[0].midpoint(geobox[1])
+
+    return "{lat},{lon},{radius}".format(
+        lat=midpoint.x,
+        lon=midpoint.y,
+        radius=radius,
+    )
+
+
+def is_retweet(status):
+    # type: (Status) -> bool
+    """Tells you if this Status is a retweet."""
+    return "RT @" in status.text
 
 
 def strtobool(v):
@@ -7,7 +66,7 @@ def strtobool(v):
 
 
 def colorama_reset():
-    #type: () -> None
+    # type: () -> None
     print colorama.Fore.WHITE,
     print colorama.Back.BLACK,
 

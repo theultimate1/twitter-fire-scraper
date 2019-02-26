@@ -1,0 +1,16 @@
+---
+
+# A list of hashtags that indicate a fire is or has taken place.
+
+hashtags:
+  - housefire #Note: People will put "SeattleFire" or "NewYorkFire". Consider making fuzzing rules for this.
+  - dwellingfire
+  - condofire
+  - apartmentfire
+
+  - fireloss
+  - firedamage
+
+  - chicagofire #FIXME city-specific.
+
+...

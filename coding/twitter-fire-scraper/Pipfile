@@ -20,6 +20,9 @@ Werkzeug = "==0.11.11"
 tmdbsimple = "*"
 colorama = "*"
 pymongo = "*"
+typing = "*"
+pyyaml = "*"
+twisted = "*"
 
 [dev-packages]
 

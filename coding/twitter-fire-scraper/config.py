@@ -11,8 +11,31 @@ def try_get(object, key):
     return object[key]
 
 
-class Config:
-    """Holds configuration information like filepaths, keys, etc."""
+class DataConfig:
+    """Holds data and filepath configuration information for data files such as state names, hashtags we wish to track,
+    terms that indicate fires or disasters, etc."""
+
+    # Folder name that data is stored in.
+    DATA_FOLDER_NAME = "data"
+
+    # Path data is stored in.
+    DATA_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), DATA_FOLDER_NAME)
+
+    # Disaster hashtag datafile location.
+    DISASTER_HASHTAGS_DATA_PATH = os.path.join(DATA_PATH, "DisasterHashtags.yml")
+
+    # Fire hashtag datafile location.
+    FIRE_HASHTAGS_DATA_PATH = os.path.join(DATA_PATH, "FireHashtags.yml")
+
+    # US major cities datafile location.
+    MAJOR_CITIES_DATA_PATH = os.path.join(DATA_PATH, "MajorCities.yml")
+
+    # US states datafile location.
+    US_STATES_DATA_PATH = os.path.join(DATA_PATH, "USStates.yml")
+
+
+class SecretsConfig:
+    """Holds secrets configuration information like filepaths, keys, etc."""
 
     # Filename of secrets file.
     SECRETS_FILE_NAME = "secrets.json"

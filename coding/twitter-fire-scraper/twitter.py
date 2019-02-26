@@ -1,40 +1,27 @@
-import re
-import threading
-import time
-from pprint import pprint
-
-import colorama
-import pymongo
 import tweepy
-from colorama import Fore
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
-from textblob import TextBlob
 
-from config import Config
-from util import colorama_highlight_red, colorama_reset
+from config import SecretsConfig
+from models import Point
 
-GEOBOX_WORLD = [-180, -90, 180, 90]
+GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
 
 # From http://boundingbox.klokantech.com/
-GEOBOX_CHICAGO = [-87.965887, 41.573604, -87.367663, 42.085967]
+GEOBOX_CHICAGO = [Point(41.573604, -87.965887, ), Point(42.085967, -87.367663, )]
 
 
 class TwitterAuthentication(object):
     """Twitter authentication object."""
 
     def __init__(self):
-        self.consumer_key = Config.CONSUMER_KEY
-        self.consumer_secret = Config.CONSUMER_SECRET
-        self.access_token = Config.ACCESS_TOKEN
-        self.access_token_secret = Config.ACCESS_TOKEN_SECRET
+        self.consumer_key = SecretsConfig.CONSUMER_KEY
+        self.consumer_secret = SecretsConfig.CONSUMER_SECRET
+        self.access_token = SecretsConfig.ACCESS_TOKEN
+        self.access_token_secret = SecretsConfig.ACCESS_TOKEN_SECRET
 
         self.oauth_handler = OAuthHandler(self.consumer_key, self.consumer_secret)
         self.oauth_handler.set_access_token(self.access_token, self.access_token_secret)
-
-    def get_api(self):
-        """Generates a Tweepy API object."""
-        return tweepy.API(self.oauth_handler)
 
 
 # override tweepy.StreamListener to add logic to on_status
@@ -55,12 +42,12 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         text = status.text.encode("UTF-8")
 
         if 'fire' in text:
+            print("Relevant:")
             return True
 
         if verbose:
             # Show snapshot of irrelevant tweet
-            print("Not relevant: {}".format(text.replace("\n", "\\n").replace("\r", "\\r")[0:50] + "..."))
-            colorama_reset()
+            print("Not relevant: {}".format(text[0:50] + "..."))
 
         return False
 
@@ -69,9 +56,6 @@ class SimpleFireStreamListener(tweepy.StreamListener):
 
         if SimpleFireStreamListener.is_relevant(status, verbose=True):
             text = status.text
-
-            # Make it pop out.
-            text = colorama_highlight_red(text, "fire")
 
             print(text.encode("UTF-8"))
 
@@ -98,10 +82,10 @@ class MongoDBStreamListener(tweepy.StreamListener):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
-        self.mongoclient = MongoClient(Config.MONGODB_CONNECTION_STRING)
+        self.mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
 
         # MongoDB database name.
-        self.mongodatabase = self.mongoclient[Config.MONGODB_DATABASE_NAME]
+        self.mongodatabase = self.mongoclient[SecretsConfig.MONGODB_DATABASE_NAME]
 
         # Table to which tweets are saved.
         self.TWEETS_TABLE = 'tweets'
