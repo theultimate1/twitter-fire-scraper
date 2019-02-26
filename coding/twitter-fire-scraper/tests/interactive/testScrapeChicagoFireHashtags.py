@@ -1,5 +1,5 @@
 """
-Demonstrates the ability to scrape tweets regarding chicago fires.
+Demonstrates the ability to scrape tweets regarding chicago fires, and store them in a MongoDB database.
 """
 # noinspection PyUnresolvedReferences
 import os
@@ -12,6 +12,7 @@ from tweepy import FileCache, Status
 
 import yaml
 from config import DataConfig
+from hashtags import ensure_hashtag
 from twitter import TwitterAuthentication, GEOBOX_CHICAGO
 from util import geobox_to_geocode
 
@@ -24,8 +25,8 @@ if __name__ == "__main__":
     api = tweepy.API(twauth.oauth_handler, cache=cache)
 
     print(
-    "Scraping the top 500 tweets that reference hashtags from our '{}' datafile 20 miles from the center of Chicago's geo-box.".format(
-        os.path.basename(DataConfig.FIRE_HASHTAGS_DATA_PATH)))
+        "Scraping the top 500 tweets that reference hashtags from our '{}' datafile 20 miles from the center of Chicago's geo-box.".format(
+            os.path.basename(DataConfig.FIRE_HASHTAGS_DATA_PATH)))
 
     # Read hashtags from datafile.
     with open(DataConfig.FIRE_HASHTAGS_DATA_PATH) as f:
@@ -39,9 +40,13 @@ if __name__ == "__main__":
 
     print(geocode)
 
-    search = api.search(q='#pizza', geocode=geocode)
+    for hashtag in hashtags:  # type: str
+        # For all
+        hashtag = ensure_hashtag(hashtag)
+        search = api.search(q=hashtag, geocode=geocode)
 
-    print("Got {} back.".format(len(search)))
+        print("{n} hits for {ht}:".format(n=len(search), ht=hashtag))
 
-    for status in search:  # type: Status
-        pprint(status.text)
+        for status in search:  # type: Status
+            print(" " * 4),
+            pprint(status.text)
