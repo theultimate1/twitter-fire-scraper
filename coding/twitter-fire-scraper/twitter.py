@@ -3,11 +3,12 @@ from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
 from config import SecretsConfig
+from models import Point
 
-GEOBOX_WORLD = [-180, -90, 180, 90]
+GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
 
 # From http://boundingbox.klokantech.com/
-GEOBOX_CHICAGO = [-87.965887, 41.573604, -87.367663, 42.085967]
+GEOBOX_CHICAGO = [Point(41.573604, -87.965887, ), Point(42.085967, -87.367663, )]
 
 
 class TwitterAuthentication(object):

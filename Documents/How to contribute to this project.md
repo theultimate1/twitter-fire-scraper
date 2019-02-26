@@ -214,7 +214,8 @@ Then, run
 
     git clone https://github.com/JoeSchmoe/IPRO497-Analytics-Team/
 
-If all goes well, you should have 
+If all goes well, you should have a folder called `IPRO497-Analytics-Team` in
+the same directory as the one you executed the command in.
 
 ## Adding the team repository as a remote
 

@@ -9,6 +9,7 @@ import time
 import tweepy
 
 from twitter import SimpleFireStreamListener, TwitterAuthentication, GEOBOX_CHICAGO
+from util import geobox_from_points
 
 if __name__ == "__main__":
 
@@ -22,7 +23,7 @@ if __name__ == "__main__":
     simpleFireStream = tweepy.Stream(auth=api.auth, listener=simpleFireStreamListener)
 
     print("Streaming for 60 seconds.")
-    simpleFireStream.filter(locations=GEOBOX_CHICAGO, async=True)
+    simpleFireStream.filter(locations=geobox_from_points(GEOBOX_CHICAGO), async=True)
     try:
         time.sleep(60)
     except KeyboardInterrupt:

@@ -7,6 +7,7 @@ import __init__
 import tweepy
 
 from twitter import TwitterAuthentication, MongoDBStreamListener, GEOBOX_CHICAGO
+from util import geobox_from_points
 
 if __name__ == "__main__":
     # Set up twitter auth.
@@ -17,4 +18,4 @@ if __name__ == "__main__":
     mongolistener = MongoDBStreamListener()
     mongostream = tweepy.Stream(auth=api.auth, listener=mongolistener)
 
-    mongostream.filter(locations=GEOBOX_CHICAGO)
+    mongostream.filter(locations=geobox_from_points(GEOBOX_CHICAGO))
