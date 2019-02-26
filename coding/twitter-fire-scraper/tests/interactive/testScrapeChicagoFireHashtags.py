@@ -41,12 +41,14 @@ if __name__ == "__main__":
     print(geocode)
 
     for hashtag in hashtags:  # type: str
-        # For all
+        # For all hashtags,
         hashtag = ensure_hashtag(hashtag)
+
+        # Conduct a search.
         search = api.search(q=hashtag, geocode=geocode)
 
         print("{n} hits for {ht}:".format(n=len(search), ht=hashtag))
 
-        for status in search:  # type: Status
-            print(" " * 4),
+        for status in search[0:5]:  # type: Status
+            print(" " * 4),  # Prefix with four spaces to show hierarchy.
             pprint(status.text)
