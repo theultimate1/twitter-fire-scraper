@@ -128,7 +128,7 @@ function detectPython2()
     $PythonCommand = "python"
     $PythonVersion = Invoke-Expression ($PythonCommand + " -V")
 
-    if ($PythonVersion -like "Python 2")
+    if ($PythonVersion -contains "Python 2")
     {
 
         Write-Output("Python 2 detected via ``python`` command.")
