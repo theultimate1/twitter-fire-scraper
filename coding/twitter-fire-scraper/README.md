@@ -109,6 +109,9 @@ problems.
 
 You can run the app by executing `python -m pipenv run python app.py`.
 
+Currently, ***the app is blank***. This will change soon as the frontend is built and
+a fully-functional backend is built.
+
 # Running tests
 
 You can execute `python -m pipenv run python tests/<TESTNAME>.py` to run a test.
