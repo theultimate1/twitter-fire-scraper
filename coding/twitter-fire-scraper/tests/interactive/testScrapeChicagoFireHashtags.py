@@ -97,6 +97,6 @@ if __name__ == "__main__":
     for keyword, statuses in all_tweets.items():
         print("{keyword:20s}: {n} hits".format(keyword=keyword, n=len(statuses)))
 
-    # Print out how many unique statuses we get, i.e.
+    # Print out how many unique statuses we get
     print("{uq} unique statuses out of {tot} total statuses with {dup} duplicates.".format(
         uq=len(unique_status_ids), tot=total_statuses, dup=total_statuses - len(unique_status_ids)))
