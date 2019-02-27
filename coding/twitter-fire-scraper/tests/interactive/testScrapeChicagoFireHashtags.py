@@ -87,8 +87,10 @@ if __name__ == "__main__":
             unique_status_ids.add(status.id)  # Add the ID as it can be enumerated in a set and is unique.
             total_statuses += 1  # 1 more status!
 
+    # Print out (by keyword) how many hits we get
     for keyword, statuses in all_tweets.items():
         print("{keyword:20s}: {n} hits".format(keyword=keyword, n=len(statuses)))
 
-    print("{uq} unique statuses out of {tot} total statuses".format(
-        uq=len(unique_status_ids), tot=total_statuses))
+    # Print out how many unique statuses we get, i.e.
+    print("{uq} unique statuses out of {tot} total statuses with {dup} duplicates.".format(
+        uq=len(unique_status_ids), tot=total_statuses, dup=total_statuses - len(unique_status_ids)))
