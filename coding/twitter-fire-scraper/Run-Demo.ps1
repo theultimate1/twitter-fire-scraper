@@ -3,8 +3,9 @@ This file runs a demo of the Twitter fire scraper functionality for presentation
 #>
 
 
-Function Trace-Word
-{
+Function Trace-Word #from <http://ridicurious.com/2018/03/14/highlight-words-in-powershell-console/>
+{ #Trace-Word -content (Get-Content iis.log) -words "IIS", 's', "exe", "10", 'system'
+
     [Cmdletbinding()]
     [Alias("Highlight")]
     Param(
@@ -114,7 +115,6 @@ Function Trace-Word
 }
 
 
-#Trace-Word -content (Get-Content iis.log) -words "IIS", 's', "exe", "10", 'system'
 
 
 
