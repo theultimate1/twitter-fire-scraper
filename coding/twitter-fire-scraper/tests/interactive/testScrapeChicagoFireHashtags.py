@@ -55,7 +55,7 @@ if __name__ == "__main__":
     for search_term in search_terms:  # type: str
 
         # Conduct a search.
-        cursor = tweepy.Cursor(api.search, q=search_term)
+        cursor = tweepy.Cursor(api.search, q=search_term, geocode=geocode)
 
         # Retrieve however many tweets we want, and store that in our dictionary.
         all_tweets[search_term] = [status for status in cursor.items(MAX_TWEETS)]
