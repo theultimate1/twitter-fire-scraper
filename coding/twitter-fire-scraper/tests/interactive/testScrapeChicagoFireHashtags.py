@@ -2,13 +2,13 @@
 Demonstrates the ability to scrape tweets regarding chicago fires, and store them in a MongoDB database.
 """
 # noinspection PyUnresolvedReferences
-import os
-from pprint import pprint
-
 import __init__
 
+import argparse
+import os
+
 import tweepy
-from tweepy import FileCache, Status
+from tweepy import Status
 
 import yaml
 from config import DataConfig
@@ -25,8 +25,16 @@ def get_fire_search_terms():
 
 if __name__ == "__main__":
 
+    # Prepare for command-line input.
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--maxtweets", help="Max tweets to get.", required=False, default=10, type=int)
+
+    # Parse arguments.
+    args = parser.parse_args()
+
     # Maximum tweets to search for.
-    MAX_TWEETS = 10
+    MAX_TWEETS = args.maxtweets if args.maxtweets else \
+        10
 
     # Radius to search for tweets in.
     TWEET_RADIUS = "50mi"
@@ -34,9 +42,7 @@ if __name__ == "__main__":
     # Set up twitter auth.
     twauth = TwitterAuthentication()
 
-    # Set up a file-based cache to avoid blasting the Twitter API too much.
-    # cache = FileCache(cache_dir="cache/")
-    api = tweepy.API(twauth.oauth_handler, )
+    api = tweepy.API(twauth.oauth_handler, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
     # Get Twitter geocode from Chicago's geobox.
     geocode = geobox_to_geocode(GEOBOX_CHICAGO, TWEET_RADIUS)
