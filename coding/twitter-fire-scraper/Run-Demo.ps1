@@ -2,6 +2,7 @@
 This file runs a demo of the Twitter fire scraper functionality for presentation purposes.
 #>
 
+[console]::TreatControlCAsInput = $true # Stop CTRL-C from killing our script.
 
 Function Trace-Word #from <http://ridicurious.com/2018/03/14/highlight-words-in-powershell-console/>
 { #Trace-Word -content (Get-Content iis.log) -words "IIS", 's', "exe", "10", 'system'
@@ -175,13 +176,17 @@ while($userInput -notlike "q") {
         Clear-Host
     } elseif($userInput -like "1") {
         Invoke-Expression($PipenvRunCommand+" tests/interactive/testAllTwitterFire.py") | Trace-Word -words "fire"
+    } elseif($userInput -like "2") {
+        Invoke-Expression($PipenvRunCommand+" tests/interactive/testListenGeoFires.py")
     }
 
     Write-Host("q) Quits program.")
     Write-Host("c) Clears the screen.")
-    Write-Host("1) Search all of twitter for 'fire'.")
-    
-    $userInput = Read-Host(" > ")
+    Write-Host("1) Search all of twitter for tweets containing 'fire'.")
+    Write-Host("2) Listen for the word 'fire' in Chicago tweets for 60 seconds.")
+
+    Write-Host(" > ") -NoNewLine
+    $userInput = $Host.UI.ReadLine()
 
 }
 
