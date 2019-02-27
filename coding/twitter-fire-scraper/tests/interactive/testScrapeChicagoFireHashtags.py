@@ -13,7 +13,7 @@ from tweepy import FileCache, Status
 import yaml
 from config import DataConfig
 from twitter import TwitterAuthentication, GEOBOX_CHICAGO
-from util import geobox_to_geocode
+from util import geobox_to_geocode, status_to_url
 
 
 def get_fire_search_terms():
@@ -65,7 +65,7 @@ if __name__ == "__main__":
         # For all statuses that we retrieved,
         for status in all_tweets[search_term][0:5]:  # type: Status
             print(" " * 4),  # Prefix with four spaces to show hierarchy.
-            print("<https://www.twitter.com/statuses/{id}> :".format(id=str(status.id)))  # URL of tweet.
+            print("<{}> :".format(status_to_url(status)))  # URL of tweet.
 
             print(" " * 4),  # Status belonging to URL.
             print(status.text.encode("UTF-8"))  # Status text.
