@@ -6,7 +6,7 @@ This file runs a demo of the Twitter fire scraper functionality for presentation
 
 Function Trace-Word #from <http://ridicurious.com/2018/03/14/highlight-words-in-powershell-console/>
 {
-#Trace-Word -content (Get-Content iis.log) -words "IIS", 's', "exe", "10", 'system'
+    #Trace-Word -content (Get-Content iis.log) -words "IIS", 's', "exe", "10", 'system'
 
     [Cmdletbinding()]
     [Alias("Highlight")]
@@ -136,14 +136,14 @@ function detectPython2()
     }
     elseif(Get-Command "python2" -ErrorAction SilentlyContinue)
     {
-    # `python` is not Py2,
+        # `python` is not Py2,
 
         $PythonCommand = "python2";
         Write-Output("Python 2 detected via ``python2`` command.")
     }
     else
     {
-    # `python2` does not exist.
+        # `python2` does not exist.
 
         Write-Output("``python`` refers to Python 3 and ``python2`` does not exist.`n")
 
@@ -195,11 +195,16 @@ while ($userInput -notlike "q")
     {
         Invoke-Expression($PipenvRunCommand + " tests/interactive/testListenGeoFires.py")
     }
+    elseif($userInput -like "3")
+    {
+        Invoke-Expression($PipenvRunCommand + " tests/interactive/testScrapeChicagoFireHashtags.py" + " --maxtweets=10")
+    }
 
     Write-Host("q) Quits program.")
     Write-Host("c) Clears the screen.")
     Write-Host("1) Search all of twitter for tweets containing 'fire'.")
     Write-Host("2) Listen for the word 'fire' in Chicago tweets for 60 seconds.")
+    Write-Host("3) Scrape Chicago tweets for various house fire-related keywords.")
 
     Write-Host(" > ") -NoNewLine
     $userInput = $Host.UI.ReadLine()
