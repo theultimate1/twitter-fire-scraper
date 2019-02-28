@@ -47,7 +47,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
 
         if verbose:
             # Show snapshot of irrelevant tweet
-            print("Not relevant: {}".format(text[0:50] + "..."))
+            print("Not relevant: {}".format(text))
 
         return False
 
@@ -57,7 +57,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         if SimpleFireStreamListener.is_relevant(status, verbose=True):
             text = status.text
 
-            print(text.encode("UTF-8"))
+            print("Relevant: " + text.encode("UTF-8"))
 
 
 class MongoDBStreamListener(tweepy.StreamListener):

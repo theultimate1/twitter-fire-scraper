@@ -5,6 +5,12 @@ from typing import Union
 from models import Point
 
 
+def status_to_url(status):
+    # type: (Status) -> str
+    """Given a Status, return that status' url."""
+    return "https://www.twitter.com/statuses/{id}".format(id=status.id)
+
+
 def geobox_from_points(points):
     # type: (list[Point]) -> list[float]
     """Given a list of points, flatten them starting from y and going to x.
@@ -23,6 +29,7 @@ def geobox_from_points(points):
         numbers.append(point.x)
 
     return numbers
+
 
 def flatten_points(points):
     # type: (list[Point]) -> list[float]
