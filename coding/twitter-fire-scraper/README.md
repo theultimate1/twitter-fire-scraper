@@ -109,8 +109,13 @@ problems.
 
 You can run the app by executing `python -m pipenv run python app.py`.
 
-Currently, ***the app is blank***. This will change soon as the frontend is built and
+Currently, ***the app is blank***. This will change as soon as the frontend is built and
 a fully-functional backend is built.
+
+## Running a functional demo
+
+Inside this folder, there are two files called `Run-Demo.bat` and
+`Run-Demo.ps1`. You can run either of those to start
 
 # Running tests
 
