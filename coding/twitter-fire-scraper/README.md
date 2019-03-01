@@ -109,6 +109,14 @@ problems.
 
 You can run the app by executing `python -m pipenv run python app.py`.
 
+Currently, ***the app is blank***. This will change as soon as the frontend is built and
+a fully-functional backend is built.
+
+## Running a functional demo
+
+Inside this folder, there are two files called `Run-Demo.bat` and
+`Run-Demo.ps1`. You can run either of those to start
+
 # Running tests
 
 You can execute `python -m pipenv run python tests/<TESTNAME>.py` to run a test.
@@ -123,6 +131,13 @@ repository [is here](https://github.com/raaraa/movie-twitter-sentiment) and a
 live site [is here](https://movie-tweet-sentiment.herokuapp.com/).
 
 Commit `2fb844e8c081c1dc31cfb4760e3a80cefb6a0eee` was used.
+
+# Why Python 2?
+[Raul's](https://github.com/raaraa/) project was in Python 2, and adapting it
+to Python 3 wasn't worth the time.
+
+We could concievably adapt all the code to Python 3, but there's no good
+reason to yet.
 
 # There's got to be a better way to run this than from the command line!
 
