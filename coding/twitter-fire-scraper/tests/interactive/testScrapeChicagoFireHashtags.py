@@ -1,5 +1,7 @@
 """
 Demonstrates the ability to scrape tweets regarding chicago fires, and store them in a MongoDB database.
+
+This does NOT use the Scraper object.
 """
 # noinspection PyUnresolvedReferences
 from pymongo import MongoClient
@@ -128,7 +130,7 @@ if __name__ == "__main__":
             try:
                 mongodb[keyword].insert_one(obj)
                 saved_tweets += 1
-            except DuplicateKeyError as e: # Tweet already exists.
+            except DuplicateKeyError as e:  # Tweet already exists.
                 pass
 
     print("Successfully saved all tweets. Saved {} new tweets.".format(saved_tweets))
