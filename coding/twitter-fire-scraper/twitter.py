@@ -12,7 +12,10 @@ GEOBOX_CHICAGO = [Point(41.573604, -87.965887, ), Point(42.085967, -87.367663, )
 
 
 class TwitterAuthentication(object):
-    """Twitter authentication object."""
+    """Twitter authentication object.
+
+    This is basically just a wrapper for Twitter API keys to prevent a bunch of variables being scattered everywhere.
+    """
 
     def __init__(self):
         self.consumer_key = SecretsConfig.CONSUMER_KEY
