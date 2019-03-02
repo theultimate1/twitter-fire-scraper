@@ -10,10 +10,12 @@ from util import geobox_to_geocode
 if __name__ == '__main__':
     scraper = Scraper()
 
+    terms = {"pizza"}
+
     results = scraper.scrape_terms(terms={"pizza"}, count=3)
-    print("Pizza on all of twitter:")
+    print("{} on all of twitter:".format(", ".join(terms)))
     pprint(results)
 
     results = scraper.scrape_terms(geocode=geobox_to_geocode(GEOBOX_CHICAGO, "20mi"), terms={"pizza"}, count=3)
-    print("Pizza in chicago:")
+    print("{} in chicago:".format(", ".join(terms)))
     pprint(results)
