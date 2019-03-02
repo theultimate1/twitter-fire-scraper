@@ -33,6 +33,8 @@ class DataConfig:
     # US states datafile location.
     US_STATES_DATA_PATH = os.path.join(DATA_PATH, "USStates.yml")
 
+    TWITTER_ACCOUNTS_DATA_PATH=os.path.join(DATA_PATH, "TwitterAccounts.yml")
+
 
 class SecretsConfig:
     """Holds secrets configuration information like filepaths, keys, etc."""
