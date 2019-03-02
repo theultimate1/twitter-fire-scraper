@@ -46,8 +46,9 @@ class SecretsConfig:
     # Does it exist?
     if not os.path.exists(SECRETS_PATH):
         raise IOError(
-            "Could not find the file {0} located at {1}. Did you read the README?".format(SECRETS_FILE_NAME,
-                                                                                          SECRETS_PATH))
+            "Could not find the file {0} located at {1}. The file 'README.md' talks about setting this file up.".format(
+                SECRETS_FILE_NAME,
+                SECRETS_PATH))
 
     # Load secrets JSON into dictlike object.
 
