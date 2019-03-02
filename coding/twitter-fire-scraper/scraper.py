@@ -17,8 +17,8 @@ class Scraper():
         # Default amount of tweets to retrieve.
         self.default_count = 10
 
-    def scrape_terms(self, terms, geocode=None, count=None):
-        # type: (Scraper, set[str], str, int) -> dict[str, set[Status]]
+    def scrape_terms(self, terms, count=None, geocode=None):
+        # type: (Scraper, set[str], int, str) -> dict[str, set[Status]]
         """
         Term-scraping method. Can scrape a set of terms.
 
@@ -50,8 +50,8 @@ class Scraper():
 
         return results
 
-    def scrape(self, geocode=None, terms=None, hashtags=None, accounts=None, count=None):
-        # type: (Scraper, str, set[str], set[str], set[str], int) -> dict[str, set[Status]]
+    def scrape(self, terms=None, hashtags=None, accounts=None, count=None, geocode=None):
+        # type: (Scraper, set[str], set[str], set[str], int, str) -> dict[str, set[Status]]
         """
         General-purpose scraping method. Can scrape terms, hashtags, and accounts.
 
