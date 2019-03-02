@@ -65,5 +65,3 @@ class SecretsConfig:
 
     # MongoDB connection string.
     MONGODB_CONNECTION_STRING = try_get(_json_object, 'mongodb_connection_string')
-
-    MONGODB_DATABASE_NAME = "twitter-fires"

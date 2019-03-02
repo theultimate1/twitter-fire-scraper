@@ -78,18 +78,19 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self):
+    def __init__(self, database_name="MongoDBStreamListener"):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
         self.mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
 
         # MongoDB database name.
-        self.mongodatabase = self.mongoclient[SecretsConfig.MONGODB_DATABASE_NAME]
+        self.mongodatabase = self.mongoclient[database_name]
 
         # Table to which tweets are saved.
         self.TWEETS_TABLE = 'tweets'
 
+    # noinspection PyUnresolvedReferences
     def on_status(self, status):
         # type: (MongoDBStreamListener, Status) -> None
 
