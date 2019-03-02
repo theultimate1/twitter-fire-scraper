@@ -1,5 +1,6 @@
 """
-This file demonstrates the Scraper class' ability to scrape small amounts of tweets about a simple term, like 'pizza'.
+This file demonstrates the Scraper class' ability to scrape small amounts of tweets about a simple term or hashtag, like
+'pizza', '#pizza', 'cat', and '#cat'.
 """
 from pprint import pprint
 
@@ -10,12 +11,12 @@ from util import geobox_to_geocode
 if __name__ == '__main__':
     scraper = Scraper()
 
-    terms = {"pizza"}
+    terms = {"#pizza", "pizza", 'cat', '#cat'}
 
-    results = scraper.scrape_terms(terms={"pizza"}, count=3)
+    results = scraper.scrape_terms(terms=terms, count=3)
     print("{} on all of twitter:".format(", ".join(terms)))
     pprint(results)
 
-    results = scraper.scrape_terms(geocode=geobox_to_geocode(GEOBOX_CHICAGO, "20mi"), terms={"pizza"}, count=3)
+    results = scraper.scrape_terms(geocode=geobox_to_geocode(GEOBOX_CHICAGO, "20mi"), terms=terms, count=3)
     print("{} in chicago:".format(", ".join(terms)))
     pprint(results)

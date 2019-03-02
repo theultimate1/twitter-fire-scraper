@@ -22,6 +22,8 @@ class Scraper():
         """
         Term-scraping method. Can scrape a set of terms.
 
+        A term is either a hashtag or a piece of text.
+
         :param geocode: Geographical area to search in. Can be blank.
         :param terms:  List of terms to search for.
         :param count: Maximum tweets to return per search term.
@@ -50,14 +52,13 @@ class Scraper():
 
         return results
 
-    def scrape(self, terms=None, hashtags=None, accounts=None, count=None, geocode=None):
-        # type: (Scraper, set[str], set[str], set[str], int, str) -> dict[str, set[Status]]
+    def scrape(self, terms=None, accounts=None, count=None, geocode=None):
+        # type: (Scraper, set[str], set[str], int, str) -> dict[str, set[Status]]
         """
-        General-purpose scraping method. Can scrape terms, hashtags, and accounts.
+        General-purpose scraping method. Can scrape search terms, and accounts.
 
         :param geocode: Geographical area to search in. Can be blank.
         :param terms:  List of terms to search for.
-        :param hashtags: List of hashtags to search.
         :param accounts: List of account names to search.
         :param count: Maximum tweets to return per search term.
         :return: A dictionary containing {'search-term': set[Status]} pairs.
@@ -70,8 +71,8 @@ class Scraper():
         if not count:
             count = self.default_count
 
-        if (not terms) and (not hashtags) and (not accounts):
-            raise ValueError("No terms, hashtags, or accounts specified.")
+        if (not terms) and (not accounts):
+            raise ValueError("No terms or accounts specified.")
 
         return {
             "hi": {"cool_tweet", "cooler_tweet"}
