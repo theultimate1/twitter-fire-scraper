@@ -88,7 +88,7 @@ class MongoDBStreamListener(tweepy.StreamListener):
         self.mongodatabase = self.mongoclient[database_name]
 
         # Table to which tweets are saved.
-        self.TWEETS_TABLE = 'tweets'
+        self.TWEETS_TABLE = database_name
 
     # noinspection PyUnresolvedReferences
     def on_status(self, status):
