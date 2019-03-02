@@ -15,6 +15,5 @@ if __name__ == "__main__":
     twauth = TwitterAuthentication()
     api = tweepy.API(twauth.oauth_handler)
 
-    print("Just searching for 'fire'... Probably not going to get us Chicago fire incidents, "
-          "perhaps will get us SoundCloud tracks.")
+    print("Just searching for 'fire'... Probably not going to get us Chicago fire incidents.")
     pprint([(status.text,) for status in api.search("fire")])
