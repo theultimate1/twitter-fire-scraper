@@ -1,6 +1,6 @@
 import colorama
 from tweepy import Status
-from typing import Union
+from typing import Dict, Set
 
 from models import Point
 
@@ -9,6 +9,29 @@ def status_to_url(status):
     # type: (Status) -> str
     """Given a Status, return that status' url."""
     return "https://www.twitter.com/statuses/{id}".format(id=status.id)
+
+
+def flatten_status_dict(status_dict):
+    # type: (Dict[str, Set[Status]]) -> Dict[str, Set[Status]]
+    """Take a Dict[str, set[Status]] and flatten its statuses into the text of the statuses.
+
+    Example:
+
+        flatten_status_dict({
+            "icecream": [Status, Status],
+            "cake": [Status]
+            })
+
+            ->
+
+            {"icecream": ["mm icecream", "icecream sucks :("],
+            "cake": ["CAKE!!!!"]}
+
+    """
+    for term, statuses in status_dict.items():  # Only print the text of the tweet
+        status_dict[term] = set([status.text for status in statuses])
+
+    return status_dict
 
 
 def geobox_from_points(points):
