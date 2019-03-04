@@ -30,5 +30,3 @@ if __name__ == "__main__":
         simpleFireStream.disconnect()
     finally:
         simpleFireStream.disconnect()
-
-    print("As you can see, either none or few of these tweets actually contain the word 'fire'.")

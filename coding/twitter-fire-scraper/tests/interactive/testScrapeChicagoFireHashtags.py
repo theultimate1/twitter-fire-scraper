@@ -1,7 +1,12 @@
 """
 Demonstrates the ability to scrape tweets regarding chicago fires, and store them in a MongoDB database.
+
+This does NOT use the Scraper object.
 """
 # noinspection PyUnresolvedReferences
+from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
+
 import __init__
 
 import argparse
@@ -11,7 +16,7 @@ import tweepy
 from tweepy import Status
 
 import yaml
-from config import DataConfig
+from config import DataConfig, SecretsConfig
 from twitter import TwitterAuthentication, GEOBOX_CHICAGO
 from util import geobox_to_geocode, status_to_url
 
@@ -100,3 +105,32 @@ if __name__ == "__main__":
     # Print out how many unique statuses we get
     print("{uq} unique statuses out of {tot} total statuses with {dup} duplicates.".format(
         uq=len(unique_status_ids), tot=total_statuses, dup=total_statuses - len(unique_status_ids)))
+
+    print("Saving to MongoDB database.")
+
+    try:
+        mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
+
+        # Save to a table that's the same name as the file because this is a test.
+        mongodb = mongoclient[os.path.splitext(os.path.basename(__file__))[0]]
+    except Exception as e:
+        print("Failed to save tweets to MongoDB database.")
+        print(e)
+        exit(1)
+
+    saved_tweets = 0
+    for keyword, statuses in all_tweets.items():
+        for status in statuses:  # type: Status
+
+            obj = status._json
+
+            # Create unique ID that is the ID of the tweet itself.
+            obj['_id'] = status.id
+
+            try:
+                mongodb[keyword].insert_one(obj)
+                saved_tweets += 1
+            except DuplicateKeyError as e:  # Tweet already exists.
+                pass
+
+    print("Successfully saved all tweets. Saved {} new tweets.".format(saved_tweets))

@@ -33,6 +33,8 @@ class DataConfig:
     # US states datafile location.
     US_STATES_DATA_PATH = os.path.join(DATA_PATH, "USStates.yml")
 
+    TWITTER_ACCOUNTS_DATA_PATH=os.path.join(DATA_PATH, "TwitterAccounts.yml")
+
 
 class SecretsConfig:
     """Holds secrets configuration information like filepaths, keys, etc."""
@@ -46,8 +48,9 @@ class SecretsConfig:
     # Does it exist?
     if not os.path.exists(SECRETS_PATH):
         raise IOError(
-            "Could not find the file {0} located at {1}. Did you read the README?".format(SECRETS_FILE_NAME,
-                                                                                          SECRETS_PATH))
+            "Could not find the file {0} located at {1}. The file 'README.md' talks about setting this file up.".format(
+                SECRETS_FILE_NAME,
+                SECRETS_PATH))
 
     # Load secrets JSON into dictlike object.
 
@@ -65,5 +68,3 @@ class SecretsConfig:
 
     # MongoDB connection string.
     MONGODB_CONNECTION_STRING = try_get(_json_object, 'mongodb_connection_string')
-
-    MONGODB_DATABASE_NAME = "twitter-fires"

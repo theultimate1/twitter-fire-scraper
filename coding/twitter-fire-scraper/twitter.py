@@ -12,7 +12,10 @@ GEOBOX_CHICAGO = [Point(41.573604, -87.965887, ), Point(42.085967, -87.367663, )
 
 
 class TwitterAuthentication(object):
-    """Twitter authentication object."""
+    """Twitter authentication object.
+
+    This is basically just a wrapper for Twitter API keys to prevent a bunch of variables being scattered everywhere.
+    """
 
     def __init__(self):
         self.consumer_key = SecretsConfig.CONSUMER_KEY
@@ -78,18 +81,19 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self):
+    def __init__(self, database_name="MongoDBStreamListener"):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
         self.mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
 
         # MongoDB database name.
-        self.mongodatabase = self.mongoclient[SecretsConfig.MONGODB_DATABASE_NAME]
+        self.mongodatabase = self.mongoclient[database_name]
 
         # Table to which tweets are saved.
-        self.TWEETS_TABLE = 'tweets'
+        self.TWEETS_TABLE = database_name
 
+    # noinspection PyUnresolvedReferences
     def on_status(self, status):
         # type: (MongoDBStreamListener, Status) -> None
 
