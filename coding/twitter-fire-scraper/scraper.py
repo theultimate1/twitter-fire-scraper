@@ -52,6 +52,23 @@ class Scraper():
 
         return results
 
+    def scrape_accounts(self, accounts, count=None, geocode=None):
+        # type: (Scraper, set[str], int, str) -> Dict[str, set[Status]]
+        """
+        Account-scraping method. Can scrape a set of accounts.
+
+        A term is either a hashtag or a piece of text.
+
+        :param geocode: Geographical area to search in. Can be blank.
+        :param accounts: List of accounts to search for.
+        :param count: Maximum tweets to return per search term.
+        :return: A dictionary containing {'search-term': set[Status]} pairs.
+        """
+        return {
+            "@unfinished_dude": {"I am not implemented!", "Hooray! Unfinished!"},
+            "@unfinished_dude2": {"Still not done!"},
+        }
+
     def scrape(self, terms=None, accounts=None, count=None, geocode=None):
         # type: (Scraper, set[str], set[str], int, str) -> dict[str, set[Status]]
         """
