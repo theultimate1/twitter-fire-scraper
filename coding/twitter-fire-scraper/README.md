@@ -16,6 +16,10 @@ used to understand house fires in Chicago.
 
 # How do I run this?
 
+## Notes
+
+This README assumes all commands take place in the same folder as this README file.
+
 ## Setting up your secrets
 
 A note: These are called 'secrets' for a reason. Don't ever stage or commit
