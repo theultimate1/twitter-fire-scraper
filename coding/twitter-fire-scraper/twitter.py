@@ -1,8 +1,9 @@
+import json
+
 import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
-from config import SecretsConfig
 from models import Point
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
@@ -19,7 +20,16 @@ class TwitterAuthentication(object):
 
     @staticmethod
     def from_json(filepath):
-        pass
+        file = open(filepath, 'r')
+        json_object = json.load(file)
+        file.close()
+
+        return TwitterAuthentication(
+            consumer_key=json_object['consumer_key'],
+            consumer_secret=json_object['consumer_secret'],
+            access_token=json_object['access_token'],
+            access_token_secret=json_object['access_token_secret'],
+        )
 
     def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
         self.consumer_key = consumer_key
@@ -85,11 +95,11 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self, database_name="MongoDBStreamListener"):
+    def __init__(self, database_name="MongoDBStreamListener", database_connection_string="mongodb://localhost:27017/"):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
-        self.mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
+        self.mongoclient = MongoClient(database_connection_string)
 
         # MongoDB database name.
         self.mongodatabase = self.mongoclient[database_name]
