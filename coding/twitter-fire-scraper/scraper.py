@@ -5,10 +5,11 @@ import tweepy
 # noinspection PyUnresolvedReferences
 class Scraper():
 
-    def __init__(self):
+    def __init__(self, twitter_authentication):
+        # type: (Scraper, TwitterAuthentication) -> Scraper
 
         # Twitter authentication object.
-        self.twitter_authentication = TwitterAuthentication()
+        self.twitter_authentication = twitter_authentication
 
         # Tweepy API object. Can make API calls.
         self.api = tweepy.API(self.twitter_authentication.oauth_handler,

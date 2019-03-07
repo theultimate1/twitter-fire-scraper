@@ -17,11 +17,15 @@ class TwitterAuthentication(object):
     This is basically just a wrapper for Twitter API keys to prevent a bunch of variables being scattered everywhere.
     """
 
-    def __init__(self):
-        self.consumer_key = SecretsConfig.CONSUMER_KEY
-        self.consumer_secret = SecretsConfig.CONSUMER_SECRET
-        self.access_token = SecretsConfig.ACCESS_TOKEN
-        self.access_token_secret = SecretsConfig.ACCESS_TOKEN_SECRET
+    @staticmethod
+    def from_json(filepath):
+        pass
+
+    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+        self.consumer_key = consumer_key
+        self.consumer_secret = consumer_secret
+        self.access_token = access_token
+        self.access_token_secret = access_token_secret
 
         self.oauth_handler = OAuthHandler(self.consumer_key, self.consumer_secret)
         self.oauth_handler.set_access_token(self.access_token, self.access_token_secret)
