@@ -57,7 +57,7 @@ Follow [this tutorial](https://docs.mongodb.com/v3.2/tutorial/) on how to instal
 
 ## Installing Python
 
-This runs Python 2.7, so [install Python 2.7](https://www.python.org/downloads/release/python-2713/)
+This runs Python 2.7.9 or above, so [install Python 2.7.13](https://www.python.org/downloads/release/python-2713/)
 
 I used Pipenv, a Python dependency manager, to track and manage the packages
 installed.
