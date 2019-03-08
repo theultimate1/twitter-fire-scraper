@@ -45,7 +45,7 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
             # If the status already exists,
             except DuplicateKeyError as e:
                 # Error silently and continue (or print and continue)
-                if print_on_duplicates: print("Duplicate tweet ID {}".format(obj._id))
+                if print_on_duplicates: print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
                 pass
 
 
