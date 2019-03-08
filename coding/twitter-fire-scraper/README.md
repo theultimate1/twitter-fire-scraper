@@ -39,10 +39,10 @@ A note: These are called 'secrets' for a reason. Don't ever stage or commit
 You will need:
 
 - A twitter developer account & API key
-    - A consumer key
-    - A consumer secret
-    - An access token
-    - An access secret
+    - A consumer API key (goes into `"consumer_key"`)
+    - A consumer API secret key (goes into `"consumer_secret"`)
+    - An access token (goes into `"access_token"`)
+    - An access secret (goes into `"access_token_secret"`)
 
 - A twitter handle you're authorized to make queries on behalf of
 
