@@ -1,8 +1,52 @@
 import colorama
+from pymongo.database import Database
+from pymongo.errors import DuplicateKeyError
 from tweepy import Status
 from typing import Dict, Set
 
 from models import Point
+
+
+def json_from_status(status):
+    # type: (Status) -> object
+    """
+
+    :param status: A Status object.
+    :return: An object ready to be saved into a MongoDB database.
+    """
+
+    obj = status._json
+
+    obj['_id'] = status.id
+
+    return obj
+
+
+def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=False):
+    # type: (Dict[str, Set[Status]], Database, bool) -> None
+    """
+    This is a utility function that saves a Dict[str, Set[Status]] to a MongoDB database.
+
+    It saves each Status to a collection of the same name as the dictionary key
+
+    :param status_dict: A dict of {"category": {Status, Status, Status}, ...} objects.
+    :param mongodb: A MongoDB Database object.
+    """
+
+    for category, statuses in status_dict.items():
+        for status in statuses:  # type: Status
+
+            # Create a JSON object from the status
+            obj = json_from_status(status)
+
+            try:
+                # Attempt to insert a status.
+                mongodb[category].insert_one(obj)
+            # If the status already exists,
+            except DuplicateKeyError as e:
+                # Error silently and continue (or print and continue)
+                if print_on_duplicates: print("Duplicate tweet ID {}".format(obj._id))
+                pass
 
 
 def status_to_url(status):
