@@ -16,7 +16,20 @@ used to understand house fires in Chicago.
 
 # How do I run this?
 
+## Notes
+
+This README assumes all commands take place in the same folder as this README file.
+
 ## Setting up your secrets
+
+This secrets file is only used for the demos. When using this library, it
+is up to you to manage how you store and retrieve your API keys.
+
+More specifically, if the `Scraper` object is not initialized with a `TwitterAuthentication`
+object, it will search for a file called `~/secrets.json` for API keys as a fallback.
+
+This is to make the demonstrations work and not recommended usage when using the
+library.
 
 A note: These are called 'secrets' for a reason. Don't ever stage or commit
 `secrets.json`, please.
@@ -33,18 +46,15 @@ You will need:
 
 - A twitter handle you're authorized to make queries on behalf of
 
-You are to put these into a file called `secrets.json` at the root of this
-directory.
+You are to put these into a file called `secrets.json` in your home folder (For example,
+mine is `C:\Users\henryfbp\secrets.json`.)
 
 An example file is provided for you to base your file off of, called
 `secrets.example.json`.
 
 ### MongoDB secrets
 
-There is an entry in `secrets.json` that expects a MongoDB connection string,
-and a default one is provided in `secrets.example.json`.
-
-It expects a URL to a MongoDB server, and looks like this:
+The demos in our code connect to the following mongodb address:
 
     mongodb://localhost:27017/
 
@@ -57,7 +67,7 @@ Follow [this tutorial](https://docs.mongodb.com/v3.2/tutorial/) on how to instal
 
 ## Installing Python
 
-This runs Python 2.7, so [install Python 2.7](https://www.python.org/downloads/release/python-2713/)
+This runs Python 2.7.9 or above, so [install Python 2.7.13](https://www.python.org/downloads/release/python-2713/)
 
 I used Pipenv, a Python dependency manager, to track and manage the packages
 installed.

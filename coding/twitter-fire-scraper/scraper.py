@@ -1,14 +1,21 @@
+from tweepy import Status
+from typing import Dict
+
 from twitter import TwitterAuthentication
 import tweepy
+import os
 
 
-# noinspection PyUnresolvedReferences
 class Scraper():
 
-    def __init__(self):
+    def __init__(self, twitter_authentication=None):
+        # type: (Scraper, TwitterAuthentication) -> None
 
-        # Twitter authentication object.
-        self.twitter_authentication = TwitterAuthentication()
+        # They did not pass in any authentication. Attempt to auto-detect it.
+        if not twitter_authentication:
+            self.twitter_authentication = TwitterAuthentication.autodetect_twitter_auth()
+        else:  # They passed us a TwitterAuthentication object
+            self.twitter_authentication = twitter_authentication
 
         # Tweepy API object. Can make API calls.
         self.api = tweepy.API(self.twitter_authentication.oauth_handler,
@@ -33,7 +40,7 @@ class Scraper():
         if not count:
             count = self.default_count
 
-        results = {}  # type: dict[str, set[Status]]
+        results = {}  # type: Dict[str, set[Status]]
 
         # For each search term,
         for search_term in terms:
