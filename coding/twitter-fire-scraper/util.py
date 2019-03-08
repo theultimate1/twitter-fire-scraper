@@ -2,20 +2,20 @@ import colorama
 from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 from tweepy import Status
-from typing import Dict, Set
+from typing import Dict, Set, List
 
 from models import Point
 
 
-def json_from_status(status):
-    # type: (Status) -> object
+def dict_from_status(status):
+    # type: (Status) -> dict
     """
 
     :param status: A Status object.
     :return: An object ready to be saved into a MongoDB database.
     """
 
-    obj = status._json
+    obj = status._json # type: dict
 
     obj['_id'] = status.id
 
@@ -36,8 +36,8 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
     for category, statuses in status_dict.items():
         for status in statuses:  # type: Status
 
-            # Create a JSON object from the status
-            obj = json_from_status(status)
+            # Create a dict from the status
+            obj = dict_from_status(status)
 
             try:
                 # Attempt to insert a status.
@@ -79,7 +79,7 @@ def flatten_status_dict(status_dict):
 
 
 def geobox_from_points(points):
-    # type: (list[Point]) -> list[float]
+    # type: (List[Point]) -> List[float]
     """Given a list of points, flatten them starting from y and going to x.
 
     This function exists because for some reason Tweepy/Twitter API likes to
@@ -99,7 +99,7 @@ def geobox_from_points(points):
 
 
 def flatten_points(points):
-    # type: (list[Point]) -> list[float]
+    # type: (List[Point]) -> List[float]
     """Given a list of points, flatten them starting from x and going to y.
 
     Example:
@@ -117,7 +117,7 @@ def flatten_points(points):
 
 
 def geobox_to_geocode(geobox, radius):
-    # type: (list[Point, Point], str) -> str
+    # type: (List[Point, Point], str) -> str
     """Given a geobox and a radius, return a valid Twitter geocode consisting of a point and radius."""
     midpoint = geobox[0].midpoint(geobox[1])
 
