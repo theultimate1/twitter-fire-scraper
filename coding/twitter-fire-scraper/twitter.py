@@ -5,6 +5,7 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
+from config import Config
 from models import Point
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
@@ -23,7 +24,7 @@ class TwitterAuthentication(object):
     def autodetect_twitter_auth():
         # type: () -> TwitterAuthentication
         """
-        Attempts to autodetect_twitter_auth Twitter API keys from a file called 'secrets.json'.
+        Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
 
         Using this method is inadvisable and only exists to aid our test cases.
         """
@@ -42,8 +43,6 @@ class TwitterAuthentication(object):
             raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
         else:  # Path to auth file exists.
             return TwitterAuthentication.from_json(auth_filepath)
-
-
 
     @staticmethod
     def from_json(filepath):
@@ -71,6 +70,7 @@ class TwitterAuthentication(object):
         )
 
     def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.access_token = access_token
@@ -134,7 +134,8 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self, database_name="MongoDBStreamListener", database_connection_string="mongodb://localhost:27017/"):
+    def __init__(self, database_name="MongoDBStreamListener",
+                 database_connection_string=Config.DEFAULT_MONGODB_CONNECTION_STRING):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
