@@ -11,7 +11,7 @@ from util import geobox_from_points
 
 if __name__ == "__main__":
     # Set up twitter auth.
-    twauth = TwitterAuthentication()
+    twauth = TwitterAuthentication.autodetect_twitter_auth()
     api = tweepy.API(twauth.oauth_handler)
 
     print("Listening for fires and logging to a MongoDB database.")
