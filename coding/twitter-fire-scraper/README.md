@@ -154,3 +154,24 @@ reason to yet.
 There is! Use an IDE (like PyCharm, which I use) that preferably integrates with 
 Python to show you import errors, syntax errors, etc. Go google "Python IDE" and
 pick one you like.
+
+# Adding the location of Venv to your IDE
+
+In order to run our tests through an IDE, we need to let our IDE know where venv was installed.
+I will explain this through Pycharm, but the method should be the same for any IDE.
+
+If running `python` in windows powershell runs Python 2 (or you only have Python 2 installed),
+run `python -m pipenv --venv`
+
+This will yield the location of the python 2
+Virtual Environment (It should be something like `C:\Users\Your Name\...\.virtualenvs\...`).
+Copy this path and open Pycharm.
+
+Go into `files -> settings` and expand the `Project: fire-scraper-twitter`. In the drop down,
+go into `Project Interpreter`. Go to the top and click the gear and select `add`, as we will
+be adding a new interpreter. 
+
+Select `Existing environment` and click the three dots to the right. Copy your path at the top,
+then OK everything.
+
+There! Done! Now we can run our tests from inside our IDE.
