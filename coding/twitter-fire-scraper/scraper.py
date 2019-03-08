@@ -79,11 +79,14 @@ class Scraper():
 
         results = {}
 
-        for each_account in accounts:   # 24 users
-            # return most recent statuses of users
-            cursor = tweepy.Cursor(self.api.user_timeline, id=accounts)   #return lists of Status object
+        # accounts: list of 24 accounts
+        for each_account in accounts:   # each user
+            # return most recent statuses of the user
+            cursor = tweepy.Cursor(self.api.user_timeline, id=accounts)
 
-            # for result of each users
+            # for each status of each user's account
+            for status in cursor.items(count):
+                results[each_account].add(status)
 
         return results
 
