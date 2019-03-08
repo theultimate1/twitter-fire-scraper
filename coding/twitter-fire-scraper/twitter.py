@@ -1,4 +1,5 @@
 import json
+import os
 
 import tweepy
 from pymongo import MongoClient
@@ -19,7 +20,45 @@ class TwitterAuthentication(object):
     """
 
     @staticmethod
+    def autodetect_twitter_auth():
+        # type: () -> TwitterAuthentication
+        """
+        Attempts to autodetect_twitter_auth Twitter API keys from a file called 'secrets.json'.
+
+        Using this method is inadvisable and only exists to aid our test cases.
+        """
+        print("WARNING: API key autodetection is inadvisable.")
+
+        auth_filename = "secrets.json"
+        auth_filepath = os.path.abspath(os.path.expanduser(os.path.join("~", auth_filename)))
+
+        if not os.path.isfile(auth_filepath):
+            print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
+            print(auth_filepath)
+
+            print("Either initialize {} with API keys, or make the file located at the above path.".format(
+                TwitterAuthentication.__name__))
+
+            raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
+        else:  # Path to auth file exists.
+            return TwitterAuthentication.from_json(auth_filepath)
+
+
+
+    @staticmethod
     def from_json(filepath):
+        """
+        Creates a TwitterAuthentication object from a JSON file.
+        :param filepath: The path to the JSON file.
+        :return: A TwitterAuthentication object.
+
+        Uses the following keys:
+            - consumer_key
+            - consumer_secret
+            - access_token
+            - access_token_secret
+
+        """
         file = open(filepath, 'r')
         json_object = json.load(file)
         file.close()

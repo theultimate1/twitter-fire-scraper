@@ -1,3 +1,6 @@
+from tweepy import Status
+from typing import Dict
+
 from twitter import TwitterAuthentication
 import tweepy
 import os
@@ -10,27 +13,8 @@ class Scraper():
 
         # They did not pass in any authentication. Attempt to auto-detect it.
         if not twitter_authentication:
-
-            print("WARNING: {} object was initialized without any {} object. This is inadvisable.".format(
-                self.__class__.__name__,
-                TwitterAuthentication.__name__))
-
-            auth_filename = "secrets.json"
-            auth_filepath = os.path.abspath(os.path.expanduser(os.path.join("~", auth_filename)))
-
-            # Path to auth file does not exist.
-            if not os.path.isfile(auth_filepath):
-                print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
-                print(auth_filepath)
-
-                print("Either initialize {} with a {} object, or make the file located at the above path.".format(
-                    self.__class__.__name__, TwitterAuthentication.__name__))
-
-                raise ValueError("No {} object in initializer".format(TwitterAuthentication.__name__))
-            else: # Path to auth file exists.
-                self.twitter_authentication = TwitterAuthentication.from_json(auth_filepath)
-
-        else: # They passed us a TwitterAuthentication object
+            self.twitter_authentication = TwitterAuthentication.autodetect_twitter_auth()
+        else:  # They passed us a TwitterAuthentication object
             self.twitter_authentication = twitter_authentication
 
         # Tweepy API object. Can make API calls.
@@ -56,7 +40,7 @@ class Scraper():
         if not count:
             count = self.default_count
 
-        results = {}  # type: dict[str, set[Status]]
+        results = {}  # type: Dict[str, set[Status]]
 
         # For each search term,
         for search_term in terms:
