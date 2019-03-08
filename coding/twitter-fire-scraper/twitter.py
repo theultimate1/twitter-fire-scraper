@@ -1,8 +1,11 @@
+import json
+import os
+
 import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
-from config import SecretsConfig
+from config import Config
 from models import Point
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
@@ -17,11 +20,61 @@ class TwitterAuthentication(object):
     This is basically just a wrapper for Twitter API keys to prevent a bunch of variables being scattered everywhere.
     """
 
-    def __init__(self):
-        self.consumer_key = SecretsConfig.CONSUMER_KEY
-        self.consumer_secret = SecretsConfig.CONSUMER_SECRET
-        self.access_token = SecretsConfig.ACCESS_TOKEN
-        self.access_token_secret = SecretsConfig.ACCESS_TOKEN_SECRET
+    @staticmethod
+    def autodetect_twitter_auth():
+        # type: () -> TwitterAuthentication
+        """
+        Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
+
+        Using this method is inadvisable and only exists to aid our test cases.
+        """
+        print("WARNING: API key autodetection is inadvisable.")
+
+        auth_filename = "secrets.json"
+        auth_filepath = os.path.abspath(os.path.expanduser(os.path.join("~", auth_filename)))
+
+        if not os.path.isfile(auth_filepath):
+            print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
+            print(auth_filepath)
+
+            print("Either initialize {} with API keys, or make the file located at the above path.".format(
+                TwitterAuthentication.__name__))
+
+            raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
+        else:  # Path to auth file exists.
+            return TwitterAuthentication.from_json(auth_filepath)
+
+    @staticmethod
+    def from_json(filepath):
+        """
+        Creates a TwitterAuthentication object from a JSON file.
+        :param filepath: The path to the JSON file.
+        :return: A TwitterAuthentication object.
+
+        Uses the following keys:
+            - consumer_key
+            - consumer_secret
+            - access_token
+            - access_token_secret
+
+        """
+        file = open(filepath, 'r')
+        json_object = json.load(file)
+        file.close()
+
+        return TwitterAuthentication(
+            consumer_key=json_object['consumer_key'],
+            consumer_secret=json_object['consumer_secret'],
+            access_token=json_object['access_token'],
+            access_token_secret=json_object['access_token_secret'],
+        )
+
+    def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+
+        self.consumer_key = consumer_key
+        self.consumer_secret = consumer_secret
+        self.access_token = access_token
+        self.access_token_secret = access_token_secret
 
         self.oauth_handler = OAuthHandler(self.consumer_key, self.consumer_secret)
         self.oauth_handler.set_access_token(self.access_token, self.access_token_secret)
@@ -81,11 +134,12 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self, database_name="MongoDBStreamListener"):
+    def __init__(self, database_name="MongoDBStreamListener",
+                 database_connection_string=Config.DEFAULT_MONGODB_CONNECTION_STRING):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
-        self.mongoclient = MongoClient(SecretsConfig.MONGODB_CONNECTION_STRING)
+        self.mongoclient = MongoClient(database_connection_string)
 
         # MongoDB database name.
         self.mongodatabase = self.mongoclient[database_name]
