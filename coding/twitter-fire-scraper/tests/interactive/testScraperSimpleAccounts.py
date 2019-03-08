@@ -5,10 +5,8 @@ from pprint import pprint
 
 import yaml
 
-from scraper import Scraper
-from twitter import GEOBOX_CHICAGO
-from util import geobox_to_geocode
 from config import DataConfig
+from scraper import Scraper
 
 if __name__ == '__main__':
     scraper = Scraper()
