@@ -24,7 +24,7 @@ class TwitterAuthentication(object):
     def autodetect_twitter_auth():
         # type: () -> TwitterAuthentication
         """
-        Attempts to autodetect_twitter_auth Twitter API keys from a file called 'secrets.json'.
+        Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
 
         Using this method is inadvisable and only exists to aid our test cases.
         """
@@ -70,6 +70,7 @@ class TwitterAuthentication(object):
         )
 
     def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.access_token = access_token
