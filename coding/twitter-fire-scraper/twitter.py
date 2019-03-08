@@ -5,6 +5,7 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
+from config import Config
 from models import Point
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
@@ -42,8 +43,6 @@ class TwitterAuthentication(object):
             raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
         else:  # Path to auth file exists.
             return TwitterAuthentication.from_json(auth_filepath)
-
-
 
     @staticmethod
     def from_json(filepath):
@@ -134,7 +133,8 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self, database_name="MongoDBStreamListener", database_connection_string="mongodb://localhost:27017/"):
+    def __init__(self, database_name="MongoDBStreamListener",
+                 database_connection_string=Config.DEFAULT_MONGODB_CONNECTION_STRING):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.

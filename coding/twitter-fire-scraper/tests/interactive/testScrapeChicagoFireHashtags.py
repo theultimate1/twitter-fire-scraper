@@ -16,7 +16,7 @@ import tweepy
 from tweepy import Status
 
 import yaml
-from config import DataConfig
+from config import DataConfig, Config
 from twitter import TwitterAuthentication, GEOBOX_CHICAGO
 from util import geobox_to_geocode, status_to_url
 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     print("Saving to MongoDB database.")
 
     try:
-        mongoclient = MongoClient("mongodb://localhost:27017/")
+        mongoclient = MongoClient(Config.DEFAULT_MONGODB_CONNECTION_STRING)
 
         # Save to a table that's the same name as the file because this is a test.
         mongodb = mongoclient[os.path.splitext(os.path.basename(__file__))[0]]

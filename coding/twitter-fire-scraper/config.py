@@ -1,6 +1,8 @@
 import json
 import os
 
+class Config:
+    DEFAULT_MONGODB_CONNECTION_STRING = "mongodb://localhost:27017/"
 
 def try_get(object, key):
     """Tries to get the value of a key in an object, and politely notifies you if it cannot find it."""
