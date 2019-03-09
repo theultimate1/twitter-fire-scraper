@@ -1,8 +1,52 @@
 import colorama
+from pymongo.database import Database
+from pymongo.errors import DuplicateKeyError
 from tweepy import Status
-from typing import Dict, Set
+from typing import Dict, Set, List
 
 from models import Point
+
+
+def dict_from_status(status):
+    # type: (Status) -> dict
+    """
+
+    :param status: A Status object.
+    :return: An object ready to be saved into a MongoDB database.
+    """
+
+    obj = status._json # type: dict
+
+    obj['_id'] = status.id
+
+    return obj
+
+
+def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=False):
+    # type: (Dict[str, Set[Status]], Database, bool) -> None
+    """
+    This is a utility function that saves a Dict[str, Set[Status]] to a MongoDB database.
+
+    It saves each Status to a collection of the same name as the dictionary key
+
+    :param status_dict: A dict of {"category": {Status, Status, Status}, ...} objects.
+    :param mongodb: A MongoDB Database object.
+    """
+
+    for category, statuses in status_dict.items():
+        for status in statuses:  # type: Status
+
+            # Create a dict from the status
+            obj = dict_from_status(status)
+
+            try:
+                # Attempt to insert a status.
+                mongodb[category].insert_one(obj)
+            # If the status already exists,
+            except DuplicateKeyError as e:
+                # Error silently and continue (or print and continue)
+                if print_on_duplicates: print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
+                pass
 
 
 def status_to_url(status):
@@ -35,7 +79,7 @@ def flatten_status_dict(status_dict):
 
 
 def geobox_from_points(points):
-    # type: (list[Point]) -> list[float]
+    # type: (List[Point]) -> List[float]
     """Given a list of points, flatten them starting from y and going to x.
 
     This function exists because for some reason Tweepy/Twitter API likes to
@@ -55,7 +99,7 @@ def geobox_from_points(points):
 
 
 def flatten_points(points):
-    # type: (list[Point]) -> list[float]
+    # type: (List[Point]) -> List[float]
     """Given a list of points, flatten them starting from x and going to y.
 
     Example:
@@ -73,7 +117,7 @@ def flatten_points(points):
 
 
 def geobox_to_geocode(geobox, radius):
-    # type: (list[Point, Point], str) -> str
+    # type: (List[Point, Point], str) -> str
     """Given a geobox and a radius, return a valid Twitter geocode consisting of a point and radius."""
     midpoint = geobox[0].midpoint(geobox[1])
 
