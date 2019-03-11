@@ -134,29 +134,6 @@ You can execute `python -m pipenv run python fire-scraper/tests/<TESTNAME>.py` t
 To run all tests, execute `python -m pipenv run python fire-scraper/tests/test/__init__.py`
 and all tests will run.
 
-# Generating/uploading distribution archives
-
-If you want to distribute this source code as a Python Wheel, follow
-[this guide](https://packaging.python.org/tutorials/packaging-projects/).
-
-There are a series of [Ruby](https://www.ruby-lang.org/en/) scripts (cross-platform!) that handle building, cleaning, uploading.
-
-## Building
-
-    ruby build.rb
-
-## Cleaning
-
-    ruby clean.rb
-
-## Uploading
-
-    ruby upload.rb
-
-## Testing download and install
-
-    TODO
-
 # What was this adapted from?
 
 A movie sentiment analysis project by [Raul](https://github.com/raaraa/), the
@@ -198,3 +175,27 @@ Select `Existing environment` and click the three dots to the right. Copy your p
 then OK everything.
 
 There! Done! Now we can run our tests from inside our IDE.
+
+# Generating/uploading distribution archives
+
+If you want to distribute this source code as a Python Wheel, follow
+[this guide](https://packaging.python.org/tutorials/packaging-projects/).
+
+There are a series of [Ruby](https://www.ruby-lang.org/en/) scripts (cross-platform!) that handle building, cleaning, uploading.
+
+## Building
+
+    ruby build.rb
+
+## Cleaning
+
+    ruby clean.rb
+
+## Uploading
+
+    ruby upload.rb
+
+## Testing download and install
+
+    TODO
+
