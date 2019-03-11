@@ -1,3 +1,5 @@
+# This is a command-line tool to assist in uploading a Python package.
+
 require 'optparse'
 
 require './detect-python'
