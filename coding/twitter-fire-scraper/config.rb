@@ -9,9 +9,14 @@ class Config
     detect_python_exe
   end
 
+  # Folder that the config file resides in.
+  def root_folder
+    File.dirname(__FILE__)
+  end
+
   # Folder to hold temporary files.
   def temp_folder
-    File.absolute_path(File.join(File.dirname(__FILE__), "tmp"))
+    File.absolute_path(File.join(self.root_folder, "tmp"))
   end
 
   # Folder to hold the virtual environment.
@@ -42,5 +47,45 @@ class Config
 
     venv_python_bin
 
+  end
+
+  # Venv python binary.
+  def virtual_python_exe
+    File.join(self.venv_folder_bin, "python")
+  end
+
+  # Set up a clean virtual environment.
+  def setup_venv
+
+    # Create virtual environment to download test package
+    puts "Creating virtual environment..."
+    system("#{self.python_exe} -m virtualenv #{self.venv_folder}")
+
+    # Path to venv Python executable.
+    virtual_python_exe = File.join(self.venv_folder_bin, "python")
+
+    # Print venv Python version for sanity.
+    puts "Python version: "
+    system("#{virtual_python_exe} -V")
+    puts ""
+
+    nil
+
+  end
+
+  # Ensure temp folder is clean.
+  def clean_temp
+
+    # Remove temp folder if exists
+    if File.directory?(self.temp_folder)
+      puts("DEL #{self.temp_folder}")
+      FileUtils.remove_dir(self.temp_folder)
+    end
+
+    # Make temp folder
+    FileUtils.mkdir(self.temp_folder)
+    puts ("MKDIR #{self.temp_folder}")
+
+    nil
   end
 end
