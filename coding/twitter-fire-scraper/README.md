@@ -193,9 +193,15 @@ There are a series of [Ruby](https://www.ruby-lang.org/en/) scripts (cross-platf
 
 ## Uploading
 
-    ruby upload.rb
+### To the test site (test.pypi.org)
+
+    ruby upload.rb --test
+
+### To the real site (pypi.org)
+
+    ruby upload.rb --deploy
 
 ## Testing download and install
 
-    TODO
+    TODO: ruby test-download.rb
 
