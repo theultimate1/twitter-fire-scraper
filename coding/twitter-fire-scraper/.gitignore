@@ -1,1 +1,10 @@
+# Compiled python bytecode cache
 cache/ 
+
+# Python build artifacts
+*.egg-info/
+build/
+dist/
+
+# Ruby crust
+mkmf.log

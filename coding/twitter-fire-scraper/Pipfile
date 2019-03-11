@@ -22,6 +22,9 @@ colorama = "*"
 pymongo = "*"
 typing = "*"
 pyyaml = "*"
+twine = "*"
+wheel = "*"
+setuptools = "*"
 
 [dev-packages]
 
