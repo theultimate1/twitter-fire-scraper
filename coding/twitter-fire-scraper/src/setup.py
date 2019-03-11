@@ -17,6 +17,26 @@ setuptools.setup(
     url="https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/coding/twitter-fire-scraper",
 
     packages=setuptools.find_packages(),
+    install_requires=[
+        "click",
+        "itsdangerous",
+        "nltk",
+        "oauthlib",
+        "requests",
+        "requests-oauthlib",
+        "six",
+        "textblob",
+        "tweepy",
+        "Flask",
+        "Jinja2",
+        "MarkupSafe",
+        "Werkzeug",
+        "tmdbsimple",
+        "colorama",
+        "pymongo",
+        "typing",
+        "pyyaml",
+    ],
 
     classifiers=[
         "Programming Language :: Python :: 2",
