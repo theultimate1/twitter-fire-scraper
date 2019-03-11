@@ -28,9 +28,11 @@ system("#{config.python_exe} -m virtualenv #{config.venv_folder}")
 virtual_python_exe = File.join(config.venv_folder_bin, "python")
 
 # Print venv Python version for sanity.
+puts "Python version: "
 system("#{virtual_python_exe} -V")
 
 # Install test package.
-system("#{virtual_python_exe} -m pip install -i https://test.pypi.org/simple/ twitter-fire-scraper")
+system("#{virtual_python_exe} -m pip install -i https://test.pypi.org/simple/ #{config.app_name}")
 
-# TODO run tests now that it's installed!
+# Invoke __main__ of automated tests module
+system("#{virtual_python_exe} -m twitter-fire-scraper.tests.test")

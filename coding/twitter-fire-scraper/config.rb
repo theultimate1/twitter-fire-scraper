@@ -1,5 +1,10 @@
 # Configuration class that stores variables, paths, etc.
 class Config
+
+  def app_name
+    'twitter-fire-scraper'
+  end
+
   def python_exe
     detect_python_exe
   end
