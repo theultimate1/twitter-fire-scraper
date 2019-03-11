@@ -1,7 +1,8 @@
 require './detect-python'
 
-python_exe = detect_python_exe
+require './config'
+config = Config.new
 
 Dir.chdir("src")
 
-system("#{python_exe} setup.py sdist bdist_wheel")
+system("#{config.python_exe} setup.py sdist bdist_wheel")
