@@ -2,7 +2,7 @@ require 'mkmf'
 require 'open3'
 
 
-def detect_python2_exe(verbose = nil)
+def detect_python_exe(verbose = nil, version="2")
 
 # If `python` exists,
   if find_executable('python')
@@ -10,18 +10,18 @@ def detect_python2_exe(verbose = nil)
     stdout, stderr, status = Open3.capture3("python -V")
     python_version_info = stdout + stderr
 
-    # If `python` refers to Python 2,
-    if python_version_info =~ /Python 2/i
+    # If `python` refers to Python X,
+    if python_version_info =~ /Python #{version}/i
 
       if verbose
-        puts "`python` refers to Python 2!"
+        puts "`python` refers to Python #{version}!"
       end
 
       return 'python'
     else # `python` does NOT refer to Python 2. Check for `python2` command.
 
       if verbose
-        puts "`python` exists but doesn't refer to Python 2."
+        puts "`python` exists but doesn't refer to Python #{version}."
       end
 
     end
@@ -32,28 +32,28 @@ def detect_python2_exe(verbose = nil)
 
 
   # If `python2` exists,
-  if find_executable('python2')
+  if find_executable("python#{version}")
 
-    stdout, stderr, status = Open3.capture3("python2 -V")
+    stdout, stderr, status = Open3.capture3("python#{version} -V")
     python_version_info = stdout + stderr
 
-    if python_version_info =~ /Python 2/i
+    if python_version_info =~ /Python #{version}/i
 
       if verbose
-        puts "`python2` refers to Python 2!"
+        puts "`python#{version}` refers to Python 2!"
       end
 
-      return "python2"
+      return "python#{version}"
     else
-      puts "`python2` command somehow doesn't refer to Python 2..."
+      puts "`python#{version}` command somehow doesn't refer to Python 2..."
       puts "Version info: #{python_version_info}"
     end
 
   else
-    puts "`python2` command doesn't exist"
+    puts "`python#{version}` command doesn't exist"
   end
 
-  puts "Python 2 detection failed!"
+  puts "Python #{version} detection failed!"
 
   nil
 

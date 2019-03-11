@@ -4,7 +4,7 @@ require 'optparse'
 
 require './detect-python'
 
-python_exe = detect_python2_exe
+python_exe = detect_python_exe
 dist_dir = "src/dist/*"
 
 # Handle parsing command line arguments

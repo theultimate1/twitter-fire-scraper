@@ -1,6 +1,6 @@
 require './detect-python'
 
-python_exe = detect_python2_exe
+python_exe = detect_python_exe
 
 Dir.chdir("src")
 
