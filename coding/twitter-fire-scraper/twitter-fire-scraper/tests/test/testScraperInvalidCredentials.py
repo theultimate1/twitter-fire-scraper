@@ -23,15 +23,13 @@ class TestInvalidCredentials(unittest.TestCase):
 
         terms = {"#pizza", "pizza", 'cat', '#cat'}
 
+        failure = False
+
         try:
             results = scraper.scrape_terms(terms=terms, count=3)
         except TweepError as e:
-            print("Failed with bogus credentials.")
-            exit(0)
+            print("Failed successfully with bogus credentials.")
+            failure = True
 
-        raise Exception("Credentials should fail to validate.")
-
-        results = flatten_status_dict(results)
-
-        print("{} on all of twitter:".format(", ".join(terms)))
-        pprint(results)
+        if not failure:
+            raise Exception("Credentials should fail to validate.")
