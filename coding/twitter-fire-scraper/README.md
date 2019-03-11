@@ -16,6 +16,16 @@ used to understand house fires in Chicago.
 
 # How do I run this?
 
+## Dependencies
+
+- [Python 2.7.9 or greater](https://www.python.org/downloads/release/python-2713/)
+- [MongoDB](https://www.mongodb.com/)
+
+## Developer dependencies
+
+- Same as above.
+- [Ruby](https://www.ruby-lang.org/en/)
+
 ## Notes
 
 This README assumes all commands take place in the same folder as this README file.
@@ -64,16 +74,6 @@ For the database, we have chosen to use MongoDB since twitter data is stored in
 JSON and MongoDB is very well-suited for storing JSON data.
 
 Follow [this tutorial](https://docs.mongodb.com/v3.2/tutorial/) on how to install MongoDB.
-
-## Installing Python
-
-This runs Python 2.7.9 or above, so [install Python 2.7.13](https://www.python.org/downloads/release/python-2713/)
-
-I used Pipenv, a Python dependency manager, to track and manage the packages
-installed.
-
-This is so everyone else can reproduce the Python environment I have on my
-laptop/desktop.
 
 ### Setting up Pipenv
 
