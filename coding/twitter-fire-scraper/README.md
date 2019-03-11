@@ -87,11 +87,11 @@ You can then install all packages in this folder's `./Pipenv` by executing
     
 Then, you can run the app by executing
 
-    python -m pipenv run python app.py
+    python -m pipenv run python /src/twitter-fire-scraper/app.py
     
 or run tests by executing
 
-    python -m pipenv run python tests/<TESTNAME>.py
+    python -m pipenv run python /src/twitter-fire-scraper/tests/<TESTNAME>.py
 
 #### Troubleshooting Python2/3 issues
 
