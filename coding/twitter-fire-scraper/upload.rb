@@ -48,6 +48,7 @@ elsif options[:deploy]
 
   puts "Hold on! You're about to upload a package that ANYONE can install with `pip install`! "
   puts "Are you sure? (yes/no)"
+  print " > "; STDOUT.flush
 
   input = nil
   while (input != "yes") do
@@ -60,6 +61,7 @@ elsif options[:deploy]
 
     if input != "yes"
       puts "Enter 'yes' or 'no'."
+      print " > "; STDOUT.flush
     end
 
   end
