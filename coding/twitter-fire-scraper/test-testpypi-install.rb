@@ -20,7 +20,7 @@ config.clean_temp
 config.setup_venv
 
 # Install test package from test.pypi.org
-system("#{virtual_python_exe} -m pip install -i https://test.pypi.org/simple/ #{config.app_name}")
+system("#{config.virtual_python_exe} -m pip install -i https://test.pypi.org/simple/ #{config.app_name}")
 
 # Invoke __main__ of automated tests module
-system("#{virtual_python_exe} -m twitter-fire-scraper.tests.test")
+system("#{config.virtual_python_exe} -m twitter-fire-scraper.tests.test")
