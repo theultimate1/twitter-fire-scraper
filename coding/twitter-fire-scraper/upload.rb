@@ -5,6 +5,7 @@ require 'optparse'
 require './detect-python'
 
 python_exe = detect_python2_exe
+dist_dir = "src/dist/*"
 
 # Handle parsing command line arguments
 options = {}
@@ -39,7 +40,7 @@ puts("I'm not malicious, but can you prove it? ;)")
 
 if options[:test]
   puts "Uploading `dist/*` to TEST PyPI package repository."
-  system("#{python_exe} -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*")
+  system("#{python_exe} -m twine upload --repository-url https://test.pypi.org/legacy/ #{dist_dir}")
 elsif options[:deploy]
   puts "Uploading `dist/` to REAL PyPI package repository."
 
@@ -61,5 +62,5 @@ elsif options[:deploy]
 
   end
 
-  system("#{python_exe} -m twine upload dist/*")
+  system("#{python_exe} -m twine upload #{dist_dir}")
 end

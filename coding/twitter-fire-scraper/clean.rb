@@ -1,10 +1,13 @@
 require 'fileutils'
 
-destroy_em = ['build/', 'dist/']
+folders_to_remove = %w(
+src/build/
+src/dist/
+)
 
-for dir in destroy_em do
+folders_to_remove.each {|dir|
   if File.directory?(dir)
     puts "DEL #{dir}/*"
     FileUtils.remove_dir(dir)
   end
-end
+}

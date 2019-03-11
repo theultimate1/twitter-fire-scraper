@@ -4,6 +4,8 @@ This file runs a demo of the Twitter fire scraper functionality for presentation
 
 [console]::TreatControlCAsInput = $true # Stop CTRL-C from killing our script.
 
+$TwitterScraperPath = "src/twitter-fire-scraper"
+
 Function Trace-Word #from <http://ridicurious.com/2018/03/14/highlight-words-in-powershell-console/>
 {
     #Trace-Word -content (Get-Content iis.log) -words "IIS", 's', "exe", "10", 'system'
@@ -189,15 +191,15 @@ while ($userInput -notlike "q")
     }
     elseif($userInput -like "1")
     {
-        Invoke-Expression($PipenvRunCommand + " twitter-fire-scraper/tests/interactive/testAllTwitterFire.py") | Trace-Word -words "fire"
+        Invoke-Expression($PipenvRunCommand + " " + $TwitterScraperPath + "/tests/interactive/testAllTwitterFire.py") | Trace-Word -words "fire"
     }
     elseif($userInput -like "2")
     {
-        Invoke-Expression($PipenvRunCommand + " twitter-fire-scraper/tests/interactive/testListenGeoFires.py")
+        Invoke-Expression($PipenvRunCommand + " " + $TwitterScraperPath + "/tests/interactive/testListenGeoFires.py")
     }
     elseif($userInput -like "3")
     {
-        Invoke-Expression($PipenvRunCommand + " twitter-fire-scraper/tests/interactive/testScrapeChicagoFireHashtags.py" + " --maxtweets=10")
+        Invoke-Expression($PipenvRunCommand + " " + $TwitterScraperPath + "/tests/interactive/testScrapeChicagoFireHashtags.py" + " --maxtweets=10")
     }
 
     Write-Host("q) Quits program.")
