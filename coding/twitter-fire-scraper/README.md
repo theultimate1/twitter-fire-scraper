@@ -129,9 +129,9 @@ Inside this folder, there are two files called `Run-Demo.bat` and
 
 # Running tests
 
-You can execute `python -m pipenv run python tests/<TESTNAME>.py` to run a test.
+You can execute `python -m pipenv run python fire-scraper/tests/<TESTNAME>.py` to run a test.
 
-To run all tests, execute `python -m pipenv run python tests/test/__init__.py`
+To run all tests, execute `python -m pipenv run python fire-scraper/tests/test/__init__.py`
 and all tests will run.
 
 # What was this adapted from?
