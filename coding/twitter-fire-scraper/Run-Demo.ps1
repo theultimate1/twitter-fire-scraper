@@ -189,15 +189,15 @@ while ($userInput -notlike "q")
     }
     elseif($userInput -like "1")
     {
-        Invoke-Expression($PipenvRunCommand + " fire-scraper/tests/interactive/testAllTwitterFire.py") | Trace-Word -words "fire"
+        Invoke-Expression($PipenvRunCommand + " twitter-fire-scraper/tests/interactive/testAllTwitterFire.py") | Trace-Word -words "fire"
     }
     elseif($userInput -like "2")
     {
-        Invoke-Expression($PipenvRunCommand + " fire-scraper/tests/interactive/testListenGeoFires.py")
+        Invoke-Expression($PipenvRunCommand + " twitter-fire-scraper/tests/interactive/testListenGeoFires.py")
     }
     elseif($userInput -like "3")
     {
-        Invoke-Expression($PipenvRunCommand + " fire-scraper/tests/interactive/testScrapeChicagoFireHashtags.py" + " --maxtweets=10")
+        Invoke-Expression($PipenvRunCommand + " twitter-fire-scraper/tests/interactive/testScrapeChicagoFireHashtags.py" + " --maxtweets=10")
     }
 
     Write-Host("q) Quits program.")
