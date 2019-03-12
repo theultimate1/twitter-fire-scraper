@@ -54,7 +54,6 @@ def detect_python_exe(verbose = nil, version="2")
   end
 
   puts "Python #{version} detection failed!"
-
-  nil
+  exit(1)
 
 end
