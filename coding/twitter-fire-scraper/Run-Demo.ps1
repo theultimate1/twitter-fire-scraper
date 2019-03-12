@@ -4,7 +4,7 @@ This file runs a demo of the Twitter fire scraper functionality for presentation
 
 [console]::TreatControlCAsInput = $true # Stop CTRL-C from killing our script.
 
-$TwitterScraperPath = "src/twitter-fire-scraper"
+$TwitterScraperPath = "src/twitter_fire_scraper"
 
 Function Trace-Word #from <http://ridicurious.com/2018/03/14/highlight-words-in-powershell-console/>
 {
