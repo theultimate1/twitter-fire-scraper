@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/twitter-fire-scraper.svg)](https://badge.fury.io/py/twitter-fire-scraper)
+
 # What is this?
 
 This is a Python Twitter "Fire event" scraper/listener.
