@@ -1,5 +1,5 @@
 """
-This is a suite of test tests, meant to be run on various quantifiable parts of this project to ensure they work as
+This is a suite of automated tests, meant to be run on various quantifiable parts of this project to ensure they work as
 intended.
 """
 import os
