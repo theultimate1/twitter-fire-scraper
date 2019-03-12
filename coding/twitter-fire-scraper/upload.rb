@@ -40,6 +40,9 @@ end
 puts("I'd inspect this script if I were you, before typing in your credentials. ")
 puts("I'm not malicious, but can you prove it? ;)")
 
+# Install deps, assume nothing about their installation.
+system("#{config.python_exe} -m pip install twine")
+
 if options[:test]
   puts "Uploading `dist/*` to TEST PyPI package repository."
   system("#{config.python_exe} -m twine upload --repository-url https://test.pypi.org/legacy/ #{dist_dir}")
