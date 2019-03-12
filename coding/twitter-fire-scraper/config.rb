@@ -2,7 +2,7 @@
 class Config
 
   def app_name
-    'twitter-fire-scraper'
+    'twitter_fire_scraper'
   end
 
   def python_exe
@@ -80,7 +80,7 @@ class Config
   def run_venv_dist_tests
 
     # Invoke __main__ of automated tests module
-    system("#{self.virtual_python_exe} -m twitter-fire-scraper.tests.test")
+    system("#{self.virtual_python_exe} -m #{self.app_name}.tests.test")
 
   end
 
