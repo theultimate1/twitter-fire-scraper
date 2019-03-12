@@ -25,6 +25,7 @@ pyyaml = "*"
 twine = "*"
 wheel = "*"
 setuptools = "*"
+twitter-fire-scraper = "*"
 
 [dev-packages]
 
