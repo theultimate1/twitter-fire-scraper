@@ -5,7 +5,7 @@ with open("../README.md", 'r') as f:
 
 setuptools.setup(
     name="twitter-fire-scraper",
-    version="0.0.5",
+    version="0.0.6",
 
     author="Henry Post",
     author_email="HenryFBP@gmail.com",
@@ -39,7 +39,8 @@ setuptools.setup(
     ],
 
     classifiers=[
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2 :: Only",
+        "Programming Language :: Python :: 2.7",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Operating System :: OS Independent",
     ],
