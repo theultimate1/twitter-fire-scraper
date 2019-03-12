@@ -76,6 +76,14 @@ class Config
 
   end
 
+  # Run tests on our virtualenv, assuming our project (twitter-fire-scraper) is installed.
+  def run_venv_dist_tests
+
+    # Invoke __main__ of automated tests module
+    system("#{self.virtual_python_exe} -m twitter-fire-scraper.tests.test")
+
+  end
+
   # Ensure temp folder is clean.
   def clean_temp
 

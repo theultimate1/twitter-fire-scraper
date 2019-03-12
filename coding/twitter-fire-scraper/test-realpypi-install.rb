@@ -18,5 +18,5 @@ config.setup_venv
 # Install test package from test.pypi.org
 system("#{config.virtual_python_exe} -m pip --no-cache-dir install #{config.app_name}")
 
-# Invoke __main__ of automated tests module
-system("#{config.virtual_python_exe} -m twitter-fire-scraper.tests.test")
+# Run tests on our virtualenv that has our package installed.
+config.run_venv_dist_tests

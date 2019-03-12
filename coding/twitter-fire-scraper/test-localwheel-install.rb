@@ -43,5 +43,5 @@ puts "Installing #{wheels[0]}."
 # Install test package from WHL file
 system("#{config.virtual_python_exe} -m pip install #{wheels[0]}")
 
-# Invoke __main__ of automated tests module
-  system("#{config.virtual_python_exe} -m twitter-fire-scraper.tests.test")
+# Run tests on our virtualenv that has our package installed.
+config.run_venv_dist_tests
