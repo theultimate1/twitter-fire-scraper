@@ -13,7 +13,7 @@ dist_dir = "src/dist/*"
 options = {}
 OptionParser.new do |opts|
 
-  opts.banner = "Usage: #{$0} [options]"
+  opts.banner = "Usage: #{File.basename(__FILE__)} [options]"
 
   opts.on('-t', '--test', "Deploy to test PyPI site (test.pypi.org)") do |value|
     options[:test] = value
@@ -33,7 +33,7 @@ end
 # Neither true?
 if not options[:test] and not options[:deploy]
   puts("Choose whether to upload package to test PyPI or real PyPI.")
-  puts("Run `#{$0} --help` for help.")
+  puts("Run `#{File.basename(__FILE__)} --help` for help.")
   exit(1)
 end
 
