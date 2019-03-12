@@ -14,12 +14,16 @@ for an Illinois Institute of Technology Interprofessional Project class.
 This data collected will not be sold or marketed at all and is only going to be
 used to understand house fires in Chicago.
 
-# How do I run this?
+# How do I install this?
 
 ## Dependencies
 
 - [Python 2.7.9 or greater](https://www.python.org/downloads/)
 - [MongoDB](https://www.mongodb.com/)
+
+## Steps
+
+    pip install twitter-fire-scraper
 
 ## Notes
 
@@ -27,7 +31,7 @@ This README assumes all commands take place in the same folder as this README fi
 
 ## Examples
 
-Examples can be found in [this examples folder](src/python_example_code) and also in [our internal test suites](src/twitter_fire_scraper/tests/interactive).
+Examples of how to use this package can be found in [this examples folder](src/python_example_code) and also in [our internal test suites](src/twitter_fire_scraper/tests/interactive).
 
 These should give you a good idea of how to use our scraper, and can be considered a 'living standard' of how our code works.
 
