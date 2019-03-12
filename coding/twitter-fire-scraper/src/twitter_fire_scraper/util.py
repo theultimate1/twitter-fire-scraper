@@ -1,3 +1,4 @@
+from __future__ import print_function
 import colorama
 from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
@@ -15,7 +16,7 @@ def dict_from_status(status):
     :return: An object ready to be saved into a MongoDB database.
     """
 
-    obj = status._json # type: dict
+    obj = status._json  # type: dict
 
     obj['_id'] = status.id
 
@@ -45,7 +46,8 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
             # If the status already exists,
             except DuplicateKeyError as e:
                 # Error silently and continue (or print and continue)
-                if print_on_duplicates: print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
+                if print_on_duplicates: print(
+                    "Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
                 pass
 
 
@@ -53,6 +55,14 @@ def status_to_url(status):
     # type: (Status) -> str
     """Given a Status, return that status' url."""
     return "https://www.twitter.com/statuses/{id}".format(id=status.id)
+
+
+def pretty_print_statuses(statuses):
+    # type: (Set[Status]) -> None
+    for status in statuses:
+        print("<{}>".format(status_to_url(status)))
+        print(status.text)
+        print()
 
 
 def flatten_status_dict(status_dict):
@@ -141,8 +151,8 @@ def strtobool(v):
 
 def colorama_reset():
     # type: () -> None
-    print colorama.Fore.WHITE,
-    print colorama.Back.BLACK,
+    print(colorama.Fore.WHITE, end='')
+    print(colorama.Back.BLACK, end='')
 
 
 def colorama_highlight_red(text, keyword=None):
