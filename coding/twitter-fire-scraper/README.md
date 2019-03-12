@@ -18,7 +18,7 @@ used to understand house fires in Chicago.
 
 ## Dependencies
 
-- [Python 2.7.9 or greater](https://www.python.org/downloads/release/python-2713/)
+- [Python 2.7.9 or greater](https://www.python.org/downloads/)
 - [MongoDB](https://www.mongodb.com/)
 
 ## Developer dependencies
