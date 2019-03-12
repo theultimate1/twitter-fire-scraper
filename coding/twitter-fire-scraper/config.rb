@@ -57,6 +57,9 @@ class Config
   # Set up a clean virtual environment.
   def setup_venv
 
+    puts "Ensuring deps are satisfied for virtual environments..."
+    system("#{self.python_exe} -m pip install virtualenv")
+
     # Create virtual environment to download test package
     puts "Creating virtual environment..."
     system("#{self.python_exe} -m virtualenv #{self.venv_folder}")
