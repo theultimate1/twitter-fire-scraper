@@ -5,7 +5,7 @@ with open("../README.md", 'r') as f:
 
 setuptools.setup(
     name="twitter-fire-scraper",
-    version="0.0.6",
+    version="0.0.7",
 
     author="Henry Post",
     author_email="HenryFBP@gmail.com",
@@ -15,6 +15,13 @@ setuptools.setup(
     long_description_content_type="text/markdown",
 
     url="https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/coding/twitter-fire-scraper",
+
+    package_data = {
+        b'twitter-fire-scraper': [
+            'data/*.yml',
+            'templates/*.html'
+        ]
+    },
 
     packages=setuptools.find_packages(),
     install_requires=[
