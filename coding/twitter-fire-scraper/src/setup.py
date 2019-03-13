@@ -3,9 +3,12 @@ import setuptools
 with open("../README.md", 'r') as f:
     long_description = f.read()
 
+with open("VERSION", 'r') as f:
+    version = f.read()
+    
 setuptools.setup(
     name="twitter-fire-scraper",
-    version="0.0.10",
+    version=version,
 
     author="Henry Post",
     author_email="HenryFBP@gmail.com",
