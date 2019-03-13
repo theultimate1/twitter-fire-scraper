@@ -1,3 +1,9 @@
+# This Pipfile is for development requirements, NOT requirements to run the package.
+#
+# It also contains Jupyter to run the Jupyter notebook files.
+#
+# In other words, install this if you want to be a contributor and help program this package.
+
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -25,7 +31,9 @@ pyyaml = "*"
 twine = "*"
 wheel = "*"
 setuptools = "*"
-#twitter-fire-scraper = "*"
+twitter-fire-scraper = "*"
+jupyter = "*"
+notebook = "==5.7.5"
 
 [dev-packages]
 
