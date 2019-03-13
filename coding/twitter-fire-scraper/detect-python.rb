@@ -2,7 +2,7 @@ require 'mkmf'
 require 'open3'
 
 
-def detect_python_exe(verbose = nil, version="2")
+def detect_python_exe(verbose = nil, version=nil)
 
 # If `python` exists,
   if find_executable('python')

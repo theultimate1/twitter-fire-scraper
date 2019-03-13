@@ -123,35 +123,35 @@ Function Trace-Word #from <http://ridicurious.com/2018/03/14/highlight-words-in-
 
 
 
-function detectPython2()
+function detectPython3()
 {
-    # Detects Python2 command.
+    # Detects Python3 command.
 
     $PythonCommand = "python"
     $PythonVersion = cmd /c ($PythonCommand + " -V") '2>&1' | Out-String
 
-    if ( $PythonVersion.Contains("Python 2"))
+    if ( $PythonVersion.Contains("Python 3"))
     {
 
-        Write-Output("Python 2 detected via ``python`` command.")
+        Write-Output("Python 3 detected via ``python`` command.")
 
     }
-    elseif(Get-Command "python2" -ErrorAction SilentlyContinue)
+    elseif(Get-Command "python3" -ErrorAction SilentlyContinue)
     {
-        # `python` is not Py2,
+        # `python` is not Py3,
 
-        $PythonCommand = "python2";
-        Write-Output("Python 2 detected via ``python2`` command.")
+        $PythonCommand = "python3";
+        Write-Output("Python 3 detected via ``python2`` command.")
     }
     else
     {
-        # `python2` does not exist.
+        # `python3` does not exist.
 
-        Write-Output("``python`` refers to Python 3 and ``python2`` does not exist.`n")
+        Write-Output("``python`` doesn't refer to Python 3 and ``python3`` does not exist.`n")
 
-        Write-Output("Consider putting Python 2 on the PATH environment variable (order matters),")
+        Write-Output("Consider putting Python 3 on the PATH environment variable (order matters),")
 
-        Write-Output("or make a ``python2.exe`` executable available in a folder that is on the PATH.`n")
+        Write-Output("or make a ``python3.exe`` executable available in a folder that is on the PATH.`n")
 
         Write-Output("Running ``where python``")
 
@@ -168,7 +168,7 @@ function detectPython2()
 }
 
 
-$PythonCommand = (detectPython2)[-1] # Detect Python 2 installation.
+$PythonCommand = (detectPython3)[-1] # Detect Python 3 installation.
 
 $PipenvCommand = $PythonCommand + " -m pipenv"
 

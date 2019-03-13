@@ -5,7 +5,7 @@ with open("../README.md", 'r') as f:
 
 with open("VERSION", 'r') as f:
     version = f.read()
-    
+
 setuptools.setup(
     name="twitter-fire-scraper",
     version=version,
@@ -20,7 +20,7 @@ setuptools.setup(
     url="https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/coding/twitter-fire-scraper",
 
     package_data = {
-        b'twitter-fire-scraper': [
+        'twitter-fire-scraper': [
             'data/*.yml',
             'templates/*.html'
         ]
@@ -49,8 +49,7 @@ setuptools.setup(
     ],
 
     classifiers=[
-        "Programming Language :: Python :: 2 :: Only",
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Operating System :: OS Independent",
     ],

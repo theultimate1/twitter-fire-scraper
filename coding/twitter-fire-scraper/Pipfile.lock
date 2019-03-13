@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6b07cc0bedd03405f536747bf76855565d7e66db8ffa5c700c02ad6bc0906c0e"
+            "sha256": "059e01fdf8f86db000ef4b1e529508fc41aa1e7b196c10ab08141247b23e9307"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "2.7"
+            "python_version": "3"
         },
         "sources": [
             {
@@ -302,13 +302,6 @@
             "index": "pypi",
             "version": "==1.13.0"
         },
-        "twitter-fire-scraper": {
-            "hashes": [
-                "sha256:621303818034e7369436e7f125897b426162fd258afabfb7dee3f9ff19dfe8e7"
-            ],
-            "index": "pypi",
-            "version": "==0.0.10"
-        },
         "typing": {
             "hashes": [
                 "sha256:4027c5f6127a6267a435201981ba156de91ad0d1d98e9ddc2aa173453453492d",
@@ -347,13 +340,6 @@
             ],
             "index": "pypi",
             "version": "==0.33.1"
-        },
-        "win-inet-pton": {
-            "hashes": [
-                "sha256:dd03d942c0d3e2b1cf8bab511844546dfa5f74cb61b241699fa379ad707dea4f",
-                "sha256:eaf0193cbe7152ac313598a0da7313fb479f769343c0c16c5308f64887dc885b"
-            ],
-            "version": "==1.1.0"
         }
     },
     "develop": {}

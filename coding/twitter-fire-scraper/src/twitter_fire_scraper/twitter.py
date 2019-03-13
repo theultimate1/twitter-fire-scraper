@@ -95,7 +95,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         :return: Whether or not the status is relevant.
         """
 
-        text = status.text.encode("UTF-8")
+        text = status.text
 
         if 'fire' in text:
             print("Relevant:")

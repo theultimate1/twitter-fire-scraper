@@ -6,7 +6,7 @@ class Config
   end
 
   def python_exe
-    detect_python_exe
+    detect_python_exe(version: "3")
   end
 
   # Folder that the config file resides in.
