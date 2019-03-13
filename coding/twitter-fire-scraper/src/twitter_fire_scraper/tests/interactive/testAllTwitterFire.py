@@ -16,4 +16,6 @@ if __name__ == "__main__":
     api = tweepy.API(twauth.oauth_handler)
 
     print("Just searching for 'fire'... Probably not going to get us Chicago fire incidents.")
-    pprint([(status.text,) for status in api.search("fire")])
+
+    for status in api.search("fire"):
+        print(status.text)
