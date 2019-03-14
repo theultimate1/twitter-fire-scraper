@@ -24,6 +24,9 @@ class Scraper():
         # Default amount of tweets to retrieve.
         self.default_count = 10
 
+        # Default accounts to scrape.
+        # self.accounts = accounts in data/TwitterAccounts.yml
+
     def scrape_terms(self, terms, count=None, geocode=None):
         # type: (Scraper, Set[str], int, str) -> Dict[str, List[Status]]
         """
@@ -70,10 +73,22 @@ class Scraper():
         :param count: Maximum tweets to return per account.
         :return: A dictionary containing {'@Dude123': List[Status]} pairs.
         """
-        return {
-            "@unfinished_dude": {"I am not implemented!", "Hooray! Unfinished!"},
-            "@unfinished_dude2": {"Still not done!"},
-        }
+
+        if not count:
+            count = self.default_count
+
+        results = {}
+
+        # accounts: list of 24 accounts
+        for each_account in accounts:   # each user
+            # return most recent statuses of the user
+            cursor = tweepy.Cursor(self.api.user_timeline, id=accounts)
+
+            # for each status of each user's account
+            for status in cursor.items(count):
+                results[each_account].add(status)
+
+        return results
 
     def scrape(self, terms=None, accounts=None, count=None, geocode=None):
         # type: (Scraper, Set[str], Set[str], int, str) -> Dict[str, List[Status]]
