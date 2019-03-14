@@ -1,7 +1,7 @@
 from tweepy import Status
 from typing import Dict, List, Set
 
-from twitter import TwitterAuthentication
+from twitter_fire_scraper.twitter import TwitterAuthentication
 import tweepy
 import os
 

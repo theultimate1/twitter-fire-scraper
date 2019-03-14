@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, render_template, jsonify, url_for
 
-flask_app = Flask(__name__, static_path="/static")
+flask_app = Flask(__name__, static_url_path="/static")
 
 
 @flask_app.route('/')

@@ -5,7 +5,7 @@ from pymongo.errors import DuplicateKeyError
 from tweepy import Status
 from typing import Dict, List
 
-from models import Point
+from twitter_fire_scraper.models import Point
 
 
 def dict_from_status(status):
