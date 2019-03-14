@@ -34,6 +34,8 @@ setuptools = "*"
 twitter-fire-scraper = "*"
 jupyter = "*"
 notebook = "==5.7.5"
+numpy = "*"
+matplotlib = "*"
 
 [dev-packages]
 
