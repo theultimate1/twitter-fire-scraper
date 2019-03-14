@@ -141,7 +141,7 @@ function detectPython3()
         # `python` is not Py3,
 
         $PythonCommand = "python3";
-        Write-Output("Python 3 detected via ``python2`` command.")
+        Write-Output("Python 3 detected via ``python3`` command.")
     }
     else
     {
@@ -206,7 +206,7 @@ while ($userInput -notlike "q")
     Write-Host("c) Clears the screen.")
     Write-Host("1) Search all of twitter for tweets containing 'fire'.")
     Write-Host("2) Listen for the word 'fire' in Chicago tweets for 60 seconds.")
-    Write-Host("3) Scrape Chicago tweets for various house fire-related keywords.")
+    Write-Host("3) Scrape Chicago tweets for various house fire-related keywords, and try to save them to a MongoDB database.")
 
     Write-Host(" > ") -NoNewLine
     $userInput = $Host.UI.ReadLine()
