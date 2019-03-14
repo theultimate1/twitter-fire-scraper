@@ -5,7 +5,8 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
-from models import Point
+from twitter_fire_scraper.config import Config
+from twitter_fire_scraper.models import Point
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
 
@@ -20,17 +21,17 @@ class TwitterAuthentication(object):
     """
 
     @staticmethod
-    def autodetect_twitter_auth():
-        # type: () -> TwitterAuthentication
+    def autodetect_twitter_auth(auth_filepath="~/secrets.json"):
+        # type: (str) -> TwitterAuthentication
         """
-        Attempts to autodetect_twitter_auth Twitter API keys from a file called 'secrets.json'.
+        Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
 
         Using this method is inadvisable and only exists to aid our test cases.
         """
         print("WARNING: API key autodetection is inadvisable.")
 
-        auth_filename = "secrets.json"
-        auth_filepath = os.path.abspath(os.path.expanduser(os.path.join("~", auth_filename)))
+        auth_filename = os.path.basename(auth_filepath)
+        auth_filepath = os.path.expanduser(auth_filepath)
 
         if not os.path.isfile(auth_filepath):
             print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
@@ -42,8 +43,6 @@ class TwitterAuthentication(object):
             raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
         else:  # Path to auth file exists.
             return TwitterAuthentication.from_json(auth_filepath)
-
-
 
     @staticmethod
     def from_json(filepath):
@@ -71,6 +70,7 @@ class TwitterAuthentication(object):
         )
 
     def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
+
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
         self.access_token = access_token
@@ -95,7 +95,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         :return: Whether or not the status is relevant.
         """
 
-        text = status.text.encode("UTF-8")
+        text = status.text
 
         if 'fire' in text:
             print("Relevant:")
@@ -134,7 +134,8 @@ class MongoDBStreamListener(tweepy.StreamListener):
 
         return False
 
-    def __init__(self, database_name="MongoDBStreamListener", database_connection_string="mongodb://localhost:27017/"):
+    def __init__(self, database_name="MongoDBStreamListener",
+                 database_connection_string=Config.DEFAULT_MONGODB_CONNECTION_STRING):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.

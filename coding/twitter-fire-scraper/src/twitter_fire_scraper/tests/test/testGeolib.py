@@ -1,7 +1,6 @@
 import unittest
 
 # noinspection PyUnresolvedReferences
-import __init__
 from models import Point
 from util import flatten_points, geobox_to_geocode
 

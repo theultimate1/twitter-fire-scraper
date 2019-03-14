@@ -2,6 +2,9 @@
 This file demonstrates the Scraper class' ability to scrape small amounts of tweets about a simple term or hashtag, like
 'pizza', '#pizza', 'cat', and '#cat'.
 """
+
+import __init__
+
 from pprint import pprint
 
 from scraper import Scraper
