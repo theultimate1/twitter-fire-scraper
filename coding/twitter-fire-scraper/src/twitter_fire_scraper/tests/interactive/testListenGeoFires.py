@@ -23,7 +23,7 @@ if __name__ == "__main__":
     simpleFireStream = tweepy.Stream(auth=api.auth, listener=simpleFireStreamListener)
 
     print("Streaming for 60 seconds.")
-    simpleFireStream.filter(locations=geobox_from_points(GEOBOX_CHICAGO), async=True)
+    simpleFireStream.filter(locations=geobox_from_points(GEOBOX_CHICAGO), is_async=True)
     try:
         time.sleep(60)
     except KeyboardInterrupt:

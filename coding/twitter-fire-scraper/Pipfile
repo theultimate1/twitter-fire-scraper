@@ -1,29 +1,43 @@
+# This Pipfile is for development requirements, NOT requirements to run the package.
+#
+# It also contains Jupyter to run the Jupyter notebook files.
+#
+# In other words, install this if you want to be a contributor and help program this package.
+
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
-click = "==6.6"
-itsdangerous = "==0.24"
-nltk = "==3.2.1"
-oauthlib = "==2.0.0"
-requests = "==2.11.1"
-requests-oauthlib = "==0.7.0"
-six = "==1.10.0"
-textblob = "==0.11.1"
-tweepy = "==3.5.0"
-Flask = "==0.11.1"
-Jinja2 = "==2.8"
-MarkupSafe = "==0.23"
-Werkzeug = "==0.11.11"
+click = "*"
+itsdangerous = "*"
+nltk = "*"
+oauthlib = "*"
+requests = "*"
+requests-oauthlib = "*"
+six = "*"
+textblob = "*"
+tweepy = "*"
+Flask = "*"
+Jinja2 = "*"
+MarkupSafe = "*"
+Werkzeug = "*"
 tmdbsimple = "*"
 colorama = "*"
 pymongo = "*"
 typing = "*"
 pyyaml = "*"
+twine = "*"
+wheel = "*"
+setuptools = "*"
+twitter-fire-scraper = "*"
+jupyter = "*"
+notebook = "==5.7.5"
+numpy = "*"
+matplotlib = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "2.7"
+python_version = "3"

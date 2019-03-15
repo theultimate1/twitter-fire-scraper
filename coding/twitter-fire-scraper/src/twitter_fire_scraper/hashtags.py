@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 A file that contains utilities to detect if a hashtag refers to a disaster, as well as disaster hashtag-generating
 utilities.

@@ -5,8 +5,8 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
-from config import Config
-from models import Point
+from twitter_fire_scraper.config import Config
+from twitter_fire_scraper.models import Point
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
 
@@ -21,8 +21,8 @@ class TwitterAuthentication(object):
     """
 
     @staticmethod
-    def autodetect_twitter_auth():
-        # type: () -> TwitterAuthentication
+    def autodetect_twitter_auth(auth_filepath="~/secrets.json"):
+        # type: (str) -> TwitterAuthentication
         """
         Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
 
@@ -30,8 +30,8 @@ class TwitterAuthentication(object):
         """
         print("WARNING: API key autodetection is inadvisable.")
 
-        auth_filename = "secrets.json"
-        auth_filepath = os.path.abspath(os.path.expanduser(os.path.join("~", auth_filename)))
+        auth_filename = os.path.basename(auth_filepath)
+        auth_filepath = os.path.expanduser(auth_filepath)
 
         if not os.path.isfile(auth_filepath):
             print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
@@ -95,7 +95,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         :return: Whether or not the status is relevant.
         """
 
-        text = status.text.encode("UTF-8")
+        text = status.text
 
         if 'fire' in text:
             print("Relevant:")
