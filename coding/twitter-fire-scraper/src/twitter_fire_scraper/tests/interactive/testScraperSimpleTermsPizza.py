@@ -26,3 +26,9 @@ if __name__ == '__main__':
     results = flatten_status_dict(results)
     print("{} in chicago:".format(", ".join(terms)))
     pprint(results)
+
+    # scraper = Scraper()
+    #
+    # results = scraper.scrape_accounts(accounts=['MABASIllinois','NWSChicago'])
+    #
+    # pprint(results)

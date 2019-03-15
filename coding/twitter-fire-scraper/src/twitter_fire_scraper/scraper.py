@@ -86,6 +86,10 @@ class Scraper():
 
             # for each status of each user's account
             for status in cursor.items(count):
+
+                if not each_account in results:
+                    results[each_account] = set()
+
                 results[each_account].add(status)
 
         return results
