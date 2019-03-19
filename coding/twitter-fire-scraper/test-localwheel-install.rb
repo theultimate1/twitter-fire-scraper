@@ -5,6 +5,7 @@
 # This is more for actual development. It is faster and easier than uploading, typing in your password, etc.
 #
 # This IS for testing small changes.
+#
 
 require 'fileutils'
 
@@ -40,8 +41,17 @@ end
 
 puts "Installing #{wheels[0]}."
 
+# Spaces in filepath fix.
+if is_windows
+
+  Dir.chdir(config.venv_folder_bin)
+  stdout, stderr, status = Open3.capture3("start \"\" \"#{(config.virtual_python_exe)}\" -m pip install \"#{wheels[0]}\"")
+  # stdout, stderr, status = Open3.capture3("start", "\"\"", "\"#{config.virtual_python_exe}\"", "-m", "pip", "install", "\"#{wheels[0]}\"")
+else
+  stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe.shellescape}", "-m", "pip", "install", "\"#{wheels[0]}\"")
+end
+
 # Install test package from WHL file
-stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe}", "-m", "pip", "install", "\"#{wheels[0]}\"")
 puts stdout
 puts stderr
 puts status
