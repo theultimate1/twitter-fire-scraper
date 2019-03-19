@@ -48,7 +48,7 @@ class Config
 
     # Might be Linux/OSX if "Scripts" doesn't exist.
     unless File.exist? venv_python_bin
-      venv_python_bin = File.absolute_path(File.join("bin"))
+      venv_python_bin = File.join(self.venv_folder, "bin")
       puts "Using /bin/ in #{self.venv_folder}, *NIX user."
     end
 
