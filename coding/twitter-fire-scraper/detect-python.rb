@@ -22,9 +22,11 @@ def try_install_python(version = 3)
 
   if find_executable("choco")
     system("choco install python#{version}")
+    return
   end
   if find_executable("apt")
     system("sudo apt install -y python#{version}")
+    return
   end
 end
 
