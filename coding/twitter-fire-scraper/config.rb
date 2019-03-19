@@ -1,3 +1,7 @@
+require 'mkmf'
+require 'open3'
+
+
 # Configuration class that stores variables, paths, etc.
 class Config
 
@@ -5,8 +9,17 @@ class Config
     'twitter_fire_scraper'
   end
 
+
+
   def python_exe
-    detect_python_exe(version: "3")
+    begin
+      detect_python_exe(version: 3)
+    rescue
+      puts "Looks like Python 3 isn't installed. Let's try to install it."
+      try_install_python(3)
+
+      detect_python_exe(version: 3)
+    end
   end
 
   # Folder that the config file resides in.

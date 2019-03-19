@@ -1,8 +1,32 @@
 require 'mkmf'
 require 'open3'
+require 'rbconfig'
 
 
-def detect_python_exe(verbose = nil, version=nil)
+def is_windows()
+  (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+end
+
+def try_install_choco()
+  system("powershell.exe Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))")
+end
+
+def try_install_python(version = 3)
+
+  if (not find_executable("choco")) and is_windows
+    try_install_choco
+  end
+
+  if find_executable("choco")
+    system("choco install python#{version}")
+  end
+  if find_executable("apt")
+    system("sudo apt install -y python#{version}")
+  end
+end
+
+
+def detect_python_exe(verbose = nil, version = nil)
 
 # If `python` exists,
   if find_executable('python')
