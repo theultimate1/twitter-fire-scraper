@@ -53,7 +53,6 @@ def detect_python_exe(verbose = nil, version=nil)
     puts "`python#{version}` command doesn't exist"
   end
 
-  puts "Python #{version} detection failed!"
-  exit(1)
+  raise "Python #{version} detection failed!"
 
 end
