@@ -105,6 +105,12 @@ class Config
     puts stderr
     puts status
 
+    if stderr.include? 'FAILED'
+      puts "Failed test cases!"
+      exit 1
+    end
+
+
   end
 
   # Ensure temp folder is clean.
