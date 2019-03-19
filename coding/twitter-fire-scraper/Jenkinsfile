@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("Build") {
+            steps {
+                echo "Building.."
+
+                powershell "ruby build.rb"
+            }
+        }
+        stage("Test") {
+            steps {
+                echo "Testing.."
+
+                dir("${WORKSPACE}/") {
+                    powershell "ruby test-localwheel-install.rb"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo "Cleaning..."
+            
+            dir("${WORKSPACE}/") {
+                powershell "ruby clean.rb"
+            }
+        }
+    }
+}
