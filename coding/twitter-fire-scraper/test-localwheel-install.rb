@@ -41,7 +41,10 @@ end
 puts "Installing #{wheels[0]}."
 
 # Install test package from WHL file
-system("#{config.virtual_python_exe} -m pip install \"#{wheels[0]}\"")
+stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe}", "-m", "pip", "install", "\"#{wheels[0]}\"")
+puts stdout
+puts stderr
+puts status
 
 # Run tests on our virtualenv that has our package installed.
 config.run_venv_dist_tests
