@@ -10,7 +10,6 @@ class Config
   end
 
 
-
   def python_exe
     begin
       return detect_python_exe(version: 3)
@@ -64,7 +63,12 @@ class Config
 
   # Venv python binary.
   def virtual_python_exe
-    File.join(self.venv_folder_bin, "python")
+    if is_windows
+      File.join(self.venv_folder_bin, "python.exe")
+    else
+      File.join(self.venv_folder_bin, "python")
+    end
+
   end
 
   # Set up a clean virtual environment.
@@ -95,7 +99,7 @@ class Config
     puts "Running tests on installed module in venv."
 
     # Invoke __main__ of automated tests module
-    stdout, stderr, status = Open3.capture3("#{self.virtual_python_exe} -m #{self.app_name}.tests.test")
+    stdout, stderr, status = Open3.capture3("#{self.virtual_python_exe}", "-m", "#{self.app_name}.tests.test")
 
     puts stdout
     puts stderr
