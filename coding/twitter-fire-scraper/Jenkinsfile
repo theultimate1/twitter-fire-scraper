@@ -6,14 +6,16 @@ pipeline {
             steps {
                 echo "Building.."
 
-                powershell "ruby build.rb"
+                dir("${WORKSPACE}/coding/twitter-fire-scraper/") {
+                    powershell "ruby build.rb"
+                }
             }
         }
         stage("Test") {
             steps {
                 echo "Testing.."
 
-                dir("${WORKSPACE}/") {
+                dir("${WORKSPACE}/coding/twitter-fire-scraper/") {
                     powershell "ruby test-localwheel-install.rb"
                 }
             }
@@ -23,7 +25,7 @@ pipeline {
         always {
             echo "Cleaning..."
             
-            dir("${WORKSPACE}/") {
+                dir("${WORKSPACE}/coding/twitter-fire-scraper/") {
                 powershell "ruby clean.rb"
             }
         }
