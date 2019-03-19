@@ -16,6 +16,8 @@ def try_install_python(version = 3)
   puts "Is windows?"
   puts is_windows
 
+  puts `python -V`
+
   if (not find_executable("choco")) and is_windows
     try_install_choco
   end
