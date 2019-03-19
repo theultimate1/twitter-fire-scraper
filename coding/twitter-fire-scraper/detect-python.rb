@@ -4,7 +4,7 @@ require 'rbconfig'
 
 
 def is_windows()
-  (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
+  Gem.win_platform?
 end
 
 def try_install_choco()
