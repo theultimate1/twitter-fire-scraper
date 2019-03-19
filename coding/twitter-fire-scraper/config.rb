@@ -91,11 +91,15 @@ class Config
 
   # Run tests on our virtualenv, assuming our project (twitter-fire-scraper) is installed.
   def run_venv_dist_tests
-  
+
     puts "Running tests on installed module in venv."
 
     # Invoke __main__ of automated tests module
-    system("#{self.virtual_python_exe} -m #{self.app_name}.tests.test")
+    stdout, stderr, status = Open3.capture3("#{self.virtual_python_exe} -m #{self.app_name}.tests.test")
+
+    puts stdout
+    puts stderr
+    puts status
 
   end
 
