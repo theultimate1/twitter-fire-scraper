@@ -14,7 +14,7 @@ from scraper import Scraper
 if __name__ == '__main__':
     scraper = Scraper()
 
-    with open(DataConfig.TWITTER_ACCOUNTS_DATA_PATH) as f:
+    with open(DataConfig.TWITTER_ACCOUNTS_DATA_PATH, errors='ignore') as f:
         accountsYml = yaml.load(f)
 
     # First 5 accounts from Twitter Account list.
