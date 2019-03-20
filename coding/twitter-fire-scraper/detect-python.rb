@@ -69,10 +69,6 @@ end
 
 def detect_python_exe(verbose = nil, version = nil)
 
-  if is_windows and File.exist? File.join(CONFIG.windows_python_install_dir, "python.exe")
-    return File.join(CONFIG.windows_python_install_dir, "python.exe")
-  end
-
 # If `python` exists,
   if find_executable('python')
 
@@ -122,6 +118,10 @@ def detect_python_exe(verbose = nil, version = nil)
 
   else
     puts "`python#{version}` command doesn't exist"
+  end
+
+  if is_windows and File.exist? File.join(CONFIG.windows_python_install_dir, "python.exe")
+    return File.join(CONFIG.windows_python_install_dir, "python.exe")
   end
 
   raise "Python #{version} detection failed!"

@@ -10,7 +10,18 @@ class Config
   end
 
   def windows_python_install_dir
-    "C:\\Python34"
+
+    candidates = %W(C:\\Python3 C:\\Python34 C:\\Python35 C:\\Python36 C:\\Python37)
+
+    candidates.each {|python_dir|
+      if Dir.exist? python_dir
+        return python_dir
+      end
+    }
+
+    raise "Couldn't find python in the following directories:
+  #{candidates}"
+
   end
 
   def windows_python_installer_url
