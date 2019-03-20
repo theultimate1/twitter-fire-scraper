@@ -69,8 +69,8 @@ end
 
 def detect_python_exe(verbose = nil, version = nil)
 
-  if is_windows and File.exist? File.join(CONFIG.windows_python_installer_location, "python.exe")
-    return File.join(CONFIG.windows_python_installer_location, "python.exe")
+  if is_windows and File.exist? File.join(CONFIG.windows_python_install_dir, "python.exe")
+    return File.join(CONFIG.windows_python_install_dir, "python.exe")
   end
 
 # If `python` exists,
