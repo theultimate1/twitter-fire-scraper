@@ -9,6 +9,17 @@ class Config
     'twitter_fire_scraper'
   end
 
+  def windows_python_install_dir
+    "C:\\Python34"
+  end
+
+  def windows_python_installer_url
+    "https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi"
+  end
+
+  def windows_python_installer_location
+    File.join(CONFIG.root_folder, "python-3.4.4.msi")
+  end
 
   def python_exe
     begin

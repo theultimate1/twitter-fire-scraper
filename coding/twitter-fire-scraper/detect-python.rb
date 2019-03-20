@@ -1,6 +1,10 @@
 require 'mkmf'
 require 'open3'
 require 'rbconfig'
+require 'open-uri'
+
+require './config'
+CONFIG = Config.new
 
 
 def is_windows()
@@ -8,7 +12,10 @@ def is_windows()
 end
 
 def try_install_choco()
-  system("powershell.exe Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))")
+  stdout, stderr, status = Open3.capture3("powershell.exe Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))")
+  puts stdout
+  puts stderr
+  puts status
 end
 
 def try_install_python(version = 3)
@@ -16,18 +23,45 @@ def try_install_python(version = 3)
   puts "Is windows?"
   puts is_windows
 
-  puts `python -V`
+  if is_windows
 
-  if (not find_executable("choco")) and is_windows
-    try_install_choco
-  end
 
-  if find_executable("choco")
-    system("choco install python#{version}")
-    return
-  end
-  if find_executable("apt")
-    system("sudo apt install -y python#{version}")
+    # If installer doesn't exist, download it.
+    if not File.exist? CONFIG.windows_python_installer_location
+      puts "Downloading Python for Windows as it doesn't exist."
+
+      download = open(CONFIG.windows_python_installer_url)
+
+      IO.copy_stream(download, CONFIG.windows_python_installer_location)
+    end
+
+    if File.exist? CONFIG.windows_python_installer_location
+      puts "Installing Python from downloaded Windows installer."
+
+      Dir.chdir CONFIG.root_folder
+
+      # command = "#{CONFIG.windows_python_installer_location} /passive InstallAllUsers=0 Include_launcher=0 Include_test=1 SimpleInstall=1 PrependPath=1 SimpleInstallDescription=\"Python 3 installation for Jenkins user.\" "
+      command = "msiexec /qb /norestart ADDLOCAL=ALL /i #{File.basename CONFIG.windows_python_installer_location}"
+
+      puts command
+
+      stdout, stderr, status = Open3.capture3(command)
+      puts stdout
+      puts stderr
+      puts status
+
+      raise "PATH setting on windows fails. Make sure to set it manually."
+
+    else
+      raise "Failed to download Python windows installer!"
+    end
+
+  elsif find_executable("apt")
+    stdout, stderr, status = Open3.capture3("apt", "install", "-y", "python#{version}")
+
+    puts stdout
+    puts stderr
+    puts status
     return
   end
 end
@@ -35,11 +69,17 @@ end
 
 def detect_python_exe(verbose = nil, version = nil)
 
+  if is_windows and File.exist? File.join(CONFIG.windows_python_installer_location, "python.exe")
+    return File.join(CONFIG.windows_python_installer_location, "python.exe")
+  end
+
 # If `python` exists,
   if find_executable('python')
 
     stdout, stderr, status = Open3.capture3("python -V")
     python_version_info = stdout + stderr
+    puts python_version_info
+    puts status
 
     # If `python` refers to Python version X,
     if python_version_info =~ /Python #{version}/i
