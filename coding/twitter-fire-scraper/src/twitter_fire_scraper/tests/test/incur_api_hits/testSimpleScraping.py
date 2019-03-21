@@ -15,6 +15,18 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape_terms({"potato"}, count=1)
 
-        assert(len(results.keys()) == 1)
+        assert (len(results.keys()) == 1)
 
-        assert(results['potato'][0].text.contains("potato"))
+        assert (isinstance(results['potato'][0].text, str))
+
+    def testCanScrapeAccount(self):
+        """Tests that scraper can scrape one account."""
+        twauth = TwitterAuthentication.autodetect_twitter_auth()
+
+        scraper = Scraper(twitter_authentication=twauth)
+
+        results = scraper.scrape_accounts({"@redcross"}, count=1)
+
+        assert (len(results.keys() == 1))
+
+        assert (isinstance(results['@redcross'].text, str))
