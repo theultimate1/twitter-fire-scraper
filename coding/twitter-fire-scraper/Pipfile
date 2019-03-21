@@ -36,6 +36,8 @@ jupyter = "*"
 notebook = "==5.7.5"
 numpy = "*"
 matplotlib = "*"
+pandas = "*"
+sklearn = "*"
 
 [dev-packages]
 
