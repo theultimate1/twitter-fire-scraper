@@ -13,11 +13,15 @@ class TestSimpleScraping(unittest.TestCase):
 
         scraper = Scraper(twitter_authentication=twauth)
 
-        results = scraper.scrape_terms({"potato"}, count=1)
+        results = scraper.scrape_terms({"fire"}, count=1)
+
+        assert('fire' in results)
+
+        assert(isinstance(results['fire'], list))
 
         assert (len(results.keys()) == 1)
 
-        assert (isinstance(results['potato'][0].text, str))
+        assert (isinstance(results['fire'][0].text, str))
 
     def testCanScrapeAccount(self):
         """Tests that scraper can scrape one account."""
@@ -25,8 +29,29 @@ class TestSimpleScraping(unittest.TestCase):
 
         scraper = Scraper(twitter_authentication=twauth)
 
-        results = scraper.scrape_accounts({"@redcross"}, count=1)
+        results = scraper.scrape_accounts({"@RedCross"}, count=1)
+
+        assert ('@RedCross') in results
 
         assert (len(results.keys() == 1))
 
-        assert (isinstance(results['@redcross'].text, str))
+        assert(isinstance(results['@RedCross'], list))
+
+        assert (isinstance(results['@RedCross'].text, str))
+
+    def testCanScrapeMethod(self):
+        """Tests that the Scraper's `scrape` method works."""
+
+        twauth = TwitterAuthentication.autodetect_twitter_auth()
+
+        scraper = Scraper(twitter_authentication=twauth)
+
+        results = scraper.scrape(terms={"fire"}, accounts={"@RedCross"})
+
+        assert('fire' in results)
+        assert('@RedCross' in results)
+
+        assert(len(results.keys()) == 2)
+
+        assert(isinstance(results['fire'], list))
+        assert(isinstance(results['@RedCross'], list))
