@@ -7,7 +7,7 @@ pipeline {
                 echo "Building.."
 
                 dir("${WORKSPACE}/coding/twitter-fire-scraper/") {
-                    powershell "ruby build.rb"
+                    bat "ruby build.rb"
                 }
             }
         }
@@ -16,7 +16,7 @@ pipeline {
                 echo "Testing.."
 
                 dir("${WORKSPACE}/coding/twitter-fire-scraper/") {
-                    powershell "ruby test-localwheel-install.rb"
+                    bat "ruby test-localwheel-install.rb"
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
             echo "Cleaning..."
             
                 dir("${WORKSPACE}/coding/twitter-fire-scraper/") {
-                powershell "ruby clean.rb"
+                bat "ruby clean.rb"
             }
         }
     }
