@@ -67,7 +67,7 @@ def pretty_print_statuses(statuses):
 
 
 def flatten_status_dict(status_dict):
-    # type: (Dict[str, List[Status]]) -> Dict[str, List[Status]]
+    # type: (Dict[str, List[Status]]) -> Dict[str, List[str]]
     """Take a Dict[str, List[Status]] and flatten its statuses into the text of the statuses.
 
     Example:
