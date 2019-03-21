@@ -1,7 +1,7 @@
 from tweepy import Status
 from typing import Dict, List, Set
 # from twitter_fire_scraper.text_classifier import classifier
-from util import flatten_status_dict
+from twitter_fire_scraper.util import flatten_status_dict
 from twitter_fire_scraper.twitter import TwitterAuthentication
 import tweepy
 import os
