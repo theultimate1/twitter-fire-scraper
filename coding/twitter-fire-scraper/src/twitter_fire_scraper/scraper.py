@@ -4,7 +4,7 @@ from typing import Dict, List, Set
 from twitter_fire_scraper.twitter import TwitterAuthentication
 import tweepy
 import os
-
+from pprint import pprint
 
 class Scraper():
 
@@ -77,22 +77,13 @@ class Scraper():
         if not count:
             count = self.default_count
 
-        results = {}
+        all_the_tweets = {}
+        for i in accounts:
+            new_tweets = self.api.user_timeline(screen_name=i, count=count)
+            all_the_tweets[i] = new_tweets
 
-        # accounts: list of 24 accounts
-        for each_account in accounts:   # each user
-            # return most recent statuses of the user
-            cursor = tweepy.Cursor(self.api.user_timeline, id=accounts)
+        return all_the_tweets
 
-            # for each status of each user's account
-            for status in cursor.items(count):
-
-                if not each_account in results:
-                    results[each_account] = set()
-
-                results[each_account].add(status)
-
-        return results
 
     def scrape(self, terms=None, accounts=None, count=None, geocode=None):
         # type: (Scraper, Set[str], Set[str], int, str) -> Dict[str, List[Status]]
