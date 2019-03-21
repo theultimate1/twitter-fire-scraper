@@ -128,8 +128,11 @@ class Config
     puts status
 
     if stderr.include? 'FAILED'
-      puts "Failed test cases!"
-      exit 1
+      raise "Failed test cases!"
+    end
+    
+    if not status.include? 'exit 0'
+        raise "Didn't exit with code 0! Something is wrong!"
     end
 
 
