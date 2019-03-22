@@ -10,6 +10,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pip = "==18.0"
 click = "*"
 itsdangerous = "*"
 nltk = "*"
