@@ -45,7 +45,7 @@ puts "Installing #{wheels[0]}."
 if is_windows
 
   Dir.chdir(config.venv_folder_bin)
-  stdout, stderr, status = Open3.capture3("start \"\" \"#{(config.virtual_python_exe)}\" -m pip install \"#{wheels[0]}\"")
+  stdout, stderr, status = Open3.capture3("start /WAIT \"\" \"#{(config.virtual_python_exe)}\" -m pip install \"#{wheels[0]}\"")
   # stdout, stderr, status = Open3.capture3("start", "\"\"", "\"#{config.virtual_python_exe}\"", "-m", "pip", "install", "\"#{wheels[0]}\"")
 else
   stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe.shellescape}", "-m", "pip", "install", "\"#{wheels[0]}\"")

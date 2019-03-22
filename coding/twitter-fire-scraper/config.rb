@@ -130,9 +130,9 @@ class Config
     if stderr.include? 'FAILED'
       raise "Failed test cases!"
     end
-    
-    if not status.include? 'exit 0'
-        raise "Didn't exit with code 0! Something is wrong!"
+
+    unless status.to_s.include? 'exit 0'
+      raise "#{status} Didn't exit with code 0! Something is wrong!"
     end
 
 
