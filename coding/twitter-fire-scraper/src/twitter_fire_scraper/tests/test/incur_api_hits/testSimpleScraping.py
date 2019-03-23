@@ -48,8 +48,8 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape(terms={"fire"}, accounts={"@RedCross"})
 
-        assert('fire' in results)
-        assert('@RedCross' in results)
+        assert('fire' in results.keys())
+        assert('@RedCross' in results.keys())
 
         assert(len(results.keys()) == 2)
 
