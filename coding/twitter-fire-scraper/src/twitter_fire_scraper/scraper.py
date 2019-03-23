@@ -4,7 +4,7 @@ import tweepy
 from tweepy import Status
 
 from twitter_fire_scraper.twitter import TwitterAuthentication
-from util import merge_status_dict
+from twitter_fire_scraper.util import merge_status_dict
 
 
 class Scraper:
