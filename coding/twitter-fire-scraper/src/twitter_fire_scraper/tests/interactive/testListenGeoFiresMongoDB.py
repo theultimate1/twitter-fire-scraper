@@ -6,8 +6,8 @@ import __init__
 
 import tweepy
 
-from twitter import TwitterAuthentication, MongoDBStreamListener, GEOBOX_CHICAGO
-from util import geobox_from_points
+from twitter_fire_scraper.twitter import TwitterAuthentication, MongoDBStreamListener, GEOBOX_CHICAGO
+from twitter_fire_scraper.util import geobox_from_points
 
 if __name__ == "__main__":
     # Set up twitter auth.

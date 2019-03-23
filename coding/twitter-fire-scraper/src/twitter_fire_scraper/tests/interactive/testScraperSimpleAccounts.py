@@ -8,8 +8,8 @@ from pprint import pprint
 
 import yaml
 
-from config import DataConfig
-from scraper import Scraper
+from twitter_fire_scraper.config import DataConfig
+from twitter_fire_scraper.scraper import Scraper
 
 if __name__ == '__main__':
     scraper = Scraper()

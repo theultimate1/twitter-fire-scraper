@@ -7,9 +7,9 @@ import __init__
 
 from pprint import pprint
 
-from scraper import Scraper
-from twitter import GEOBOX_CHICAGO
-from util import geobox_to_geocode, flatten_status_dict
+from twitter_fire_scraper.scraper import Scraper
+from twitter_fire_scraper.twitter import GEOBOX_CHICAGO
+from twitter_fire_scraper.util import geobox_to_geocode, flatten_status_dict
 
 if __name__ == '__main__':
     scraper = Scraper()
