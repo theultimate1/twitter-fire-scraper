@@ -4,6 +4,7 @@ import tweepy
 from tweepy import Status
 
 from twitter_fire_scraper.twitter import TwitterAuthentication
+from util import merge_status_dict
 
 
 class Scraper:
@@ -112,6 +113,16 @@ class Scraper:
         if (not terms) and (not accounts):
             raise ValueError("No terms or accounts specified.")
 
-        return {
-            "hi": {"cool_tweet", "cooler_tweet"}
-        }
+        results = dict()
+
+        if terms:
+            terms_results = self.scrape_terms(terms=terms, count=count, geocode=geocode)
+
+            results = merge_status_dict(results, terms_results)
+
+        if accounts:
+            accounts_results = self.scrape_accounts(accounts=accounts, count=count)
+
+            results = merge_status_dict(results, accounts_results)
+
+        return results

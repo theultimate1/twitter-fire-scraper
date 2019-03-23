@@ -52,6 +52,30 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
                 pass
 
 
+def merge_status_dict(d1, d2):
+    # type: (Dict[str, List[Status]], Dict[str, List[Status]]) -> Dict[str, List[Status]]
+    """
+    Given two status dictionaries, merge them into one status dictionary.
+    Does not modify either dictionary, and rather makes a new one.
+    """
+    results = dict()
+
+    for term, statuses in d1.items():
+        if term not in results:
+            results[term] = list()
+
+        for status in statuses:
+            results[term].append(status)
+
+    for term, statuses in d2.items():
+        if term not in results:
+            results[term] = list()
+
+        for status in statuses:
+            results[term].append(status)
+
+    return results
+
 def status_to_url(status):
     # type: (Status) -> str
     """Given a Status, return that status' url."""
