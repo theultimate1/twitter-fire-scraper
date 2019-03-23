@@ -1,13 +1,12 @@
-from tweepy import Status
 from typing import Dict, List, Set
-# from twitter_fire_scraper.text_classifier import classifier
-from twitter_fire_scraper.util import flatten_status_dict
-from twitter_fire_scraper.twitter import TwitterAuthentication
-import tweepy
-import os
-from pprint import pprint
 
-class Scraper():
+import tweepy
+from tweepy import Status
+
+from twitter_fire_scraper.twitter import TwitterAuthentication
+
+
+class Scraper:
 
     def __init__(self, twitter_authentication=None):
         # type: (Scraper, TwitterAuthentication) -> None
@@ -78,27 +77,18 @@ class Scraper():
         if not count:
             count = self.default_count
 
-        all_the_tweets = {}
-        for i in accounts:
-            new_tweets = self.api.user_timeline(screen_name=i, count=count)
-            all_the_tweets[i] = new_tweets
+        results = dict()
 
-        return flatten_status_dict(all_the_tweets)
-        # return all_the_tweets
+        for account in accounts:
+            statuses = self.api.user_timeline(screen_name=account, count=count)
 
-        # all_the_tweets = []
-        # for i in accounts:
-        #     new_tweets = self.api.user_timeline(screen_name=i, count=count)
-        #     all_the_tweets.extend(new_tweets)
-        #
-        # for tweet in all_the_tweets:
-        #     # Apply text_classifier here, return [1] label only
-        #     if classifier(tweet.text) == 1:
-        #         print(tweet.text)
-        #     else:
-        #         pass
+            if account not in results:
+                results[account] = list()
 
-        # return [for text in all_the_tweets].text
+            for status in statuses:
+                results[account].append(status)
+
+        return results
 
     def scrape(self, terms=None, accounts=None, count=None, geocode=None):
         # type: (Scraper, Set[str], Set[str], int, str) -> Dict[str, List[Status]]

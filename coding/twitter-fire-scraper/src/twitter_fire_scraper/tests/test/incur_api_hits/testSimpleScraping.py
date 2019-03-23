@@ -1,7 +1,7 @@
 import unittest
 
-from scraper import Scraper
-from twitter import TwitterAuthentication
+from twitter_fire_scraper.scraper import Scraper
+from twitter_fire_scraper.twitter import TwitterAuthentication
 
 
 class TestSimpleScraping(unittest.TestCase):
@@ -33,11 +33,11 @@ class TestSimpleScraping(unittest.TestCase):
 
         assert ('@RedCross') in results
 
-        assert (len(results.keys() == 1))
+        assert (len(results.keys()) == 1)
 
         assert(isinstance(results['@RedCross'], list))
 
-        assert (isinstance(results['@RedCross'].text, str))
+        assert (isinstance(results['@RedCross'][0].text, str))
 
     def testCanScrapeMethod(self):
         """Tests that the Scraper's `scrape` method works."""
