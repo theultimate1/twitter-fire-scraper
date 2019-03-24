@@ -13,7 +13,7 @@ setuptools.setup(
     author="Henry Post",
     author_email="HenryFBP@gmail.com",
 
-    description="A web API interfact to the twitter-fire-scraper package.",
+    description="A web API interface to the `twitter-fire-scraper` package.",
     long_description=long_description,
     long_description_content_type="text/markdown",
 
