@@ -115,7 +115,7 @@ class Config
 
   end
 
-  # Run tests on our virtualenv, assuming our project (twitter-fire-scraper) is installed.
+  # Run tests on our virtualenv, assuming our project is installed.
   def run_venv_dist_tests
 
     puts "Running tests on installed module in venv."
