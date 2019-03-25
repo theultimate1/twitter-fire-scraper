@@ -41,3 +41,7 @@ Break.
     
 3.  Make extended scraping unit-tests that verify the scraper's ability to
 search large amounts of tweets.
+
+Some notes:
+
+Ideally, any new functionality should have some sort of test to make sure it works.
