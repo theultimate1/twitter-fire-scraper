@@ -13,7 +13,7 @@ Break.
     This is separate to avoid having our `twitter-fire-scraper` package be one
     gigantic app.
     
-    2.  Route API endpoints to functions 
+    2.  Route API endpoints to functions (due 03/31)
 
         e.g.:
         
@@ -29,18 +29,18 @@ Break.
     
     It should be able to display: 
     
-    1.  A dashboard of new tweets
+    1.  A dashboard of new tweets /07)
 
-    2.  A map of tweets (geolocated ones)
+    2.  A map of tweets (geolocated ones) (due 04/14)
 
-    3.  A way to search for saved tweets (think MongoDB Compass)
+    3.  A way to search for saved tweets (think MongoDB Compass) (due 04/14)
 
-    4.  A way to delete tweets
+    4.  A way to delete tweets (due 04/21)
 
-    5.  A way to scrape new tweets! 
+    5.  A way to scrape new tweets! (due 04/21)
     
 3.  Make extended scraping unit-tests that verify the scraper's ability to
-search large amounts of tweets.
+search large amounts of tweets. (due 03/31)
 
 Some notes:
 
