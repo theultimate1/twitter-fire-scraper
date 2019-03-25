@@ -231,11 +231,11 @@
         },
         "twitter-fire-scraper": {
             "hashes": [
-                "sha256:61715b345e8d31aa25eb769162274f2f2adc62ca1a4916a2ebf9e258d9e1deb7",
-                "sha256:84403474b42b4883ed3e44dafcc35e914d2667187f3d86efa45fcbd9a92d5947"
+                "sha256:742ccabef6e572c912d5b745c5d8145bb8644f2417a34379bf464ea9db90b186",
+                "sha256:991802b31bda03d0e5258564402966c17a1440e4a1503fc5b5250926e92e4b85"
             ],
             "index": "pypi",
-            "version": "==1.0.1"
+            "version": "==1.1.1"
         },
         "typing": {
             "hashes": [
