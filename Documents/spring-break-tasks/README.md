@@ -32,7 +32,7 @@ Break.
     
     It should be able to display: 
     
-    1.  A dashboard of new tweets /07)
+    1.  A dashboard of new tweets (due 04/07)
 
     2.  A map of tweets (geolocated ones) (due 04/14)
 
@@ -44,6 +44,13 @@ Break.
     
 3.  Make extended scraping unit-tests that verify the scraper's ability to
 search large amounts of tweets. (due 03/31)
+
+4.  Add a `scrape_and_save(...)` method to the `Scraper` class that allows you to
+    both scrape terms/accounts and then save them to a MongoDB database.
+    
+    This functionality should then be added to the web API.
+    
+    This is to make scraping and saving to the MongoDB database via the web API simple.
 
 Some notes:
 
