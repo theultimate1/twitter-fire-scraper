@@ -6,4 +6,8 @@ It runs on port 3620 by default.
 
 # Developers
 
-Same development for the `twitter-fire-scraper` package. TODO update this
+Same development for the `twitter-fire-scraper` package.
+
+Run `pipenv install` to install the dependencies for this package,
+
+and run `pipenv run python app.py` to start the web API.
