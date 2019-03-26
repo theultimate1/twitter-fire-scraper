@@ -24,6 +24,9 @@ Break.
         This is to allow the Node.js application to use the
         `twitter-fire-scraper` even though they are written in different
         languages.
+        
+        These API functions should both save the tweets to a MongoDB Database and also
+        return the scraped tweets as JSON.
 
 2.  Make a Node.js web application to consume the Flask application's service.
     
