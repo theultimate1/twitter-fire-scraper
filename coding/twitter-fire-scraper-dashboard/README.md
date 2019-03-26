@@ -11,6 +11,10 @@ Run `npm install` inside of `./TwitterFireScraperDashboard/TwitterFireScraperDas
 
 Then, run `npm start`.
 
+To visit the site, go to `localhost:3000`.
+
+This web application will attempt to detect if the TwiiterFireScraper web API is running and will notify you if it is successful.
+
 ## Developing
 
 Use Visual Studio with Node.js installed. TODO make more verbose
