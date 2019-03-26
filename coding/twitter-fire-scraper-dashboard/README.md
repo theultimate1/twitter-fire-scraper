@@ -5,4 +5,12 @@ web.
 
 # Developers
 
+## Running
+
+Run `npm install` inside of `./TwitterFireScraperDashboard/TwitterFireScraperDashboard/`.
+
+Then, run `npm start`.
+
+## Developing
+
 Use Visual Studio with Node.js installed. TODO make more verbose
