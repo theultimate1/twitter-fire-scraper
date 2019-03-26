@@ -45,10 +45,10 @@ Break.
 3.  Make extended scraping unit-tests that verify the scraper's ability to
 search large amounts of tweets. (due 03/31)
 
-4.  Add a `scrape_and_save(...)` method to the `Scraper` class that allows you to
+4.  Add a `scrape_and_save(...)` method (due 04/21) to the `Scraper` class that allows you to
     both scrape terms/accounts and then save them to a MongoDB database.
     
-    This functionality should then be added to the web API.
+    This functionality should then be added to the web API. (due 04/28)
     
     This is to make scraping and saving to the MongoDB database via the web API simple.
 
