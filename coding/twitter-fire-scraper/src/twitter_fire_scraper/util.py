@@ -90,6 +90,30 @@ def pretty_print_statuses(statuses):
         print()
 
 
+def jsonify_status_dict(status_dict):
+    # type: (Dict[str, List[Status]]) -> Dict[str, List[str]]
+    """Take a Dict[str, List[Status]] and flatten its statuses into JSON objects.
+
+    Example:
+
+        flatten_status_dict({
+            "icecream": [Status, Status],
+            "cake": [Status]
+            })
+
+            ->
+
+            {
+                "icecream": [{"author": "@IceCreamLuvr", ...}, {"author": "@IceCreamHater", ...}],
+                "cake": [{"author": "@CakeIsGod123", ...}]
+            }
+    """
+    for term, statuses in status_dict.items():  # Only get the json of the tweet
+        status_dict[term] = list([status._json for status in statuses])
+
+    return status_dict
+
+
 def flatten_status_dict(status_dict):
     # type: (Dict[str, List[Status]]) -> Dict[str, List[str]]
     """Take a Dict[str, List[Status]] and flatten its statuses into the text of the statuses.

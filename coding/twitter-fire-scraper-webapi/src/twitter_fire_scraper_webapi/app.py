@@ -1,8 +1,20 @@
 import os
-from flask import Flask, request, render_template, jsonify, url_for
+from flask import Flask, request, render_template, jsonify, url_for, abort, Response
+import twitter_fire_scraper
+
 
 app = Flask(__name__, static_url_path="/static")
 
+
+@app.route('/scrape_terms', methods=['GET'])
+def scrape_terms():
+
+    count = request.args.get("count")
+
+    if not count:
+        abort(400, "'count' is a required URL parameter!")
+
+    return jsonify("You want {} tweets?".format(count))
 
 @app.route('/info', methods=['GET'])
 def info(): # function: check webapi is running or not

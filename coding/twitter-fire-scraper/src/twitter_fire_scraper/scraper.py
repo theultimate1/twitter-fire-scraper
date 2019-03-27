@@ -103,7 +103,7 @@ class Scraper:
         :return: A dictionary containing {'search-term': List[Status]} pairs.
 
         Examples:
-            >>> scrape(geocode="41.8297855,-87.666775,50mi", terms={"pizza", "waffles"}, maximum=3)
+            >>> self.scrape(geocode="41.8297855,-87.666775,50mi", terms={"pizza", "waffles"}, count=3)
             {'pizza': {Status, Status, Status},
             'waffles': {Status, Status}}
         """
