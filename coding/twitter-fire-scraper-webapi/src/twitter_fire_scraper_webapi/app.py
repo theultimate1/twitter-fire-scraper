@@ -1,16 +1,12 @@
 import os
 from flask import Flask, request, render_template, jsonify, url_for, abort, Response
-# <<<<<<< HEAD
 
-# ||||||| merged common ancestors
 import twitter_fire_scraper
 
-# =======
 import twitter_fire_scraper
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 from twitter_fire_scraper.util import jsonify_status_dict
-# >>>>>>> 0fb06e33aa24407eb0cdfe701c83be12428d870e
 
 app = Flask(__name__, static_url_path="/static")
 scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
