@@ -54,6 +54,7 @@ def scrape_accounts():
 
     count = request.args.get("count")
     accounts = request.args.get("accounts")
+    accounts = accounts.split(",")
 
     if not count:
         abort(400, "'count' is a required URL parameter!")
