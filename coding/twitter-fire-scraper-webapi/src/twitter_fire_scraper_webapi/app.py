@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request, render_template, jsonify, url_for, abort, Response
-import twitter_fire_scraper
 
 
 app = Flask(__name__, static_url_path="/static")
@@ -16,6 +15,16 @@ def scrape_terms():
 
     return jsonify("You want {} tweets?".format(count))
 
+@app.route('/scrape_accounts', methods=['GET'])
+def scrape_accounts():
+
+    count = request.args.get("count")
+
+    if not count:
+        abort(400, "'count' is a required URL parameter!")
+
+    return jsonify("You want {} tweets for {}?".format(count, term))
+
 @app.route('/info', methods=['GET'])
 def info(): # function: check webapi is running or not
     return "twitter-fire-scraper-webapi"
@@ -27,10 +36,6 @@ def index():
 @app.route('/add/<int:x>/<int:y>', methods=['GET'])
 def add_numbers(x, y):
     return str(x+y)
-
-@app.route('/scraper/scrape?terms=<str:term>', methods=['GET'])
-from twitter_fire_scraper.scraper import Scraper
-Scraper.scrape(terms=term)
 
 ### Task to be completed:
 # https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/Documents/spring-break-tasks
