@@ -35,6 +35,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="views\layout.pug" />
+    <Content Include="views\navigation.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\scrape.pug">
+      <SubType>Code</SubType>
+    </Content>
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="library\ApiLibrary.ts">
       <SubType>Code</SubType>
@@ -46,7 +53,6 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\index.pug" />
-    <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
   </ItemGroup>
   <ItemGroup>
