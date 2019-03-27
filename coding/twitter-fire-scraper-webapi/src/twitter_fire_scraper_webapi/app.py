@@ -1,9 +1,16 @@
 import os
 from flask import Flask, request, render_template, jsonify, url_for, abort, Response
+# <<<<<<< HEAD
+
+# ||||||| merged common ancestors
+import twitter_fire_scraper
+
+# =======
 import twitter_fire_scraper
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 from twitter_fire_scraper.util import jsonify_status_dict
+# >>>>>>> 0fb06e33aa24407eb0cdfe701c83be12428d870e
 
 app = Flask(__name__, static_url_path="/static")
 scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
@@ -34,14 +41,36 @@ def scrape_terms():
 
     geocode = request.args.get("geocode")
 
-    results = (scraper.scrape_terms(terms=terms, count=count, geocode=geocode))
+    results = (scraper.scrape_terms(terms=terms, count=count, geocode=geocode)) # dict object
+
+    results = jsonify_status_dict(results)  # json object
+
+    return jsonify(results)
+    # return jsonify("You want {} tweets for {}?".format(count, terms))
+
+
+@app.route('/scrape_accounts', methods=['GET'])
+def scrape_accounts():
+
+    count = request.args.get("count")
+    accounts = request.args.get("accounts")
+
+    if not count:
+        abort(400, "'count' is a required URL parameter!")
+
+    if not accounts:
+        abort(400, "'accounts' is a required URL parameter!")
+
+    results = (scraper.scrape_accounts(accounts=accounts, count=count))
 
     results = jsonify_status_dict(results)
 
     return jsonify(results)
+    ### ERROR: protected tweets causes 'Not Authorized'
+    # return jsonify("You want {} tweets for {}?".format(count, term))
 
 @app.route('/info', methods=['GET'])
-def info():
+def info(): # function: check webapi is running or not
     return "twitter-fire-scraper-webapi"
 
 @app.route('/')
@@ -52,6 +81,8 @@ def index():
 def add_numbers(x, y):
     return str(x+y)
 
+### Task to be completed:
+# https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/Documents/spring-break-tasks
 
 if __name__ == "__main__":
     port = 3620
