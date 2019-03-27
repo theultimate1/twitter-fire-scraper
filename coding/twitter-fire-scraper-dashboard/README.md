@@ -7,6 +7,8 @@ web.
 
 ## Running
 
+Install `npm`, [Node Package Manager](https://www.npmjs.com/get-npm).
+
 Run `npm install` inside of `./TwitterFireScraperDashboard/TwitterFireScraperDashboard/`.
 
 Then, run `npm start`.
