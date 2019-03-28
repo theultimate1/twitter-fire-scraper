@@ -1,15 +1,12 @@
 [[source]]
+name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-name = "pypi"
-
-[packages]
-twitter-fire-scraper = "*"
-flask = "*"
-flask-pymongo = "*"
-dnspython = "*"
 
 [dev-packages]
 
+[packages]
+twitter-fire-scraper = "*"
+
 [requires]
-python_version = "3"
+python_version = "3.6"
