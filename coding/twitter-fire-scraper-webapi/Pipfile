@@ -7,7 +7,7 @@ name = "pypi"
 twitter-fire-scraper = "*"
 flask = "*"
 flask-pymongo = "*"
-dns[ython = "*"
+dnspython = "*"
 
 [dev-packages]
 
