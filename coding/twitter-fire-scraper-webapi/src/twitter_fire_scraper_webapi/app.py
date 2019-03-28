@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, abort
 from flask_pymongo import PyMongo
+# from flask.ext.pymongo import PyMongo
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 from twitter_fire_scraper.util import jsonify_status_dict
@@ -7,7 +8,7 @@ from twitter_fire_scraper.util import jsonify_status_dict
 app = Flask(__name__, static_url_path="/static")
 
 app.config['MONGO_DBNAME'] = 'twitterfirescraperapi'  # name of your cluster
-app.config['MONGO_URI'] = 'mongodb+srv://<username>:<password>@twitterfirescraperapi-i6mwc.mongodb.net/test?retryWrites=true'
+app.config['MONGO_URI'] = 'mongodb+srv://trungpham10:!twitterfire1@twitterfirescraperapi-i6mwc.mongodb.net/test?retryWrites=true'
 # mongodb username and password here
 
 mongo = PyMongo(app)
@@ -15,15 +16,16 @@ mongo = PyMongo(app)
 scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
 
 
-@app.route('/add', methods=['GET'])
+@app.route('/add_new', methods=['GET'])
 def add():
     user = mongo.db.users
-    user.insert({'name': 'Trung'})
-    return 'Trung is added!'
+    user.insert_one({'city': 'Chicago'})
+    return 'Chicago is added!'
 
 
 @app.route('/scrape_terms', methods=['GET'])
 def scrape_terms():
+    # user = mongo.db.users
     count = request.args.get("count")
     if not count:
         abort(400, "'count' is a required URL parameter!")
@@ -49,7 +51,11 @@ def scrape_terms():
 
     results = (scraper.scrape_terms(terms=terms, count=count, geocode=geocode))  # dict object
 
+    # user.insert(results)
+
     results = jsonify_status_dict(results)  # json object
+
+    # user.insert({'city': 'Chicago'})
 
     return jsonify(results)
     # return jsonify("You want {} tweets for {}?".format(count, terms))
