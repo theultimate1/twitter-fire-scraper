@@ -1,8 +1,5 @@
 import os
 from flask import Flask, request, render_template, jsonify, url_for, abort, Response
-
-import twitter_fire_scraper
-
 import twitter_fire_scraper
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
@@ -49,14 +46,21 @@ def scrape_terms():
 def scrape_accounts():
 
     count = request.args.get("count")
-    accounts = request.args.get("accounts")
-    accounts = accounts.split(",")
-
     if not count:
         abort(400, "'count' is a required URL parameter!")
+    try:
+        count = int(count)
+        if count < 0:
+            raise ValueError
+    except ValueError:
+        abort(400, "'count' should be a valid number!")
 
+    accounts = request.args.get("accounts")
     if not accounts:
         abort(400, "'accounts' is a required URL parameter!")
+    accounts = accounts.split(",")
+    if len(accounts) <= 0:
+        abort(400, "'accounts' cannot be an empty list!")
 
     results = (scraper.scrape_accounts(accounts=accounts, count=count))
 
@@ -114,8 +118,6 @@ def index():
 def add_numbers(x, y):
     return str(x+y)
 
-### Task to be completed:
-# https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/Documents/spring-break-tasks
 
 if __name__ == "__main__":
     port = 3620
