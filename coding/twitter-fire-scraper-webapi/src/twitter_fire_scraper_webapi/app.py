@@ -7,7 +7,8 @@ from twitter_fire_scraper.util import jsonify_status_dict
 app = Flask(__name__, static_url_path="/static")
 
 app.config['MONGO_DBNAME'] = 'twitterfirescraperapi'  # name of your cluster
-app.config['MONGO_URI'] = 'mongodb+srv://<username>:<password>@twitterfirescraperapi-i6mwc.mongodb.net/test?retryWrites=true'  # mlab username and password here
+app.config['MONGO_URI'] = 'mongodb+srv://<username>:<password>@twitterfirescraperapi-i6mwc.mongodb.net/test?retryWrites=true'
+# mongodb username and password here
 
 mongo = PyMongo(app)
 
@@ -17,7 +18,7 @@ scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitte
 @app.route('/add', methods=['GET'])
 def add():
     user = mongo.db.users
-    user.insert({'name' : 'Trung'})
+    user.insert({'name': 'Trung'})
     return 'Trung is added!'
 
 
