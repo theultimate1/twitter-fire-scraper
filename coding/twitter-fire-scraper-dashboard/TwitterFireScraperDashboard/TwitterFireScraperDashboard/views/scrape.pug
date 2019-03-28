@@ -2,4 +2,27 @@
 
 block content
   h1= title
+  p= data
   
+  section
+      form(method="POST" action="/scrape")
+        ul
+            li
+                p
+                    label(for="terms") Terms
+                p
+                    input(type="text" name="terms" id="terms")
+            li  
+                p
+                    label(for="terms") Number of tweets
+                p
+                    input(type="text" name="count")
+
+            input(type="submit")
+
+  if statuses
+      section(class="tweets")
+        ul
+            each status in statuses
+                li
+                    p= status._id

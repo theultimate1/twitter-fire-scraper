@@ -9,9 +9,20 @@ export class ApiLibrary {
  * 
  * Checks if the twitter-fire-scraper-webapi is functioning correctly.
  */
-    static check_api(host: string = "http://127.0.0.1", port: string = "3620", path: string = "info") {
-        var uri = new url.URL(host)
-        uri.port = port.toString()
+    host: string;
+    port: string;
+
+    constructor(
+        host: string = "http://127.0.0.1",
+        port: string = "3620") {
+
+        this.host = host;
+        this.port = port;
+    }
+
+    check_api(path: string = "info") {
+        var uri = new url.URL(this.host)
+        uri.port = this.port.toString()
         uri.pathname = path
 
         return new Promise((resolve, reject) => {
@@ -29,6 +40,10 @@ export class ApiLibrary {
                 }
             })
         })
+    }
+
+    scrape_terms(terms: Array<String>, count: Number): Array<Object> {
+        return [{}]
     }
 
 }

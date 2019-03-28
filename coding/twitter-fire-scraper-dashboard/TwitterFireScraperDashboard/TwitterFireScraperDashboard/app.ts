@@ -11,6 +11,13 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// for parsing application/json
+app.use(express.json());
+
+// for parsing application/xwww-
+app.use(express.urlencoded({ extended: true }));
+//form-urlencoded
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
