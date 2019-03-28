@@ -1,12 +1,15 @@
 {
-  "name": "express-app1",
+  "name": "twitter-fire-scraper-dashboard",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-cold": "node app",
-    "start": "nodemon app"
+    "build": "tsc",
+    "start": "npm run serve",
+    "serve": "node app.js",
+    "watch-node": "nodemon app.js",
+    "watch-tsc": "tsc -w"
   },
-  "description": "ExpressApp1",
+  "description": "A dashboard for the twitter-fire-scraper",
   "author": {
     "name": ""
   },
@@ -16,7 +19,8 @@
     "express": "^4.14.0",
     "nodemon": "^1.18.10",
     "pug": "^2.0.0-rc.3",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "whatwg-url": "^7.0.0"
   },
   "devDependencies": {
     "@types/debug": "0.0.30",

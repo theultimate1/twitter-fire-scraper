@@ -1,5 +1,5 @@
 ﻿import request = require('request');
-import url = require('url')
+import url = require('whatwg-url');
 
 export class ApiLibrary {
     /**
