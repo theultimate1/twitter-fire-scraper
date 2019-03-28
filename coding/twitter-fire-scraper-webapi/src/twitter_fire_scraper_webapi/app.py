@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 # from flask.ext.pymongo import PyMongo
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import jsonify_status_dict
+from twitter_fire_scraper.util import jsonify_status_dict, save_single_status_to_mongodb
 
 app = Flask(__name__, static_url_path="/static")
 
@@ -54,8 +54,6 @@ def scrape_terms():
     # user.insert(results)
 
     results = jsonify_status_dict(results)  # json object
-
-    # user.insert({'city': 'Chicago'})
 
     return jsonify(results)
     # return jsonify("You want {} tweets for {}?".format(count, terms))
