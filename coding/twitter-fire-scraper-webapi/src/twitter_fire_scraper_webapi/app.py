@@ -1,25 +1,24 @@
 from flask import Flask, request, jsonify, abort
-from flask import Flask
-from flask.ext.pymongo import PyMongo
+from flask_pymongo import PyMongo
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 from twitter_fire_scraper.util import jsonify_status_dict
 
 app = Flask(__name__, static_url_path="/static")
 
-app.config['MONGO_DBNAME'] = 'connect_to_mongo'
-app.config['MONGO_URL'] = 'mongodb+srv://<username>:<password>@twitterfirescraperapi-i6mwc.mongodb.net/test?retryWrites=true'  # mlab username and password here
+app.config['MONGO_DBNAME'] = 'twitterfirescraperapi'  # name of your cluster
+app.config['MONGO_URI'] = 'mongodb+srv://<username>:<password>@twitterfirescraperapi-i6mwc.mongodb.net/test?retryWrites=true'  # mlab username and password here
 
 mongo = PyMongo(app)
 
 scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
 
 
-@app.route('/add', method=['GET'])
+@app.route('/add', methods=['GET'])
 def add():
     user = mongo.db.users
-    user.insert({'name' : 'Anthony'})
-    return 'User is added!'
+    user.insert({'name' : 'Trung'})
+    return 'Trung is added!'
 
 
 @app.route('/scrape_terms', methods=['GET'])
