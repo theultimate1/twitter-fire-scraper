@@ -29,10 +29,14 @@ router.all('/scrape', function (req: express.Request, res: express.Response) {
 
         const { terms, count } = req.body
 
+        data="You posted a form!"
+
         console.log(req.body)
         
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
+
+        data = "You are just sending a GET request."
     } else {
         return res.status(405).send(`The ${req.method} method for the "${req.originalUrl}" route is not supported.`);
     }

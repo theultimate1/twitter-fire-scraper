@@ -20,9 +20,14 @@ export class ApiLibrary {
         this.port = port;
     }
 
-    check_api(path: string = "info") {
+    construct_uri() {
         var uri = new url.URL(this.host)
         uri.port = this.port.toString()
+        return uri
+    }
+
+    check_api(path: string = "info") {
+        var uri = this.construct_uri()
         uri.pathname = path
 
         return new Promise((resolve, reject) => {
