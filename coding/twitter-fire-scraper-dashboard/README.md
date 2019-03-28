@@ -10,16 +10,21 @@ web.
 Install `npm`, [Node Package Manager](https://www.npmjs.com/get-npm).
 
 Then, `cd` into `./TwitterFireScraperDashboard/TwitterFireScraperDashboard/`.
+All the below commands should take place in the same directory as `package.json`.
 
-Run `npm install` to install packages that the project depends upon.
+1.  Run `npm install` to install packages that the project depends upon.
 
-Run `npm build` to compile the TypeScript into JavaScript.
+2.  Run `npm build` to compile the TypeScript into JavaScript.
 
-Then, run `npm start` to start the web application.
+	Alternatively, you can run `npm watch-tsc` to auto-build TypeScript into JavaScript when the TypeScript changes.
 
-To visit the site, go to `localhost:3000`.
+3.  Then, run `npm start` to start the web application.
 
-This web application will attempt to detect if the TwiiterFireScraper web API is running and will notify you if it is successful.
+	Alternatively, you can run `npm watch-node` to auto-reload the Node.js web app.
+
+4.	To visit the site, go to `localhost:3000`.
+
+This web application will attempt to detect if the TwitterFireScraper web API is running and will notify you if it is successful.
 
 ## Developing
 
