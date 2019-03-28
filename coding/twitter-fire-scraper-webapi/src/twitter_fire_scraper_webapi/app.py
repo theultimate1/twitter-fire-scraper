@@ -1,6 +1,4 @@
-import os
-from flask import Flask, request, render_template, jsonify, url_for, abort, Response
-import twitter_fire_scraper
+from flask import Flask, request, jsonify, abort
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 from twitter_fire_scraper.util import jsonify_status_dict
@@ -8,9 +6,9 @@ from twitter_fire_scraper.util import jsonify_status_dict
 app = Flask(__name__, static_url_path="/static")
 scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
 
+
 @app.route('/scrape_terms', methods=['GET'])
 def scrape_terms():
-
     count = request.args.get("count")
     if not count:
         abort(400, "'count' is a required URL parameter!")
@@ -34,7 +32,7 @@ def scrape_terms():
 
     geocode = request.args.get("geocode")
 
-    results = (scraper.scrape_terms(terms=terms, count=count, geocode=geocode)) # dict object
+    results = (scraper.scrape_terms(terms=terms, count=count, geocode=geocode))  # dict object
 
     results = jsonify_status_dict(results)  # json object
 
@@ -44,7 +42,6 @@ def scrape_terms():
 
 @app.route('/scrape_accounts', methods=['GET'])
 def scrape_accounts():
-
     count = request.args.get("count")
     if not count:
         abort(400, "'count' is a required URL parameter!")
@@ -107,16 +104,18 @@ def scrape():
 
 
 @app.route('/info', methods=['GET'])
-def info(): # function: check webapi is running or not
+def info():  # function: check webapi is running or not
     return "twitter-fire-scraper-webapi"
+
 
 @app.route('/')
 def index():
     return jsonify({'json': 'hacked'})
 
+
 @app.route('/add/<int:x>/<int:y>', methods=['GET'])
 def add_numbers(x, y):
-    return str(x+y)
+    return str(x + y)
 
 
 if __name__ == "__main__":
