@@ -47,8 +47,17 @@ export class ApiLibrary {
         })
     }
 
-    scrape_terms(terms: Array<String>, count: Number): Array<Object> {
-        return [{}]
+    scrape_terms(terms: Array<String>, count: Number): Promise<Array<Object>> {
+        var uri = this.construct_uri()
+        uri.pathname = "scrape_terms"
+
+        console.log("we are scraping terms:")
+
+        return new Promise((resolve, reject) => {
+            console.log(terms)
+            console.log(count)
+
+        })
     }
 
 }
