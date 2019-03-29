@@ -2,6 +2,7 @@ import unittest
 
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
+from pymongo import MongoClient
 
 
 class TestSimpleScraping(unittest.TestCase):
@@ -55,3 +56,29 @@ class TestSimpleScraping(unittest.TestCase):
 
         assert(isinstance(results['fire'], list))
         assert(isinstance(results['@RedCross'], list))
+
+    def testCanScrapeAndSave(self):
+        """Tests if the Scraper can both scrape and save the results to a MongoDB database"""
+
+        # Before starting, if the test database exists, remove it
+        # TODO: standardize localhost string
+        test_client = MongoClient()
+        test_db = "testdb"
+        test_client.drop_database(test_db)
+
+        twauth = TwitterAuthentication.autodetect_twitter_auth()
+
+        scraper = Scraper(twitter_authentication=twauth)
+
+        results = scraper.scrape_and_save(terms={"fire"}, count=1, dbname="testdb")
+
+        print(results)
+
+        assert ('fire' in results.keys())
+
+        assert (len(results.keys()) == 1)
+
+        assert (isinstance(results['fire'], list))
+
+        assert (test_client[test_db].get_collection("fire").count() == 1)
+        test_client.drop_database(test_db)
