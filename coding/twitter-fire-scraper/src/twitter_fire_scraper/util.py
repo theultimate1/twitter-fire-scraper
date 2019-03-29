@@ -60,12 +60,12 @@ def save_single_status_to_mongodb(status, mongodb):
 
     try:
         # Attempt to insert a status.
-        mongodb[category].insert_one(obj)
+        mongodb.insert_one(obj)
     # If the status already exists,
     except DuplicateKeyError as e:
         # Error silently and continue (or print and continue)
-        if print_on_duplicates:
-            print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
+        # if print_on_duplicates:
+        print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
         pass
 
 
