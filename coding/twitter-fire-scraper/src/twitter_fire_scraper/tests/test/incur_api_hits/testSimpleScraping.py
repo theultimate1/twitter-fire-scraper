@@ -72,8 +72,6 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape_and_save(terms={"fire"}, count=1, dbname="testdb")
 
-        print(results)
-
         assert ('fire' in results.keys())
 
         assert (len(results.keys()) == 1)
@@ -82,3 +80,20 @@ class TestSimpleScraping(unittest.TestCase):
 
         assert (test_client[test_db].get_collection("fire").count() == 1)
         test_client.drop_database(test_db)
+
+    def testLotsOfTweets(self):
+        """Tests if the Scraper can retrieve 1000 tweets for one term"""
+        twauth = TwitterAuthentication.autodetect_twitter_auth()
+
+        scraper = Scraper(twitter_authentication=twauth)
+
+        results = scraper.scrape(terms={"fire"}, count=1000)
+
+        assert ('fire' in results.keys())
+
+        assert (len(results.keys()) == 1)
+
+        assert (isinstance(results['fire'], list))
+
+        assert (len(results['fire']) == 1000)
+
