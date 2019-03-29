@@ -20,9 +20,14 @@ export class ApiLibrary {
         this.port = port;
     }
 
-    check_api(path: string = "info") {
+    construct_uri() {
         var uri = new url.URL(this.host)
         uri.port = this.port.toString()
+        return uri
+    }
+
+    check_api(path: string = "info") {
+        var uri = this.construct_uri()
         uri.pathname = path
 
         return new Promise((resolve, reject) => {
@@ -42,8 +47,17 @@ export class ApiLibrary {
         })
     }
 
-    scrape_terms(terms: Array<String>, count: Number): Array<Object> {
-        return [{}]
+    scrape_terms(terms: Array<String>, count: Number): Promise<Array<Object>> {
+        var uri = this.construct_uri()
+        uri.pathname = "scrape_terms"
+
+        console.log("we are scraping terms:")
+
+        return new Promise((resolve, reject) => {
+            console.log(terms)
+            console.log(count)
+
+        })
     }
 
 }
