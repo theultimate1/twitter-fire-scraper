@@ -4,7 +4,8 @@ import tweepy
 from tweepy import Status
 
 from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import merge_status_dict
+from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb
+from pymongo import MongoClient
 
 
 class Scraper:
@@ -124,5 +125,23 @@ class Scraper:
             accounts_results = self.scrape_accounts(accounts=accounts, count=count)
 
             results = merge_status_dict(results, accounts_results)
+
+        return results
+
+    def scrape_and_save(self, terms=None, accounts=None, count=None, geocode=None, dbname='scraper_tweets'):
+        # type: (Scraper, Set[str], Set[str], int, str, str) -> Dict[str, List[Status]]
+
+
+        # First, retrieve search results via scrape
+        results = self.scrape(terms=terms, accounts=accounts, geocode=geocode, count=count)
+
+        # Establish connection to the host
+        client = MongoClient()
+
+        # Access database where the scraped tweets will be saved
+        db = client[dbname]
+
+        # Save all tweets to the database
+        save_statuses_dict_to_mongodb(results, db)
 
         return results
