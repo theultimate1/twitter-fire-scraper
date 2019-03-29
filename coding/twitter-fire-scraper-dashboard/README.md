@@ -19,6 +19,10 @@ Install `npm`, [Node Package Manager](https://www.npmjs.com/get-npm).
 Then, `cd` into `./TwitterFireScraperDashboard/TwitterFireScraperDashboard/`.
 All the below commands should take place in the same directory as `package.json`.
 
+If you want to see a list of available commands, run `npm run`.
+
+`npm run` and `npm run-script` do the same thing as far as I can tell.
+
 1.  Run `npm install` to install packages that the project depends upon.
 
 2.  Run `npm run-script build` to compile the TypeScript into JavaScript.
