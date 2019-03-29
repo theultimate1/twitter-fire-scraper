@@ -31,7 +31,7 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape_accounts({"@RedCross"}, count=1)
 
-        assert ('@RedCross') in results
+        assert ('@RedCross' in results)
 
         assert (len(results.keys()) == 1)
 
