@@ -19,13 +19,13 @@ scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitte
 @app.route('/add_new', methods=['GET'])
 def add():
     user = mongo.db.users
-    user.insert_one({'city': 'Chicago'})
-    return 'Chicago is added!'
+    user.insert_one({'city': 'New York'})
+    return 'New York is added!'
 
 
 @app.route('/scrape_terms', methods=['GET'])
 def scrape_terms():
-    # user = mongo.db.users
+    # user1 = mongo.db.users
     count = request.args.get("count")
     if not count:
         abort(400, "'count' is a required URL parameter!")
@@ -51,7 +51,7 @@ def scrape_terms():
 
     results = (scraper.scrape_terms(terms=terms, count=count, geocode=geocode))  # dict object
 
-    # user.insert(results)
+    # user1.insert(results)
 
     results = jsonify_status_dict(results)  # json object
 
