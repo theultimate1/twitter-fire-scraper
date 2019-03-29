@@ -22,24 +22,30 @@ router.get('/', async function(req: express.Request, res: express.Response) {
 
 router.all('/scrape', function (req: express.Request, res: express.Response) {
 
-    var data;
+    var test_message;
+    var statuses = undefined;
 
     if (req.method === 'POST') {
         // Retrieve tweets and display them
 
         const { terms, count } = req.body
 
+        test_message="You posted a form!"
+
         console.log(req.body)
         
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
+
+        test_message = "You are just sending a GET request."
     } else {
         return res.status(405).send(`The ${req.method} method for the "${req.originalUrl}" route is not supported.`);
     }
 
     return res.render('scrape', {
         title: 'Scrape new tweets',
-        data: data,
+        test_message: test_message,
+        statuses: statuses
     })
 });
 

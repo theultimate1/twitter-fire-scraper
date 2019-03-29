@@ -52,6 +52,23 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
                 pass
 
 
+def save_single_status_to_mongodb(status, mongodb):
+    # type: (Status) -> None
+
+    # Create a dict from the status
+    obj = dict_from_status(status)
+
+    try:
+        # Attempt to insert a status.
+        mongodb[category].insert_one(obj)
+    # If the status already exists,
+    except DuplicateKeyError as e:
+        # Error silently and continue (or print and continue)
+        if print_on_duplicates:
+            print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
+        pass
+
+
 def merge_status_dict(d1, d2):
     # type: (Dict[str, List[Status]], Dict[str, List[Status]]) -> Dict[str, List[Status]]
     """
