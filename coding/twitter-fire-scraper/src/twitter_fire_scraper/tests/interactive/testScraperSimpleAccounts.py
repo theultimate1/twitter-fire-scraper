@@ -8,13 +8,13 @@ from pprint import pprint
 
 import yaml
 
-from config import DataConfig
-from scraper import Scraper
+from twitter_fire_scraper.config import DataConfig
+from twitter_fire_scraper.scraper import Scraper
 
 if __name__ == '__main__':
     scraper = Scraper()
 
-    with open(DataConfig.TWITTER_ACCOUNTS_DATA_PATH) as f:
+    with open(DataConfig.TWITTER_ACCOUNTS_DATA_PATH, errors='ignore') as f:
         accountsYml = yaml.load(f)
 
     # First 5 accounts from Twitter Account list.

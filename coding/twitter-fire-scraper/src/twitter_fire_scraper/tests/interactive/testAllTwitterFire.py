@@ -8,7 +8,7 @@ import tweepy
 
 from pprint import pprint
 
-from twitter import TwitterAuthentication
+from twitter_fire_scraper.twitter import TwitterAuthentication
 
 if __name__ == "__main__":
     # Set up twitter auth.

@@ -1,12 +1,13 @@
-from tweepy import Status
 from typing import Dict, List, Set
 
-from twitter_fire_scraper.twitter import TwitterAuthentication
 import tweepy
-import os
+from tweepy import Status
+
+from twitter_fire_scraper.twitter import TwitterAuthentication
+from twitter_fire_scraper.util import merge_status_dict
 
 
-class Scraper():
+class Scraper:
 
     def __init__(self, twitter_authentication=None):
         # type: (Scraper, TwitterAuthentication) -> None
@@ -77,20 +78,16 @@ class Scraper():
         if not count:
             count = self.default_count
 
-        results = {}
+        results = dict()
 
-        # accounts: list of 24 accounts
-        for each_account in accounts:   # each user
-            # return most recent statuses of the user
-            cursor = tweepy.Cursor(self.api.user_timeline, id=accounts)
+        for account in accounts:
+            statuses = self.api.user_timeline(screen_name=account, count=count)
 
-            # for each status of each user's account
-            for status in cursor.items(count):
+            if account not in results:
+                results[account] = list()
 
-                if not each_account in results:
-                    results[each_account] = set()
-
-                results[each_account].add(status)
+            for status in statuses:
+                results[account].append(status)
 
         return results
 
@@ -106,7 +103,7 @@ class Scraper():
         :return: A dictionary containing {'search-term': List[Status]} pairs.
 
         Examples:
-            >>> scrape(geocode="41.8297855,-87.666775,50mi", terms={"pizza", "waffles"}, maximum=3)
+            >>> self.scrape(geocode="41.8297855,-87.666775,50mi", terms={"pizza", "waffles"}, count=3)
             {'pizza': {Status, Status, Status},
             'waffles': {Status, Status}}
         """
@@ -116,6 +113,16 @@ class Scraper():
         if (not terms) and (not accounts):
             raise ValueError("No terms or accounts specified.")
 
-        return {
-            "hi": {"cool_tweet", "cooler_tweet"}
-        }
+        results = dict()
+
+        if terms:
+            terms_results = self.scrape_terms(terms=terms, count=count, geocode=geocode)
+
+            results = merge_status_dict(results, terms_results)
+
+        if accounts:
+            accounts_results = self.scrape_accounts(accounts=accounts, count=count)
+
+            results = merge_status_dict(results, accounts_results)
+
+        return results

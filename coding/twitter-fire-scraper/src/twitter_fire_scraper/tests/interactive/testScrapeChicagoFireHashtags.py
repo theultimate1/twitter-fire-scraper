@@ -16,9 +16,9 @@ import tweepy
 from tweepy import Status
 
 import yaml
-from config import DataConfig, Config
-from twitter import TwitterAuthentication, GEOBOX_CHICAGO
-from util import geobox_to_geocode, status_to_url
+from twitter_fire_scraper.config import DataConfig, Config
+from twitter_fire_scraper.twitter import TwitterAuthentication, GEOBOX_CHICAGO
+from twitter_fire_scraper.util import geobox_to_geocode, status_to_url
 
 
 def get_fire_search_terms():

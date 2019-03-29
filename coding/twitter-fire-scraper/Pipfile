@@ -10,6 +10,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pip = "==18.0"
 click = "*"
 itsdangerous = "*"
 nltk = "*"
@@ -31,11 +32,12 @@ pyyaml = "*"
 twine = "*"
 wheel = "*"
 setuptools = "*"
-twitter-fire-scraper = "*"
 jupyter = "*"
 notebook = "==5.7.5"
 numpy = "*"
 matplotlib = "*"
+pandas = "*"
+sklearn = "*"
 
 [dev-packages]
 

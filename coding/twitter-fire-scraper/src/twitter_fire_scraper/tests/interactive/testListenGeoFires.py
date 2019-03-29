@@ -8,8 +8,8 @@ import time
 
 import tweepy
 
-from twitter import SimpleFireStreamListener, TwitterAuthentication, GEOBOX_CHICAGO
-from util import geobox_from_points
+from twitter_fire_scraper.twitter import SimpleFireStreamListener, TwitterAuthentication, GEOBOX_CHICAGO
+from twitter_fire_scraper.util import geobox_from_points
 
 if __name__ == "__main__":
 

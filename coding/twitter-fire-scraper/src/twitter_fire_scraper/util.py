@@ -52,6 +52,47 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
                 pass
 
 
+def save_single_status_to_mongodb(status, mongodb):
+    # type: (Status) -> None
+
+    # Create a dict from the status
+    obj = dict_from_status(status)
+
+    try:
+        # Attempt to insert a status.
+        mongodb[category].insert_one(obj)
+    # If the status already exists,
+    except DuplicateKeyError as e:
+        # Error silently and continue (or print and continue)
+        if print_on_duplicates:
+            print("Duplicate tweet ID {} was NOT inserted to {} collection. ".format(obj['_id'], category))
+        pass
+
+
+def merge_status_dict(d1, d2):
+    # type: (Dict[str, List[Status]], Dict[str, List[Status]]) -> Dict[str, List[Status]]
+    """
+    Given two status dictionaries, merge them into one status dictionary.
+    Does not modify either dictionary, and rather makes a new one.
+    """
+    results = dict()
+
+    for term, statuses in d1.items():
+        if term not in results:
+            results[term] = list()
+
+        for status in statuses:
+            results[term].append(status)
+
+    for term, statuses in d2.items():
+        if term not in results:
+            results[term] = list()
+
+        for status in statuses:
+            results[term].append(status)
+
+    return results
+
 def status_to_url(status):
     # type: (Status) -> str
     """Given a Status, return that status' url."""
@@ -66,8 +107,32 @@ def pretty_print_statuses(statuses):
         print()
 
 
+def jsonify_status_dict(status_dict):
+    # type: (Dict[str, List[Status]]) -> Dict[str, List[str]]
+    """Take a Dict[str, List[Status]] and flatten its statuses into JSON objects.
+
+    Example:
+
+        flatten_status_dict({
+            "icecream": [Status, Status],
+            "cake": [Status]
+            })
+
+            ->
+
+            {
+                "icecream": [{"author": "@IceCreamLuvr", ...}, {"author": "@IceCreamHater", ...}],
+                "cake": [{"author": "@CakeIsGod123", ...}]
+            }
+    """
+    for term, statuses in status_dict.items():  # Only get the json of the tweet
+        status_dict[term] = list([status._json for status in statuses])
+
+    return status_dict
+
+
 def flatten_status_dict(status_dict):
-    # type: (Dict[str, List[Status]]) -> Dict[str, List[Status]]
+    # type: (Dict[str, List[Status]]) -> Dict[str, List[str]]
     """Take a Dict[str, List[Status]] and flatten its statuses into the text of the statuses.
 
     Example:

@@ -6,7 +6,7 @@ require 'open3'
 class Config
 
   def app_name
-    'twitter_fire_scraper'
+    'twitter_fire_scraper_webapi'
   end
 
   def windows_python_install_dir
@@ -115,7 +115,7 @@ class Config
 
   end
 
-  # Run tests on our virtualenv, assuming our project (twitter-fire-scraper) is installed.
+  # Run tests on our virtualenv, assuming our project is installed.
   def run_venv_dist_tests
 
     puts "Running tests on installed module in venv."
