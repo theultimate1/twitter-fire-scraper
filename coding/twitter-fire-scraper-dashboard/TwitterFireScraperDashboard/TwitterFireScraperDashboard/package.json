@@ -3,22 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-
-	"about:build": "echo Compile TypeScript to JavaScript.",
-	"build": "tsc",
-
-	"about:watch-tsc": "echo Compile TypeScript to JavaScript, but recompile if any files on disk change. Useful for development.",
+    "about:build": "echo Compile TypeScript to JavaScript.",
+    "build": "tsc",
+    "about:watch-tsc": "echo Compile TypeScript to JavaScript, but recompile if any files on disk change. Useful for development.",
     "watch-tsc": "tsc -w",
-    
-	"about:start": "echo Start the application.",
-	"start": "npm run serve",
-
-	"about:serve": "echo Serve app.js.",
+    "about:start": "echo Start the application.",
+    "start": "npm run serve",
+    "about:serve": "echo Serve app.js.",
     "serve": "node app.js",
-	
-	"about:watch-node": "echo Serve app.js, but reload if any files on disk change. Useful for development.",
+    "about:watch-node": "echo Serve app.js, but reload if any files on disk change. Useful for development.",
     "watch-node": "nodemon app.js"
-
   },
   "description": "A dashboard for the twitter-fire-scraper",
   "author": {
