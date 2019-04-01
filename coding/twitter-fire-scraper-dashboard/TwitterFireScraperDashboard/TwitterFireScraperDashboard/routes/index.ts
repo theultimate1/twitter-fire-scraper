@@ -8,10 +8,10 @@ import { ApiLibrary } from '../library/ApiLibrary';
 const router = express.Router();
 const apiLibrary = new ApiLibrary()
 
-router.get('/', async function(req: express.Request, res: express.Response) {
+router.get('/', async function (req: express.Request, res: express.Response) {
 
     var api_running = await apiLibrary.check_api()
-    
+
     return res.render('index', {
         title: 'Twitter Fire Scraper Dashboard',
         api_status: (api_running ? "API OK!" : "API Unreachable."),
@@ -30,10 +30,17 @@ router.all('/scrape', function (req: express.Request, res: express.Response) {
 
         const { terms, count } = req.body
 
-        test_message="You posted a form!"
+        var count_number = Number(count)
+        var terms_list = terms.replace('\r\n', ',')
+
+        test_message = "You posted a form!"
 
         console.log(req.body)
-        
+
+        var tweets = apiLibrary.scrape_terms(terms_list, count_number)
+
+        console.log(tweets["asd"])
+
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
 

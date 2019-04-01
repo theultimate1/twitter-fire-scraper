@@ -1,14 +1,16 @@
 ﻿import request = require('request');
 import url = require('whatwg-url');
+import querystring = require('querystring')
+import { URL } from 'url';
 
 export class ApiLibrary {
     /**
- * @param host Host of web API.
- * @param port Port of web API.
- * @param path Path to web API info.
- * 
- * Checks if the twitter-fire-scraper-webapi is functioning correctly.
- */
+     * @param host Host of web API.
+     * @param port Port of web API.
+     * @param path Path to web API info.
+     * 
+     * Checks if the twitter-fire-scraper-webapi is functioning correctly.
+     */
     host: string;
     port: string;
 
@@ -48,14 +50,30 @@ export class ApiLibrary {
     }
 
     scrape_terms(terms: Array<String>, count: Number): Promise<Array<Object>> {
-        var uri = this.construct_uri()
+        var uri: URL = this.construct_uri()
         uri.pathname = "scrape_terms"
 
-        console.log("we are scraping terms:")
+        var args: string = querystring.stringify({ terms: terms, count: count });
+
+        console.log("our query string:")
+
+        console.log(uri.href + "?" + args)
 
         return new Promise((resolve, reject) => {
-            console.log(terms)
-            console.log(count)
+
+            request(uri.href, (err, res, body) => {
+
+                if (err) {
+                    throw err;
+                }
+
+                console.log("Got response!")
+
+                console.log(body)
+
+                resolve(body)
+            })
+
 
         })
     }
