@@ -26,6 +26,10 @@ def add():
 @app.route('/scrape_terms', methods=['GET'])
 def scrape_terms():
     # user1 = mongo.db.users
+
+    print('scrape_terms')
+    print(request.args)
+
     count = request.args.get("count")
     if not count:
         abort(400, "'count' is a required URL parameter!")
@@ -39,6 +43,8 @@ def scrape_terms():
         abort(400, "'count' should be a valid number!")
 
     terms = request.args.get("terms")
+
+    print(terms)
 
     if not terms:
         abort(400, "'terms' is a required URL parameter!")

@@ -55,13 +55,15 @@ export class ApiLibrary {
 
         var args: string = querystring.stringify({ terms: terms, count: count });
 
+        var query_string = uri.href + "?" + args // TODO this is insecure.
+
         console.log("our query string:")
 
-        console.log(uri.href + "?" + args)
+        console.log(query_string)
 
         return new Promise((resolve, reject) => {
 
-            request(uri.href, (err, res, body) => {
+            request(query_string, (err, res, body) => {
 
                 if (err) {
                     throw err;

@@ -20,7 +20,7 @@ router.get('/', async function (req: express.Request, res: express.Response) {
 
 });
 
-router.all('/scrape', function (req: express.Request, res: express.Response) {
+router.all('/scrape', async function (req: express.Request, res: express.Response) {
 
     var test_message;
     var statuses = undefined;
@@ -31,15 +31,13 @@ router.all('/scrape', function (req: express.Request, res: express.Response) {
         const { terms, count } = req.body
 
         var count_number = Number(count)
-        var terms_list = terms.replace('\r\n', ',')
+        var terms_list = terms.replace(/\r\n/g, ',') //TODO also very bad idea, messy.
 
         test_message = "You posted a form!"
 
         console.log(req.body)
 
-        var tweets = apiLibrary.scrape_terms(terms_list, count_number)
-
-        console.log(tweets["asd"])
+        statuses = await apiLibrary.scrape_terms(terms_list, count_number)
 
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
