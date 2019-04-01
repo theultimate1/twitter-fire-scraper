@@ -39,6 +39,14 @@ router.all('/scrape', async function (req: express.Request, res: express.Respons
 
         statuses = await apiLibrary.scrape_terms(terms_list, count_number)
 
+        console.log("type of statuses:")
+        console.log(typeof statuses)
+
+        console.log("statuses' keys:")
+        for (var key in statuses) {
+            console.log(key)
+        }
+
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
 
@@ -50,7 +58,7 @@ router.all('/scrape', async function (req: express.Request, res: express.Respons
     return res.render('scrape', {
         title: 'Scrape new tweets',
         test_message: test_message,
-        statuses: statuses
+        statusdict: statuses
     })
 });
 

@@ -1,30 +1,35 @@
 ﻿extends layout
 
 block content
-	h1= title
-	p= test_message
+    h1= title
+    p= test_message
   
-	section
-		form(method="POST" action="/scrape" id="scrape")
-			ul
-				li
-					p
-						label(for="terms") Terms
-					p
-						textarea(type="text" name="terms" id="terms" form="scrape")
-				li  
-					p
-						label(for="terms") Number of tweets
-					p
-						input(type="text" name="count")
+    section
+        form(method="POST" action="/scrape" id="scrape")
+            ul
+                li
+                    p
+                        label(for="terms") Terms
+                    p
+                        textarea(type="text" name="terms" id="terms" form="scrape")
+                li  
+                    p
+                        label(for="terms") Number of tweets
+                    p
+                        input(type="text" name="count")
 
-			input(type="submit")
+            input(type="submit")
 
-	if statuses
-		section(class="tweets")
-			ul
-				each status in statuses
-					li
-						p= status._id
-	if !statuses
-		p No statuses to display.
+    if statusdict
+        section(class="tweets")
+            ul
+                each statuses, term in statusdict
+                    li
+                        h1= term
+                        ul
+                            each status in statuses
+                                li
+                                    p= status.text
+                                
+    if !statusdict
+        p No statuses to display.

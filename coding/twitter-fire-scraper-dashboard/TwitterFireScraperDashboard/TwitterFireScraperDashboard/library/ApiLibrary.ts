@@ -49,7 +49,7 @@ export class ApiLibrary {
         })
     }
 
-    scrape_terms(terms: Array<String>, count: Number): Promise<Array<Object>> {
+    scrape_terms(terms: Array<String>, count: Number): Promise<JSON> {
         var uri: URL = this.construct_uri()
         uri.pathname = "scrape_terms"
 
@@ -73,7 +73,7 @@ export class ApiLibrary {
 
                 console.log(body)
 
-                resolve(body)
+                resolve(JSON.parse(body))
             })
 
 
