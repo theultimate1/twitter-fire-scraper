@@ -1,0 +1,2 @@
+@INCLUDE_PATH = ..\src\twitter_fire_scraper_webapi
+OUTPUT_DIRECTORY=./output/
