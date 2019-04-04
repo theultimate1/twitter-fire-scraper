@@ -25,11 +25,14 @@ block content
             ul
                 each statuses, term in statusdict
                     li
-                        h1= term
-                        ul
-                            each status in statuses
-                                li
-                                    p= status.text
-                                
+                        section(class="tweet-category")
+                            h1= term
+                            ul
+                                each status in statuses
+                                    li
+                                        aside(class="tweet-author")
+                                            p= "\'@"+status.user.name+"\' says..."
+
+                                        p= status.text
     if !statusdict
         p No statuses to display.
