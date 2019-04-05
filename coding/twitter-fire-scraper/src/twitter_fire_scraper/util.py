@@ -1,5 +1,5 @@
 from __future__ import print_function
-import colorama
+import colorama, os
 from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 from tweepy import Status
@@ -22,6 +22,25 @@ def dict_from_status(status):
 
     return obj
 
+def save_statuses_dict_to_csv(status_dict, filepath="tweets.csv"):
+    """
+    Utility function to extract tweets from a dictionary of Statuses and saves them to a csv file
+
+    :param status_dict: A dict of {"category": {Status, Status, Status}, ...} objects
+    :param filepath: Path to file where to save all tweets to
+    """
+
+    # Open file to write to
+    f = os.open(filepath, os.O_CREAT | os.O_WRONLY)
+
+    for category, statuses in status_dict.items():
+        for status in statuses:
+            os.write(f, status+"\n")
+
+    # Close file
+    os.close(f)
+
+    return
 
 def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=False):
     # type: (Dict[str, List[Status]], Database, bool) -> None
