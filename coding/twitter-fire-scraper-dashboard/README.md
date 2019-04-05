@@ -1,7 +1,6 @@
 # What is this?
 
-A web frontend to allow you to use the `twitter-fire-scraper` package via the
-web.
+A web frontend to allow you to use the `twitter-fire-scraper-webapi` package.
 
 # Developers
 
@@ -11,6 +10,7 @@ web.
 - npm 6.7.0
 - node v11.12.0
 - tsc Version 2.9.2
+- `twitter-fire-scraper-webapi` web API running on port `3620`.
 
 ## Running
 
