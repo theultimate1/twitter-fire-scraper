@@ -27,6 +27,10 @@ used to understand house fires in Chicago.
 
     pip install twitter-fire-scraper
 
+If it is already installed and a newer version is available, you can update with:
+
+	pip install twitter-fire-scraper --upgrade
+
 ## Notes
 
 This README assumes all commands take place in the same folder as this README file.
@@ -179,6 +183,8 @@ There are a series of [Ruby](https://www.ruby-lang.org/en/) scripts (cross-platf
     ruby clean.rb
 
 ## Uploading
+
+You'll need to bump the version in `./src/VERSION` when uploading a new version.
 
 ### To the test site (test.pypi.org)
 
