@@ -1,5 +1,6 @@
 from __future__ import print_function
 import colorama
+import json
 from pymongo.database import Database
 from pymongo.errors import DuplicateKeyError
 from tweepy import Status
@@ -22,6 +23,19 @@ def dict_from_status(status):
 
     return obj
 
+def save_statuses_dict_to_json(status_dict, filepath="tweets.json"):
+    """
+    Utility function to extract tweets from a dictionary of Statuses and saves them to a csv file
+
+    :param status_dict: A dict of {"category": {Status, Status, Status}, ...} objects
+    :param filepath: Path to file where to save all tweets to
+    """
+
+    # Open file to write to
+    with open(filepath, 'w') as outfile:
+        json.dump(status_dict, outfile, indent=4)
+
+    return
 
 def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=False):
     # type: (Dict[str, List[Status]], Database, bool) -> None
