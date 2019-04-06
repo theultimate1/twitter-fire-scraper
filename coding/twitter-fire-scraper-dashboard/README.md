@@ -7,16 +7,19 @@ A web frontend to allow you to use the `twitter-fire-scraper-webapi` package.
 ## Dependencies
 
 - Python 3
-- npm 6.7.0
+
+- [npm](https://www.npmjs.com/get-npm) version 6.7.0
+
 - node v11.12.0
-- tsc Version 2.9.2
+  
 - `twitter-fire-scraper-webapi` web API running on port `3620`.
+
+  You can go to `/coding/twitter-fire-scraper-webapi` to see how to
+  bring up the web API.
 
 ## Running
 
-Install `npm`, [Node Package Manager](https://www.npmjs.com/get-npm).
-
-Then, `cd` into `./TwitterFireScraperDashboard/TwitterFireScraperDashboard/`.
+`cd` into `./TwitterFireScraperDashboard/TwitterFireScraperDashboard/`.
 All the below commands should take place in the same directory as `package.json`.
 
 If you want to see a list of available commands, run `npm run`.
