@@ -72,7 +72,7 @@ script:
   - |
     pipenv run python src/twitter_fire_scraper_webapi/app.py 2> /tmp/flask.error.log > /tmp/flask.log &
     FLASK_PID=$!
-    sleep 10
+    sleep 30
 
   - echo PID of flask web server is ${FLASK_PID}
   - curl -v 127.0.0.1:3620
@@ -86,7 +86,7 @@ script:
   - |
     npm run serve 2> /tmp/node.error.log > /tmp/node.log &
     NPM_PID=$!
-    sleep 10
+    sleep 30
 
   - echo PID of node web server is ${NPM_PID}
   - curl -v localhost:3000
