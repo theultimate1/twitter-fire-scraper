@@ -22,8 +22,6 @@ before_install:
   - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
   - sudo apt-get install -y nodejs
 
-  - sudo pip install pip==18.0 # Fix awful `TypeError: 'module' object is not callable` bug
-
 script:
 
   - echo "I am script!"
