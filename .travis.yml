@@ -53,7 +53,7 @@ script:
     sleep 10
 
   - echo PID of flask web server is ${FLASK_PID}
-  - curl 127.0.0.1:3620
+  - curl -v 127.0.0.1:3620
   - popd
 
   - echo "Starting dashboard..."
@@ -67,7 +67,7 @@ script:
     sleep 10
 
   - echo PID of node web server is ${NPM_PID}
-  - curl localhost:3000
+  - curl -v localhost:3000
   - popd
 
   - popd
