@@ -60,7 +60,13 @@ script:
   - pushd twitter-fire-scraper-dashboard/TwitterFireScraperDashboard/TwitterFireScraperDashboard
   - npm install
   - npm run build
-  - npm run serve 2> /tmp/node.error.log > /tmp/node.log &
+
+  - |
+    npm run serve 2> /tmp/node.error.log > /tmp/node.log &
+    NPM_PID=$!
+    sleep 10
+
+  - echo 'PID of node web server is $NPM_PID'
   - curl localhost:3000
   - popd
 
