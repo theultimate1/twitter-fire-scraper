@@ -11,7 +11,7 @@ python:
 before_install:
 
   - echo "Installing Ruby..."
-  - apt install -y ruby
+  - sudo apt install -y ruby
 
 
 script:
