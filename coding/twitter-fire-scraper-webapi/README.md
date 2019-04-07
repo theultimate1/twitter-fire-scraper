@@ -10,4 +10,4 @@ Same development for the `twitter-fire-scraper` package.
 
 Run `pipenv install` to install the dependencies for this package,
 
-and run `pipenv run python app.py` to start the web API.
+`cd` into `./src/twitter_fire_scraper_webapi/`, and run `pipenv run python app.py` to start the web API.
