@@ -11,7 +11,10 @@ python:
 before_install:
 
   - echo "Installing npm..."
-  - sudo apt install -y npm
+  - sudo apt install -y curl
+  - sudo apt-get install -y build-essential
+  - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
 
 
 script:
