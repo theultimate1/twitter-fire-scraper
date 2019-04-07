@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.7"
+
+before_install:
+
+  - echo "Installing Ruby..."
+  - apt install -y ruby
+
+
+script:
+
+  - echo "I am script!"
