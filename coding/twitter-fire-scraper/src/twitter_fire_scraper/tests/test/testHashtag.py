@@ -8,7 +8,7 @@ from hashtags import contains_hashtag, extract_hashtags
 
 class TestHashtags(unittest.TestCase):
 
-    def test_extract(self: str) -> None:
+    def test_extract(self):
         assert (extract_hashtags("I love the #beach and #sand!") == {"#beach", "#sand"})
 
         assert (extract_hashtags(u"Pizza is so good! #~# 🍕") == set())
