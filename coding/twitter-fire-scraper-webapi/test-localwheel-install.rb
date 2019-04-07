@@ -48,7 +48,7 @@ if is_windows
   stdout, stderr, status = Open3.capture3("start /WAIT \"\" \"#{(config.virtual_python_exe)}\" -m pip install \"#{wheels[0]}\"")
   # stdout, stderr, status = Open3.capture3("start", "\"\"", "\"#{config.virtual_python_exe}\"", "-m", "pip", "install", "\"#{wheels[0]}\"")
 else
-  stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe.shellescape}", "-m", "pip", "install", "\"#{wheels[0]}\"")
+  stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe.shellescape}", "-m", "pip", "install", wheels[0].shellescape)
 end
 
 # Install test package from WHL file
