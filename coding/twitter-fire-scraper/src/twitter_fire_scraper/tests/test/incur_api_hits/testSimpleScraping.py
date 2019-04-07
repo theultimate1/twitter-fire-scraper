@@ -81,7 +81,7 @@ class TestSimpleScraping(unittest.TestCase):
         assert (test_client[test_db].get_collection("fire").count() == 1)
         test_client.drop_database(test_db)
 
-    def testLotsOfTweets(self):
+    def _disabled_testLotsOfTweets(self):
         """Tests if the Scraper can retrieve 1000 tweets for one term"""
         twauth = TwitterAuthentication.autodetect_twitter_auth()
 
