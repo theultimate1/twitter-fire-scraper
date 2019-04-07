@@ -31,7 +31,29 @@ script:
 
   - echo "twitter-fire-scraper"
   - pushd twitter-fire-scraper
-
   - ruby build.rb
   - ruby test-localwheel-install.rb
+  - popd
+
+  - echo "twitter-fire-scraper-webapi"
+  - pushd twitter-fire-scraper-webapi
+  - ruby build.rb
+  - ruby test-localwheel-install.rb
+  - popd
+
+  - echo "twitter-fire-scraper-dashboard"
+  - echo "Starting up Web API..."
+  - pushd twitter-fire-scraper-webapi
+  - pipenv install
+  - pipenv run python src/twitter_fire_scraper_webapi/app.py &
+  - curl localhost:3620
+  - popd
+
+  - pushd twitter-fire-scraper-dashboard/TwitterFireScraperDashboard/TwitterFireScraperDashboard
+  - npm install
+  - npm run build
+  - npm run serve &
+  - curl localhost:3000
+  - popd
+
   - popd
