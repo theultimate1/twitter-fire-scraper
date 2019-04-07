@@ -48,7 +48,8 @@ script:
   - pushd twitter-fire-scraper-webapi
   - pipenv run pip install pip==18.0
   - pipenv install
-  - pipenv run python src/twitter_fire_scraper_webapi/app.py &
+  - pipenv run python src/twitter_fire_scraper_webapi/app.py&
+    FLASK_PID=$!
   - curl localhost:3620
   - popd
 
