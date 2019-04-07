@@ -18,6 +18,9 @@ matrix:
       language: generic
       env: PYTHON=3.4.4
 
+  allow_failures:
+    - os: osx
+
 addons:
   apt:
     packages:
