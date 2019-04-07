@@ -1,10 +1,24 @@
 language: python
+
+os:
+  - linux
+  - osx
+
+addons:
+  apt:
+    packages:
+      - curl
+      - build-essential
+  homebrew:
+    packages:
+      - npm
+
 dist: xenial # required for Python >= 3.7
 
 python:
   - "3.4"
   - "3.7"
-  
+
 services:
   - mongodb
 
@@ -15,10 +29,11 @@ before_install:
     -in secrets.json.enc -out ~/secrets.json -d
 
   - echo "Installing npm..."
-  - sudo apt install -y curl
-  - sudo apt-get install -y build-essential
-  - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+    fi
 
 script:
 
