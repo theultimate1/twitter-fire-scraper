@@ -10,10 +10,19 @@ python:
 
 before_install:
 
-  - echo "Installing Ruby..."
-  - sudo apt install -y ruby
+  - echo "Installing npm..."
+  - sudo apt install -y npm
 
 
 script:
 
   - echo "I am script!"
+
+  - pushd coding
+
+  - echo "twitter-fire-scraper"
+  - pushd twitter-fire-scraper
+
+  - ruby build.rb
+  - ruby test-localwheel-install.rb
+  - popd
