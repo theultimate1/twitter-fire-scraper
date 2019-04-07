@@ -1,9 +1,5 @@
 language: python
 
-os:
-  - linux
-  - osx
-
 matrix:
 
   fast_finish: true
@@ -12,9 +8,11 @@ matrix:
 
     - os: linux
       dist: xenial
-      python:
-        - "3.4"
-        - "3.7"
+      python: "3.4"
+
+    - os: linux
+      dist: xenial
+      python: "3.7"
 
     - os: osx
       language: generic
