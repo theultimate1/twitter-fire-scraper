@@ -52,7 +52,7 @@ script:
     FLASK_PID=$!
     sleep 10
 
-  - echo 'PID of flask web server is $FLASK_PID'
+  - echo PID of flask web server is ${FLASK_PID}
   - curl 127.0.0.1:3620
   - popd
 
@@ -66,7 +66,7 @@ script:
     NPM_PID=$!
     sleep 10
 
-  - echo 'PID of node web server is $NPM_PID'
+  - echo PID of node web server is ${NPM_PID}
   - curl localhost:3000
   - popd
 
