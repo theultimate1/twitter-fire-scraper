@@ -43,9 +43,10 @@ script:
   - popd
 
   - echo "twitter-fire-scraper-dashboard"
+
   - echo "Starting up Web API..."
   - pushd twitter-fire-scraper-webapi
-  - pipenv install pip==18.0
+  - pipenv run pip install pip==18.0
   - pipenv install
   - pipenv run python src/twitter_fire_scraper_webapi/app.py &
   - curl localhost:3620
