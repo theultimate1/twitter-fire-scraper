@@ -46,19 +46,37 @@ script:
   - pushd twitter-fire-scraper-webapi
   - pipenv run pip install pip==18.0
   - pipenv install
+
   - |
-    pipenv run python src/twitter_fire_scraper_webapi/app.py&
+    pipenv run python src/twitter_fire_scraper_webapi/app.py 2> /tmp/flask.error.log > /tmp/flask.log &
     FLASK_PID=$!
-  - echo PID of flask web server is $FLASK_PID
-  - curl localhost:3620
+    sleep 10
+
+  - echo 'PID of flask web server is $FLASK_PID'
+  - curl 127.0.0.1:3620
   - popd
 
   - echo "Starting dashboard..."
   - pushd twitter-fire-scraper-dashboard/TwitterFireScraperDashboard/TwitterFireScraperDashboard
   - npm install
   - npm run build
-  - npm run serve &
+  - npm run serve 2> /tmp/node.error.log > /tmp/node.log &
   - curl localhost:3000
   - popd
 
   - popd
+
+after_failure:
+
+  - echo "Log of twitter-fire-scraper-webapi:"
+  - cat /tmp/flask.log
+
+  - echo "Error log of twitter-fire-scraper-webapi:"
+  - cat /tmp/flask.error.log
+
+
+  - echo "Log of twitter-fire-scraper-dashboard:"
+  - cat /tmp/node.log
+
+  - echo "Error log of twitter-fire-scraper-dashboard:"
+  - cat /tmp/node.error.log
