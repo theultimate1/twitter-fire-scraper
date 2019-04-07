@@ -97,7 +97,7 @@ script:
   - pipenv install
 
   - |
-    pipenv run python src/twitter_fire_scraper_webapi/app.py 2> /tmp/flask.error.log > /tmp/flask.log &
+    pipenv run python src/twitter_fire_scraper_webapi/app.py 2> /tmp/flask.error.log > /tmp/flask.log & # TODO This is still a race condition. Just one unlikely to fail...
     FLASK_PID=$!
     sleep 30
 
@@ -111,7 +111,7 @@ script:
   - npm run build
 
   - |
-    npm run serve 2> /tmp/node.error.log > /tmp/node.log &
+    npm run serve 2> /tmp/node.error.log > /tmp/node.log & # TODO This is still a race condition. Just one unlikely to fail...
     NPM_PID=$!
     sleep 30
 
