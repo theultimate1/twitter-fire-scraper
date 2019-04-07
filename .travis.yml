@@ -49,6 +49,7 @@ script:
   - |
     pipenv run python src/twitter_fire_scraper_webapi/app.py&
     FLASK_PID=$!
+  - echo PID of flask web server is $FLASK_PID
   - curl localhost:3620
   - popd
 
