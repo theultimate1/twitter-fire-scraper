@@ -18,21 +18,21 @@ class CachedTweets:
     scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
 
     @staticmethod
-    @lru_cache
+    @lru_cache(maxsize=None)
     def tweets_small():
         # type: () -> Dict[str, List[Status]]
         """Return a static list of 9 tweets that is generated once and re-used throughout the module's lifetime."""
         return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=3)
 
     @staticmethod
-    @lru_cache
+    @lru_cache(maxsize=None)
     def tweets_medium():
         # type: () -> Dict[str, List[Status]]
         """Return a static list of 60 tweets that is generated once and re-used throughout the module's lifetime."""
         return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=20)
 
     @staticmethod
-    @lru_cache
+    @lru_cache(maxsize=None)
     def tweets_large():
         # type: () -> Dict[str, List[Status]]
         """Return a static list of 300 tweets that is generated once and re-used throughout the module's lifetime."""
