@@ -2,16 +2,18 @@
 \geometry{paperwidth=36in,paperheight=48in}
 
 \usepackage[utf8]{inputenc}
+\usepackage{tikz}
 
 \title{Twitter Fire Scraper}
 \author{Coding Team}
 \date{\today}
 \institute{Illinois Institute of Technology}
 
-\usepackage{blindtext}
+\usepackage[pangram]{blindtext}
 \usepackage{comment}
 
-\usetheme{Board}
+\usetheme{Autumn}
+\usecolorstyle[colorPalette=BrownBlueOrange]{Germany}
 
 \begin{document}
 
@@ -45,8 +47,34 @@
         \end{tikzfigure}
     }
     \column{0.5}
+    
     \block{Description of the figure}{\blindtext}
+    
+	\begin{subcolumns}
+  	
+  		\subcolumn{0.5}
+		\block{a really cool subcolumn}{Col 1}
+    		
+  		\subcolumn{0.5}
+		\block{a better subcolumn}{Col 2}
+			
+	\end{subcolumns}
+
 \end{columns}
 
+\begin{columns}
+
+	\column{0.5}
+	\block{a}
+	{
+		a first block
+	}
+
+	\column{0.5}
+	\block{a}
+	{
+		a second block
+	}
+\end{columns}
 
 \end{document}
