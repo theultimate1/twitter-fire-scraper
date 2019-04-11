@@ -1,14 +1,13 @@
 import csv
 import os
-from _csv import writer
 from typing import Dict, List, Set
 
 import tweepy
+from pymongo import MongoClient
 from tweepy import Status
 
 from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb
-from pymongo import MongoClient
+from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb, get_status_text
 
 
 class Scraper:
@@ -197,7 +196,7 @@ class Scraper:
                     data = {
                         "category": keyword,
                         "tweet_id": status.id,
-                        "text": status.full_text if status.full_text else status.text,
+                        "text": get_status_text(status),
                         "date": status.created_at,
                         'retweet_count': status.retweet_count,
                     }

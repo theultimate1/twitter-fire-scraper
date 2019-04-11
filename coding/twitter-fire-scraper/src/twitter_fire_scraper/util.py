@@ -9,6 +9,18 @@ from typing import Dict, List
 from twitter_fire_scraper.models import Point
 
 
+def get_status_text(status):
+    # type: (Status) -> str
+    """Given a Status, return its text.
+
+    This method favors longer text."""
+    if status.full_text:
+        return status.full_text
+
+    if status.text:
+        return status.text
+
+
 def dict_from_status(status):
     # type: (Status) -> dict
     """
@@ -23,6 +35,7 @@ def dict_from_status(status):
 
     return obj
 
+
 def save_statuses_dict_to_json(status_dict, filepath="tweets.json"):
     """
     Utility function to extract tweets from a dictionary of Statuses and saves them to a csv file
@@ -36,6 +49,7 @@ def save_statuses_dict_to_json(status_dict, filepath="tweets.json"):
         json.dump(status_dict, outfile, indent=4)
 
     return
+
 
 def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=False):
     # type: (Dict[str, List[Status]], Database, bool) -> None
@@ -107,6 +121,7 @@ def merge_status_dict(d1, d2):
 
     return results
 
+
 def status_to_url(status):
     # type: (Status) -> str
     """Given a Status, return that status' url."""
@@ -117,7 +132,7 @@ def pretty_print_statuses(statuses):
     # type: (List[Status]) -> None
     for status in statuses:
         print("<{}>".format(status_to_url(status)))
-        print(status.text)
+        print(get_status_text(status))
         print()
 
 
@@ -163,7 +178,7 @@ def flatten_status_dict(status_dict):
 
     """
     for term, statuses in status_dict.items():  # Only print the text of the tweet
-        status_dict[term] = list([status.text for status in statuses])
+        status_dict[term] = list([get_status_text(status) for status in statuses])
 
     return status_dict
 
@@ -221,7 +236,7 @@ def geobox_to_geocode(geobox, radius):
 def is_retweet(status):
     # type: (Status) -> bool
     """Tells you if this Status is a retweet."""
-    return "RT @" in status.text
+    return "RT @" in get_status_text(status)
 
 
 def strtobool(v):

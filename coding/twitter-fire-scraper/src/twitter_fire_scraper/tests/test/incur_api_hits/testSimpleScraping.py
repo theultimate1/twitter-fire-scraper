@@ -4,6 +4,8 @@ from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 from pymongo import MongoClient
 
+from util import get_status_text
+
 
 class TestSimpleScraping(unittest.TestCase):
 
@@ -22,7 +24,7 @@ class TestSimpleScraping(unittest.TestCase):
 
         assert (len(results.keys()) == 1)
 
-        assert (isinstance(results['fire'][0].text, str))
+        assert (isinstance(get_status_text(results['fire'][0]), str))
 
     def testCanScrapeAccount(self):
         """Tests that scraper can scrape one account."""
@@ -38,7 +40,7 @@ class TestSimpleScraping(unittest.TestCase):
 
         assert(isinstance(results['@RedCross'], list))
 
-        assert (isinstance(results['@RedCross'][0].text, str))
+        assert (isinstance(get_status_text(results['@RedCross'][0]), str))
 
     def testCanScrapeMethod(self):
         """Tests that the Scraper's `scrape` method works."""

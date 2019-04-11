@@ -7,6 +7,7 @@ from tweepy import OAuthHandler, Status
 
 from twitter_fire_scraper.config import Config
 from twitter_fire_scraper.models import Point
+from twitter_fire_scraper.util import get_status_text
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
 
@@ -95,7 +96,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         :return: Whether or not the status is relevant.
         """
 
-        text = status.text
+        text = get_status_text(status)
 
         if 'fire' in text:
             print("Relevant:")
@@ -111,7 +112,7 @@ class SimpleFireStreamListener(tweepy.StreamListener):
         # type: (SimpleFireStreamListener, Status) -> None
 
         if SimpleFireStreamListener.is_relevant(status, verbose=True):
-            text = status.text
+            text = get_status_text(status)
 
             print("Relevant: " + text.encode("UTF-8"))
 
@@ -129,7 +130,7 @@ class MongoDBStreamListener(tweepy.StreamListener):
         :return: Whether or not the status is relevant.
         """
 
-        if 'fire' in status.text:
+        if 'fire' in get_status_text(status):
             return True
 
         return False
@@ -152,7 +153,7 @@ class MongoDBStreamListener(tweepy.StreamListener):
         # type: (MongoDBStreamListener, Status) -> None
 
         # Make text safe to print in console.
-        safe_text = status.text.encode('UTF-8')
+        safe_text = get_status_text(status).encode('UTF-8')
 
         # If the status is relevant,
         if MongoDBStreamListener.is_relevant(status):
