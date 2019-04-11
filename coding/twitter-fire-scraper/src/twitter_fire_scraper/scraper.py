@@ -12,7 +12,6 @@ from pymongo import MongoClient
 
 
 class Scraper:
-
     CSV_DELIMITER = '\t'
 
     def __init__(self, twitter_authentication=None):
@@ -150,9 +149,8 @@ class Scraper:
 
         return results
 
-    @staticmethod
-    def save_statusdict_to_csv(statusdict, filepath, overwrite=False):
-        # type: (Dict[str, List[Status]], str) -> str
+    def save_statusdict_to_csv(self, statusdict, filepath, overwrite=False):
+        # type: (Scraper, Dict[str, List[Status]], str, bool) -> str
         """Save a status dict to a CSV file.
         :param statusdict A {str: [Status, Status, ...]} dictionary.
         :param filepath A path to the file to output to."""
@@ -166,7 +164,16 @@ class Scraper:
             if not overwrite:
                 raise FileExistsError("File at '{}' already exists!".format(filepath))
 
-        fieldnames = ['category', 'tweet_id', 'text', 'date', 'geo', 'coordinates', 'place']
+        fieldnames = [
+            'category', 'tweet_id', 'text', 'date',
+
+            'geo',
+
+            'coordinates',
+
+            'place_id', 'place_centroid', 'place_country', 'place_country_code', 'place_full_name',
+            'place_name', 'place_type'
+        ]
 
         with open(filepath, 'w', encoding='utf-16', newline='') as file:
             fileWriter = csv.DictWriter(file, delimiter=Scraper.CSV_DELIMITER, quotechar='"', quoting=csv.QUOTE_ALL,
@@ -176,15 +183,39 @@ class Scraper:
 
             for keyword, statuses in statusdict.items():
 
-                for status in statuses:
-                    fileWriter.writerow({
+                for status in statuses:  # type: Status
+
+                    data = {
                         "category": keyword,
                         "tweet_id": status.id,
                         "text": status.text,
                         "date": status.created_at,
-                        "geo": status.geo,
-                        'coordinates': status.coordinates,
-                        'place': status.place,
-                    })
+                    }
+
+                    if status.geo:
+                        data.update({
+                            "geo": ','.join(str(x) for x in status.geo['coordinates']),
+                        })
+
+                    if status.coordinates:
+                        data.update({
+                            'coordinates': ','.join(str(x) for x in status.coordinates['coordinates']),
+                        })
+
+                    # If the status has a place, then add its data!
+                    if status.place:
+                        data.update({
+                            'place_id': status.place.id,
+                            # We have to use the API for this one to look it up.
+                            'place_centroid': ','.join(str(x) for x in self.api.geo_id(status.place.id).centroid),
+                            'place_country': status.place.country,
+                            'place_country_code': status.place.country_code,
+                            'place_full_name': status.place.full_name,
+                            'place_name': status.place.name,
+                            'place_type': status.place.place_type,
+                        })
+
+                    # Write all the data we've collected so far.
+                    fileWriter.writerow(data)
 
         return filepath
