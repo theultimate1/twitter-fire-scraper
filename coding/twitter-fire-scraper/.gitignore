@@ -1,5 +1,6 @@
 # Compiled python bytecode cache
 cache/ 
+_trial_temp/
 
 # Python build artifacts
 *.egg-info/

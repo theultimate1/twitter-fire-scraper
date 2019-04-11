@@ -1,3 +1,6 @@
+import csv
+import os
+from _csv import writer
 from typing import Dict, List, Set
 
 import tweepy
@@ -131,7 +134,6 @@ class Scraper:
     def scrape_and_save(self, terms=None, accounts=None, count=None, geocode=None, dbname='scraper_tweets'):
         # type: (Scraper, Set[str], Set[str], int, str, str) -> Dict[str, List[Status]]
 
-
         # First, retrieve search results via scrape
         results = self.scrape(terms=terms, accounts=accounts, geocode=geocode, count=count)
 
@@ -145,3 +147,36 @@ class Scraper:
         save_statuses_dict_to_mongodb(results, db)
 
         return results
+
+    def save_statusdict_to_csv(self, statusdict, filepath):
+        # type: (Scraper, Dict[str, List[Status]], str) -> str
+
+        dirname = os.path.dirname(filepath)
+
+        if not os.path.exists(dirname):
+            raise NotADirectoryError("Directory {} does not exist!".format(dirname))
+
+        if os.path.isfile(filepath):
+            raise FileExistsError("File at '{}' already exists!".format(filepath))
+
+        fieldnames = ['category', 'id', 'text', 'date']
+
+        with open(filepath, 'w', encoding='utf-16', newline='') as file:
+            fileWriter = csv.DictWriter(file, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL,
+                                        fieldnames=fieldnames)
+
+            fileWriter.writeheader()
+
+
+
+            for keyword, statuses in statusdict.items():
+
+                for status in statuses:
+                    fileWriter.writerow({
+                        "category": keyword,
+                        "id": status.id,
+                        "text": status.text,
+                        "date": "TODO"
+                    })
+
+        return filepath
