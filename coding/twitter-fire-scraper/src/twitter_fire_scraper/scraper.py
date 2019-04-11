@@ -33,7 +33,7 @@ class Scraper:
         # Default accounts to scrape.
         # self.accounts = accounts in data/TwitterAccounts.yml
 
-    def scrape_terms(self, terms, count=None, geocode=None):
+    def scrape_terms(self, terms, count=None, geocode=None, include_retweets=True):
         # type: (Scraper, Set[str], int, str) -> Dict[str, List[Status]]
         """
         Term-scraping method. Can scrape a set of terms.
@@ -43,6 +43,7 @@ class Scraper:
         :param geocode: Geographical area to search in. Can be blank.
         :param terms:  List of terms to search for.
         :param count: Maximum tweets to return per search term.
+        :param include_retweets: Should retweets be included?
         :return: A dictionary containing {'search-term': List[Status]} pairs.
         """
 
@@ -54,8 +55,14 @@ class Scraper:
         # For each search term,
         for search_term in terms:
 
+            query = search_term
+
+            if not include_retweets:
+                query += ' -filter:retweets'
+                query += ' -filter:nativeretweets'
+
             # Make a cursor that can get tweets.
-            cursor = tweepy.Cursor(self.api.search, q=search_term, geocode=geocode)
+            cursor = tweepy.Cursor(self.api.search, q=query, geocode=geocode, tweet_mode='extended')
 
             # For each result of a search term,
             for status in cursor.items(count):  # type: Status
@@ -96,7 +103,7 @@ class Scraper:
 
         return results
 
-    def scrape(self, terms=None, accounts=None, count=None, geocode=None):
+    def scrape(self, terms=None, accounts=None, count=None, geocode=None, include_retweets=True):
         # type: (Scraper, Set[str], Set[str], int, str) -> Dict[str, List[Status]]
         """
         General-purpose scraping method. Can scrape search terms, and accounts.
@@ -105,6 +112,7 @@ class Scraper:
         :param terms:  List of terms to search for.
         :param accounts: List of account names to search.
         :param count: Maximum tweets to return per search term.
+        :param include_retweets: Should retweets be included?
         :return: A dictionary containing {'search-term': List[Status]} pairs.
 
         Examples:
@@ -121,7 +129,8 @@ class Scraper:
         results = dict()
 
         if terms:
-            terms_results = self.scrape_terms(terms=terms, count=count, geocode=geocode)
+            terms_results = self.scrape_terms(terms=terms, count=count, geocode=geocode,
+                                              include_retweets=include_retweets)
 
             results = merge_status_dict(results, terms_results)
 

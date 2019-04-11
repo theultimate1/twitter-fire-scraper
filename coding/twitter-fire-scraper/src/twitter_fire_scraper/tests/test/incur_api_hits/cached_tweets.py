@@ -30,6 +30,13 @@ class CachedTweets:
 
     @staticmethod
     @lru_cache(maxsize=None)
+    def tweets_small_no_retweets():
+        # type: () -> Dict[str, List[Status]]
+        """Return a static list of 9 non-retweet tweets that is generated once and re-used throughout the module's lifetime."""
+        return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=3, include_retweets=False)
+
+    @staticmethod
+    @lru_cache(maxsize=None)
     def tweets_small_geo():
         # type: () -> Dict[str, List[Status]]
         """
@@ -45,6 +52,13 @@ class CachedTweets:
         # type: () -> Dict[str, List[Status]]
         """Return a static list of 60 tweets that is generated once and re-used throughout the module's lifetime."""
         return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=20)
+
+    @staticmethod
+    @lru_cache(maxsize=None)
+    def tweets_medium_no_retweets():
+        # type: () -> Dict[str, List[Status]]
+        """Return a static list of 60 non-retweet tweets that is generated once and re-used throughout the module's lifetime."""
+        return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=20, include_retweets=False)
 
     @staticmethod
     @lru_cache(maxsize=None)
