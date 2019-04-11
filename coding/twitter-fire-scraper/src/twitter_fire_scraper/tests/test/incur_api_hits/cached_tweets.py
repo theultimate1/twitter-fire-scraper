@@ -12,7 +12,7 @@ from typing import Dict, List
 from tweepy import Status
 from twitter_fire_scraper.util import geobox_to_geocode
 
-from twitter import GEOBOX_CHICAGO
+from twitter_fire_scraper.twitter import GEOBOX_CHICAGO
 from twitter_fire_scraper.scraper import TwitterAuthentication, Scraper
 
 from functools import lru_cache
