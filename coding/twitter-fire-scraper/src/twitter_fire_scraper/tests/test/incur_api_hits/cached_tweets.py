@@ -1,6 +1,8 @@
 """
 This is a utility to provide a large amount of tweets to unit tests WITHOUT repeatedly incurring API hits.
 
+This is cached in MEMORY, not to disk.
+
 The idea here is this file gets run once and its data used repeatedly, instead of scraping the same terms again and again.
 
 This is not strictly necessary, but will decrease API calls significantly if you don't care about reusing tweets.
