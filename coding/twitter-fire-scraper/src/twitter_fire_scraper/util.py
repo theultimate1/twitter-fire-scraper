@@ -20,6 +20,8 @@ def get_status_text(status):
     if status.text:
         return status.text
 
+    raise Exception("Status {} has no text?".format(status))
+
 
 def dict_from_status(status):
     # type: (Status) -> dict
