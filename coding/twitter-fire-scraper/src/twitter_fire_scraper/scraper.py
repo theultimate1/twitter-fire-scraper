@@ -148,8 +148,12 @@ class Scraper:
 
         return results
 
-    def save_statusdict_to_csv(self, statusdict, filepath):
-        # type: (Scraper, Dict[str, List[Status]], str) -> str
+    @staticmethod
+    def save_statusdict_to_csv(statusdict, filepath):
+        # type: (Dict[str, List[Status]], str) -> str
+        """Save a status dict to a CSV file.
+        :param statusdict A {str: [Status, Status, ...]} dictionary.
+        :param filepath A path to the file to output to."""
 
         dirname = os.path.dirname(filepath)
 
@@ -159,7 +163,7 @@ class Scraper:
         if os.path.isfile(filepath):
             raise FileExistsError("File at '{}' already exists!".format(filepath))
 
-        fieldnames = ['category', 'id', 'text', 'date']
+        fieldnames = ['category', 'tweet_id', 'text', 'date', 'geo', 'coordinates', 'place']
 
         with open(filepath, 'w', encoding='utf-16', newline='') as file:
             fileWriter = csv.DictWriter(file, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL,
@@ -167,16 +171,17 @@ class Scraper:
 
             fileWriter.writeheader()
 
-
-
             for keyword, statuses in statusdict.items():
 
                 for status in statuses:
                     fileWriter.writerow({
                         "category": keyword,
-                        "id": status.id,
+                        "tweet_id": status.id,
                         "text": status.text,
-                        "date": "TODO"
+                        "date": status.created_at,
+                        "geo": status.geo,
+                        'coordinates': status.coordinates,
+                        'place': status.place,
                     })
 
         return filepath

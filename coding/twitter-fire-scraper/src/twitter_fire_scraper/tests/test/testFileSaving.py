@@ -5,6 +5,7 @@ import tempfile
 import unittest
 
 import twitter_fire_scraper
+from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.tests.test.incur_api_hits.cached_tweets import CachedTweets
 
 
@@ -43,7 +44,7 @@ class TestFileSaving(unittest.TestCase):
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_small.csv')
 
-        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
+        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
@@ -62,7 +63,7 @@ class TestFileSaving(unittest.TestCase):
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_large.csv')
 
-        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
+        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
