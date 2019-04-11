@@ -6,4 +6,4 @@ This is a collection of files that demonstrate to you how to use the Twitter Fir
 
 Using Python 3, run `pip install twitter-fire-scraper`.
 
-Then run them normally with `python`.
+Then open Jupyter here with `jupyter notebook` and visit https://localhost:8888/
