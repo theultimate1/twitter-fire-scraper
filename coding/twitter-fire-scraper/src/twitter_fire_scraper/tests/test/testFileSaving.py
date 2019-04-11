@@ -26,17 +26,16 @@ class TestFileSaving(unittest.TestCase):
         # Scraper for scraping
         self.scraper = CachedTweets.scraper
 
-        # Clean out temp folder
-        if os.path.exists(self.temp_folder):
-            shutil.rmtree(self.temp_folder)
-
         # Assorted filetype dirs
         self.csv_folder = os.path.join(self.temp_folder, 'csv')
         self.json_folder = os.path.join(self.temp_folder, 'json')
 
-        os.makedirs(self.temp_folder)
-        os.makedirs(self.csv_folder)
-        os.makedirs(self.json_folder)
+        os.makedirs(self.temp_folder, exist_ok=True)
+        os.makedirs(self.csv_folder, exist_ok=True)
+        os.makedirs(self.json_folder, exist_ok=True)
+
+        print("Saved CSV files from test cases can be found at:")
+        print(self.temp_folder)
 
     def testSaveCSVSmall(self):
         """Tests that the scraper can produce small CSV files."""
@@ -44,11 +43,11 @@ class TestFileSaving(unittest.TestCase):
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_small.csv')
 
-        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
+        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
+            csv_reader = csv.reader(csv_file, delimiter=Scraper.CSV_DELIMITER)
             for row in csv_reader:
                 total_lines += 1
 
@@ -59,15 +58,15 @@ class TestFileSaving(unittest.TestCase):
 
     def testSaveCSVLarge(self):
         """Tests that the scraper can produce large CSV files."""
-        tweets = CachedTweets.tweets_small()
+        tweets = CachedTweets.tweets_large()
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_large.csv')
 
-        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
+        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
+            csv_reader = csv.reader(csv_file, delimiter=Scraper.CSV_DELIMITER)
             for row in csv_reader:
                 total_lines += 1
 

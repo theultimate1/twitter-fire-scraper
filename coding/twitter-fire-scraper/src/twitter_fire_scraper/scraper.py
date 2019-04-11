@@ -13,6 +13,8 @@ from pymongo import MongoClient
 
 class Scraper:
 
+    CSV_DELIMITER = '\t'
+
     def __init__(self, twitter_authentication=None):
         # type: (Scraper, TwitterAuthentication) -> None
 
@@ -149,7 +151,7 @@ class Scraper:
         return results
 
     @staticmethod
-    def save_statusdict_to_csv(statusdict, filepath):
+    def save_statusdict_to_csv(statusdict, filepath, overwrite=False):
         # type: (Dict[str, List[Status]], str) -> str
         """Save a status dict to a CSV file.
         :param statusdict A {str: [Status, Status, ...]} dictionary.
@@ -161,12 +163,13 @@ class Scraper:
             raise NotADirectoryError("Directory {} does not exist!".format(dirname))
 
         if os.path.isfile(filepath):
-            raise FileExistsError("File at '{}' already exists!".format(filepath))
+            if not overwrite:
+                raise FileExistsError("File at '{}' already exists!".format(filepath))
 
         fieldnames = ['category', 'tweet_id', 'text', 'date', 'geo', 'coordinates', 'place']
 
         with open(filepath, 'w', encoding='utf-16', newline='') as file:
-            fileWriter = csv.DictWriter(file, delimiter=",", quotechar='"', quoting=csv.QUOTE_ALL,
+            fileWriter = csv.DictWriter(file, delimiter=Scraper.CSV_DELIMITER, quotechar='"', quoting=csv.QUOTE_ALL,
                                         fieldnames=fieldnames)
 
             fileWriter.writeheader()
