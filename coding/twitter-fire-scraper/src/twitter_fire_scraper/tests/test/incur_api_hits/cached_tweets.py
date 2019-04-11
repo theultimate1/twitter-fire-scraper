@@ -10,13 +10,15 @@ This is not strictly necessary, but will decrease API calls significantly if you
 from typing import Dict, List
 
 from tweepy import Status
+from twitter_fire_scraper.util import geobox_to_geocode
 
+from twitter import GEOBOX_CHICAGO
 from twitter_fire_scraper.scraper import TwitterAuthentication, Scraper
 
 from functools import lru_cache
 
-class CachedTweets:
 
+class CachedTweets:
     scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
 
     @staticmethod
@@ -28,6 +30,17 @@ class CachedTweets:
 
     @staticmethod
     @lru_cache(maxsize=None)
+    def tweets_small_geo():
+        # type: () -> Dict[str, List[Status]]
+        """
+        Return a static list of 9 tweets geotagged 20 miles from Chicago's center that is generated once and re-used
+        throughout the module's lifetime.
+        """
+        return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=3,
+                                                 geocode=geobox_to_geocode(GEOBOX_CHICAGO, "20mi"))
+
+    @staticmethod
+    @lru_cache(maxsize=None)
     def tweets_medium():
         # type: () -> Dict[str, List[Status]]
         """Return a static list of 60 tweets that is generated once and re-used throughout the module's lifetime."""
@@ -35,7 +48,27 @@ class CachedTweets:
 
     @staticmethod
     @lru_cache(maxsize=None)
+    def tweets_medium_geo():
+        # type: () -> Dict[str, List[Status]]
+        """
+        Return a static list of 60 tweets geotagged 20 miles from Chicago's center that is generated once and re-used
+        throughout the module's lifetime.
+        """
+        return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=20,
+                                                 geocode=geobox_to_geocode(GEOBOX_CHICAGO, "20mi"))
+
+    @staticmethod
+    @lru_cache(maxsize=None)
     def tweets_large():
         # type: () -> Dict[str, List[Status]]
         """Return a static list of 300 tweets that is generated once and re-used throughout the module's lifetime."""
         return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=100)
+
+    @staticmethod
+    @lru_cache(maxsize=None)
+    def tweets_large_geo():
+        # type: () -> Dict[str, List[Status]]
+        """Return a static list of 300 tweets geotagged 20 miles from Chicago's center that is generated once and
+        re-used throughout the module's lifetime."""
+        return CachedTweets.scraper.scrape_terms({"flood", "fire", "house fire"}, count=100,
+                                                 geocode=geobox_to_geocode(GEOBOX_CHICAGO, "20mi"))
