@@ -39,11 +39,11 @@ class TestFileSaving(unittest.TestCase):
 
     def testSaveCSVSmall(self):
         """Tests that the scraper can produce small CSV files."""
-        tweets = CachedTweets.tweets_small()
+        tweets = CachedTweets.tweets_small_geo()
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_small.csv')
 
-        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
@@ -58,11 +58,11 @@ class TestFileSaving(unittest.TestCase):
 
     def testSaveCSVLarge(self):
         """Tests that the scraper can produce large CSV files."""
-        tweets = CachedTweets.tweets_large()
+        tweets = CachedTweets.tweets_large_geo()
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_large.csv')
 
-        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
