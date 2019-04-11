@@ -1,6 +1,6 @@
 # IPRO497-Analytics-Team
 
-[![Build Status](https://travis-ci.org/HenryFBP/IPRO497-Analytics-Team.svg?branch=master)](https://travis-ci.org/HenryFBP/IPRO497-Analytics-Team)
+[![Build Status](https://travis-ci.org/raaraa/IPRO497-Analytics-Team.svg?branch=master)](https://travis-ci.org/raaraa/IPRO497-Analytics-Team)
 
 The repository of the Analytics Team for IPRO 497 at IIT:
 
