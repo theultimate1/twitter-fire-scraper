@@ -100,7 +100,7 @@ You can install Pipenv by executing
     
     pip install pipenv
 
-You can then install all packages (including dec packages like `twisted`) in this folder's `./Pipenv` by executing
+You can then install all packages (including dev packages like `twisted`) in this folder's `./Pipenv` by executing
 
     pipenv install --dev
     
