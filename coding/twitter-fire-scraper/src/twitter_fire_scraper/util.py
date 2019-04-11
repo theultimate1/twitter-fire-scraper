@@ -15,17 +15,11 @@ def get_status_text(status):
 
     This method favors longer text."""
 
-    try:
-        status.full_text
+    if hasattr(status, 'full_text'):
         return status.full_text
-    except AttributeError:
-        pass
 
-    try:
-        status.text
+    if hasattr(status, 'text'):
         return status.text
-    except AttributeError:
-        pass
 
     raise Exception("Status {} has no text?".format(status))
 
