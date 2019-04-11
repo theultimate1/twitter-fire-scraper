@@ -14,11 +14,18 @@ def get_status_text(status):
     """Given a Status, return its text.
 
     This method favors longer text."""
-    if status.full_text:
-        return status.full_text
 
-    if status.text:
+    try:
+        status.full_text
+        return status.full_text
+    except AttributeError:
+        pass
+
+    try:
+        status.text
         return status.text
+    except AttributeError:
+        pass
 
     raise Exception("Status {} has no text?".format(status))
 
