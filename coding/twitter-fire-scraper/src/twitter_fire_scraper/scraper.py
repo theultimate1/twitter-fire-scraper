@@ -197,7 +197,7 @@ class Scraper:
                     data = {
                         "category": keyword,
                         "tweet_id": status.id,
-                        "text": status.text,
+                        "text": status.full_text if status.full_text else status.text,
                         "date": status.created_at,
                         'retweet_count': status.retweet_count,
                     }
