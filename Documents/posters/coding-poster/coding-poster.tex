@@ -63,14 +63,17 @@
 \begin{tikzpicture}[node distance=6cm,
     every node/.style={fill=white, font=\sffamily}, align=center]
   % Specification of nodes (position, etc.)
-  \node (start)	[astyle]							{Activity starts};
-  \node (a)		[bstyle, below of=start]	{a process};
-  \node (b)		[cstyle, below of=a]			{second process};
+  \node (start)	[astyle]										{Activity starts};
+  \node (a)		[bstyle, below of=start]				{a process};
+  \node (asub)	[bstyle, right of=a, xshift=6cm]	{a subprocess};
+  \node (b)		[cstyle, below of=a]						{second process};
   
   % Specification of lines between nodes specified above
   % with aditional nodes for description 
 	\draw[\largearrow]	(start) -- 		(a);
 	\draw[\largearrow]	(a) -- 				(b);
+	\draw[\largearrow]	(a) -- 				(asub);
+	\draw[\largearrow]	(asub) |- 			(start);
   \end{tikzpicture}
         \end{tikzfigure}
     }
