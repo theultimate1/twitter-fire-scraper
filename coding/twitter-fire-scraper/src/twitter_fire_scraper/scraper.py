@@ -165,7 +165,7 @@ class Scraper:
                 raise FileExistsError("File at '{}' already exists!".format(filepath))
 
         fieldnames = [
-            'category', 'tweet_id', 'text', 'date',
+            'category', 'tweet_id', 'text', 'date', 'retweet',
 
             'geo',
 
@@ -190,6 +190,7 @@ class Scraper:
                         "tweet_id": status.id,
                         "text": status.text,
                         "date": status.created_at,
+                        'retweet': status.retweeted
                     }
 
                     if status.geo:
