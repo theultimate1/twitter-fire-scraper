@@ -65,8 +65,7 @@ before_install:
     fi
 
   - echo "Decrypting twitter API keys..."
-  - openssl aes-256-cbc -K $encrypted_79c27a32ce79_key -iv $encrypted_79c27a32ce79_iv
-    -in secrets.json.enc -out ~/secrets.json -d
+  - openssl aes-256-cbc -K $encrypted_103c68a2b959_key -iv $encrypted_103c68a2b959_iv -in secrets.json.enc -out ~/secrets.json -d
 
   - echo "Installing npm..."
   - |

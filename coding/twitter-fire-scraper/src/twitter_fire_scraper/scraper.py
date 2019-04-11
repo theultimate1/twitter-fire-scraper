@@ -1,14 +1,17 @@
+import csv
+import os
 from typing import Dict, List, Set
 
 import tweepy
+from pymongo import MongoClient
 from tweepy import Status
 
 from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb
-from pymongo import MongoClient
+from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb, get_status_text
 
 
 class Scraper:
+    CSV_DELIMITER = '\t'
 
     def __init__(self, twitter_authentication=None):
         # type: (Scraper, TwitterAuthentication) -> None
@@ -29,7 +32,7 @@ class Scraper:
         # Default accounts to scrape.
         # self.accounts = accounts in data/TwitterAccounts.yml
 
-    def scrape_terms(self, terms, count=None, geocode=None):
+    def scrape_terms(self, terms, count=None, geocode=None, include_retweets=True):
         # type: (Scraper, Set[str], int, str) -> Dict[str, List[Status]]
         """
         Term-scraping method. Can scrape a set of terms.
@@ -39,6 +42,7 @@ class Scraper:
         :param geocode: Geographical area to search in. Can be blank.
         :param terms:  List of terms to search for.
         :param count: Maximum tweets to return per search term.
+        :param include_retweets: Should retweets be included?
         :return: A dictionary containing {'search-term': List[Status]} pairs.
         """
 
@@ -50,8 +54,14 @@ class Scraper:
         # For each search term,
         for search_term in terms:
 
+            query = search_term
+
+            if not include_retweets:
+                query += ' -filter:retweets'
+                query += ' -filter:nativeretweets'
+
             # Make a cursor that can get tweets.
-            cursor = tweepy.Cursor(self.api.search, q=search_term, geocode=geocode)
+            cursor = tweepy.Cursor(self.api.search, q=query, geocode=geocode, tweet_mode='extended')
 
             # For each result of a search term,
             for status in cursor.items(count):  # type: Status
@@ -92,7 +102,7 @@ class Scraper:
 
         return results
 
-    def scrape(self, terms=None, accounts=None, count=None, geocode=None):
+    def scrape(self, terms=None, accounts=None, count=None, geocode=None, include_retweets=True):
         # type: (Scraper, Set[str], Set[str], int, str) -> Dict[str, List[Status]]
         """
         General-purpose scraping method. Can scrape search terms, and accounts.
@@ -101,6 +111,7 @@ class Scraper:
         :param terms:  List of terms to search for.
         :param accounts: List of account names to search.
         :param count: Maximum tweets to return per search term.
+        :param include_retweets: Should retweets be included?
         :return: A dictionary containing {'search-term': List[Status]} pairs.
 
         Examples:
@@ -117,7 +128,8 @@ class Scraper:
         results = dict()
 
         if terms:
-            terms_results = self.scrape_terms(terms=terms, count=count, geocode=geocode)
+            terms_results = self.scrape_terms(terms=terms, count=count, geocode=geocode,
+                                              include_retweets=include_retweets)
 
             results = merge_status_dict(results, terms_results)
 
@@ -130,7 +142,6 @@ class Scraper:
 
     def scrape_and_save(self, terms=None, accounts=None, count=None, geocode=None, dbname='scraper_tweets'):
         # type: (Scraper, Set[str], Set[str], int, str, str) -> Dict[str, List[Status]]
-
 
         # First, retrieve search results via scrape
         results = self.scrape(terms=terms, accounts=accounts, geocode=geocode, count=count)
@@ -145,3 +156,75 @@ class Scraper:
         save_statuses_dict_to_mongodb(results, db)
 
         return results
+
+    def save_statusdict_to_csv(self, statusdict, filepath, overwrite=False):
+        # type: (Scraper, Dict[str, List[Status]], str, bool) -> str
+        """Save a status dict to a CSV file.
+        :param statusdict A {str: [Status, Status, ...]} dictionary.
+        :param filepath A path to the file to output to."""
+
+        dirname = os.path.dirname(filepath)
+
+        if not os.path.exists(dirname):
+            raise NotADirectoryError("Directory {} does not exist!".format(dirname))
+
+        if os.path.isfile(filepath):
+            if not overwrite:
+                raise FileExistsError("File at '{}' already exists!".format(filepath))
+
+        fieldnames = [
+            'category', 'tweet_id', 'text', 'date', 'retweet_count',
+
+            'geo',
+
+            'coordinates',
+
+            'place_id', 'place_centroid', 'place_country', 'place_country_code', 'place_full_name',
+            'place_name', 'place_type'
+        ]
+
+        with open(filepath, 'w', encoding='utf-16', newline='') as file:
+            fileWriter = csv.DictWriter(file, delimiter=Scraper.CSV_DELIMITER, quotechar='"', quoting=csv.QUOTE_ALL,
+                                        fieldnames=fieldnames)
+
+            fileWriter.writeheader()
+
+            for keyword, statuses in statusdict.items():
+
+                for status in statuses:  # type: Status
+
+                    data = {
+                        "category": keyword,
+                        "tweet_id": status.id,
+                        "text": get_status_text(status),
+                        "date": status.created_at,
+                        'retweet_count': status.retweet_count,
+                    }
+
+                    if status.geo:
+                        data.update({
+                            "geo": ','.join(str(x) for x in status.geo['coordinates']),
+                        })
+
+                    if status.coordinates:
+                        data.update({
+                            'coordinates': ','.join(str(x) for x in status.coordinates['coordinates']),
+                        })
+
+                    # If the status has a place, then add its data!
+                    if status.place:
+                        data.update({
+                            'place_id': status.place.id,
+                            # We have to use the API for this one to look it up.
+                            'place_centroid': ','.join(str(x) for x in self.api.geo_id(status.place.id).centroid),
+                            'place_country': status.place.country,
+                            'place_country_code': status.place.country_code,
+                            'place_full_name': status.place.full_name,
+                            'place_name': status.place.name,
+                            'place_type': status.place.place_type,
+                        })
+
+                    # Write all the data we've collected so far.
+                    fileWriter.writerow(data)
+
+        return filepath

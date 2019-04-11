@@ -37,7 +37,7 @@ This README assumes all commands take place in the same folder as this README fi
 
 ## Examples
 
-Examples of how to use this package can be found in [this examples folder](src/python_example_code) and also in [our internal test suites](src/twitter_fire_scraper/tests/interactive).
+Examples of how to use this package can be found in [this examples folder](python_example_code) and also in [our internal test suites](src/twitter_fire_scraper/tests).
 
 These should give you a good idea of how to use our scraper, and can be considered a 'living standard' of how our code works.
 
@@ -100,17 +100,13 @@ You can install Pipenv by executing
     
     pip install pipenv
 
-You can then install all packages in this folder's `./Pipenv` by executing
+You can then install all packages (including dev packages like `twisted`) in this folder's `./Pipenv` by executing
 
-    pipenv install --two
+    pipenv install --dev
     
-Then, you can run the app by executing
+Then, you can run tests by executing
 
-    pipenv run python /src/twitter-fire-scraper/app.py
-    
-or run tests by executing
-
-    pipenv run python /src/twitter-fire-scraper/tests/<TESTNAME>.py
+    pipenv run python /src/twitter-fire-scraper/tests/test/__main__.py
 
 ## Running a functional demo
 
