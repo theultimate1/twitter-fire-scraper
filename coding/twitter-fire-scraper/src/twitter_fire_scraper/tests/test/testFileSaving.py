@@ -1,18 +1,22 @@
+import csv
 import os
 import shutil
-import unittest
 import tempfile
+import unittest
 
 import twitter_fire_scraper
-
-from twitter_fire_scraper.models import Point
-from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.tests.test.incur_api_hits.cached_tweets import CachedTweets
-from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import flatten_points, geobox_to_geocode
 
 
 class TestFileSaving(unittest.TestCase):
+
+    def count_statuses(self, statuses):
+        total_statuses = 0
+        for keyword, statuses in statuses.items():
+            for status in statuses:
+                total_statuses += 1
+
+        return total_statuses
 
     def setUp(self):
         # Temp folder for CSV files
@@ -34,14 +38,39 @@ class TestFileSaving(unittest.TestCase):
         os.makedirs(self.json_folder)
 
     def testSaveCSVSmall(self):
-        """Tests that the scraper can produce CSV files."""
+        """Tests that the scraper can produce small CSV files."""
         tweets = CachedTweets.tweets_small()
 
-        tweets_small_csv = os.path.join(self.csv_folder, 'tweets_small.csv')
+        tweets_csv_path = os.path.join(self.csv_folder, 'tweets_small.csv')
 
-        self.scraper.save_statusdict_to_csv(tweets, tweets_small_csv)
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
 
-        with open(tweets_small_csv, 'r') as csv_file:
+        total_lines = 0
+        with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for row in csv_reader:
+                total_lines += 1
 
-            line = csv_file.readline()
-            assert ',' in line
+        total_statuses = self.count_statuses(tweets)
+
+        # We should have as many tweets as there are lines in the file, plus one for the header.
+        assert (total_lines == total_statuses + 1)
+
+    def testSaveCSVLarge(self):
+        """Tests that the scraper can produce large CSV files."""
+        tweets = CachedTweets.tweets_small()
+
+        tweets_csv_path = os.path.join(self.csv_folder, 'tweets_large.csv')
+
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path)
+
+        total_lines = 0
+        with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for row in csv_reader:
+                total_lines += 1
+
+        total_statuses = self.count_statuses(tweets)
+
+        # We should have as many tweets as there are lines in the file, plus one for the header.
+        assert (total_lines == (total_statuses + 1))
