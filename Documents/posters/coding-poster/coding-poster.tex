@@ -56,11 +56,11 @@
 \end{columns}
 
 \begin{columns}
-    \column{0.5}
-    \block{A figure}
-    {
-        \begin{tikzfigure}
-\begin{tikzpicture}[node distance=6cm,
+	\column{0.5}
+	\block{A figure}
+	{
+		\begin{tikzfigure}
+			\begin{tikzpicture}[node distance=6cm,
     every node/.style={fill=white, font=\sffamily}, align=center]
   % Specification of nodes (position, etc.)
   \node (start)	[astyle]										{Activity starts};
@@ -74,28 +74,28 @@
 	\draw[\largearrow]	(a) -- 				(b);
 	\draw[\largearrow]	(a) -- 				(asub);
 	\draw[\largearrow]	(asub) |- 			(start);
-  \end{tikzpicture}
-        \end{tikzfigure}
-    }
-    \column{0.5}
-    
-    \block{Description of the figure}{\blindtext}
+	\end{tikzpicture}
+\end{tikzfigure}
+	}
 
-\end{columns}
-
-\begin{columns}
+	\block{Description of the figure}{\blindtext}
 
 	\column{0.5}
 	\block{a}
 	{
 		a first block
 	}
-
-	\column{0.5}
-	\block{a}
+	
+	\block{b}
 	{
 		a second block
 	}
+\end{columns}
+
+\begin{columns}
+
+	\column{0.5}
+
 \end{columns}
 
 \end{document}
