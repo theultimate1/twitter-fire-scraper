@@ -29,17 +29,20 @@ colorama = "*"
 pymongo = "*"
 typing = "*"
 pyyaml = "*"
-twine = "*"
-wheel = "*"
-setuptools = "*"
 jupyter = "*"
 notebook = "==5.7.5"
 numpy = "*"
 matplotlib = "*"
 pandas = "*"
 sklearn = "*"
+# Only for Windows, fixes CSV not working.
+pypiwin32 = {version = "*",sys_platform = "== 'win32'"}
 
 [dev-packages]
+twine = "*"
+wheel = "*"
+setuptools = "*"
+twisted = "*"
 
 [requires]
 python_version = "3"

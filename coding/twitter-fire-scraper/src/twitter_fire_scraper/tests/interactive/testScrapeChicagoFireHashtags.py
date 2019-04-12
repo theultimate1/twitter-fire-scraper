@@ -18,7 +18,7 @@ from tweepy import Status
 import yaml
 from twitter_fire_scraper.config import DataConfig, Config
 from twitter_fire_scraper.twitter import TwitterAuthentication, GEOBOX_CHICAGO
-from twitter_fire_scraper.util import geobox_to_geocode, status_to_url
+from twitter_fire_scraper.util import geobox_to_geocode, status_to_url, get_status_text
 
 
 def get_fire_search_terms():
@@ -79,7 +79,7 @@ if __name__ == "__main__":
             print("<{}> :".format(status_to_url(status)))  # URL of tweet.
 
             print(" " * 4),  # Status belonging to URL.
-            print(status.text.encode("UTF-8"))  # Status text.
+            print(get_status_text(status).encode("UTF-8"))  # Status text.
             print
 
     print("Final results of scraping {n} tweets each from these search terms:".format(

@@ -9,6 +9,7 @@ import tweepy
 from pprint import pprint
 
 from twitter_fire_scraper.twitter import TwitterAuthentication
+from twitter_fire_scraper.util import get_status_text
 
 if __name__ == "__main__":
     # Set up twitter auth.
@@ -18,4 +19,4 @@ if __name__ == "__main__":
     print("Just searching for 'fire'... Probably not going to get us Chicago fire incidents.")
 
     for status in api.search("fire"):
-        print(status.text)
+        print(get_status_text(status))
