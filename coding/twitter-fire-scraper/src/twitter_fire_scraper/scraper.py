@@ -33,7 +33,7 @@ class Scraper:
         # self.accounts = accounts in data/TwitterAccounts.yml
 
     def scrape_terms(self, terms, count=None, geocode=None, include_retweets=True):
-        # type: (Scraper, Set[str], int, str) -> Dict[str, List[Status]]
+        # type: (Scraper, Set[str], int, str, bool) -> Dict[str, List[Status]]
         """
         Term-scraping method. Can scrape a set of terms.
 
