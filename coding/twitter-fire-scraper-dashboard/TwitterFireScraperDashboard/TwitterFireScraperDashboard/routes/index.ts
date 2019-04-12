@@ -62,4 +62,46 @@ router.all('/scrape', async function (req: express.Request, res: express.Respons
     })
 });
 
+router.all('/scrape_accounts', async function (req: express.Request, res: express.Response) {
+
+    var test_message;
+    var statuses = undefined;
+
+    if (req.method === 'POST') {
+        // Retrieve tweets and display them
+
+        const { accounts, count } = req.body
+
+        var count_number = Number(count)
+        var accounts_list = accounts.replace(/\r\n/g, ',') //TODO also very bad idea, messy.
+
+        test_message = "You posted a form!"
+
+        console.log(req.body)
+
+        statuses = await apiLibrary.scrape_accounts(accounts_list, count_number)
+
+        console.log("type of statuses:")
+        console.log(typeof statuses)
+
+        console.log("statuses' keys:")
+        for (var key in statuses) {
+            console.log(key)
+        }
+
+    } else if (req.method === "GET") {
+        // Do nothing, nothing to populate.
+
+        test_message = "You are just sending a GET request."
+    } else {
+        return res.status(405).send(`The ${req.method} method for the "${req.originalUrl}" route is not supported.`);
+    }
+
+    return res.render('scrape_accounts', {
+        title: 'Scrape new tweets',
+        test_message: test_message,
+        statusdict: statuses
+    })
+});
+
 export default router;
