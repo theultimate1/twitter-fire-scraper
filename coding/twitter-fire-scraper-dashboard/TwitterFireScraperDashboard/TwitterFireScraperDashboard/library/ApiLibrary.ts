@@ -79,5 +79,34 @@ export class ApiLibrary {
 
         })
     }
+    scrape_accounts(accounts: Array<String>, count: Number): Promise<JSON> {
+        var uri: URL = this.construct_uri()
+        uri.pathname = "scrape_accounts"
 
+        var args: string = querystring.stringify({ accounts: accounts, count: count });
+
+        var query_string = uri.href + "?" + args // TODO this is insecure.
+
+        console.log("our query string:")
+
+        console.log(query_string)
+
+        return new Promise((resolve, reject) => {
+
+            request(query_string, (err, res, body) => {
+
+                if (err) {
+                    throw err;
+                }
+
+                console.log("Got response!")
+
+                console.log(body)
+
+                resolve(JSON.parse(body))
+            })
+
+
+        }) 
+    }
 }
