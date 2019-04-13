@@ -51,6 +51,7 @@ export class ApiLibrary {
 
     scrape_terms(terms: Array<String>, count: Number): Promise<JSON> {
         var uri: URL = this.construct_uri()
+        //print(uri)
         uri.pathname = "scrape_terms"
 
         var args: string = querystring.stringify({ terms: terms, count: count });
