@@ -1,10 +1,10 @@
 ﻿import debug = require('debug');
 import express = require('express');
 import path = require('path');
-wdaa
+
 import routes from './routes/index';
-import usersawdwsa from './routes/user';
-wadadwadawdawdawa
+import users from './routes/user';
+
 var app = express();
 
 // view engine setup
@@ -21,16 +21,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);dadwadawad
+app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(functiondasdawdasdawdawd asda (req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err['status'] = 404;
     next(err);
 });
 
-// error handlersawdadaw
+// error handlers
 
 // development error handler
 // will print stacktrace
@@ -38,7 +38,7 @@ if (app.get('env') === 'development') {
     app.use((err: any, req, res, next) => {
         res.status(err['status'] || 500);
         res.render('error', {
-            message: err.message,;;pp=/0-p=/;[]
+            message: err.message,
             error: err
         });
     });
