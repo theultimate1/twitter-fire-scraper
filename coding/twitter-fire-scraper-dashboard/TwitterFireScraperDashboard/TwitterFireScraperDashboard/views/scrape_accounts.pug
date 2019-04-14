@@ -5,7 +5,7 @@ block content
     p= test_message
   
     section
-        form(method="POST" action="/scrape" id="scrape")
+        form(method="POST" action="/scrape_accounts" id="scrape_accounts")
             ul
                 li
                     p
@@ -14,7 +14,7 @@ block content
                         textarea(type="text" name="accounts" id="accounts" form="scrape_accounts")
                 li  
                     p
-                        label(for="terms") Number of tweets!
+                        label(for="accounts") Number of tweets!
                     p
                         input(type="text" name="count")
 

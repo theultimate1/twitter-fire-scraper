@@ -4,6 +4,7 @@
  */
 import express = require('express');
 import { ApiLibrary } from '../library/ApiLibrary';
+import { apiLibrary_account } from '../library/apiLibrary_account';
 
 const router = express.Router();
 const apiLibrary = new ApiLibrary()
@@ -71,10 +72,13 @@ router.all('/scrape_accounts', async function (req: express.Request, res: expres
         // Retrieve tweets and display them
 
         const { accounts, count } = req.body
-
+        
         var count_number = Number(count)
-        var accounts_list = accounts(/\r\n/g, ',')
-
+        //var accounts_list = accounts.replace(/\r\n/g, ',')
+        //var s = pair[1].replace(/\+/g, " ");
+        //var s = (!isNaN(pair[1])) ? pair[1].replace(/\+/g, " ") : null;
+        var accounts_list = (!isNaN(accounts)) ? accounts.replace(/\r\n/g, ",") : accounts;
+        console.log(accounts_list)
         test_message = "You posted a form!"
 
         console.log(req.body)
