@@ -31,9 +31,9 @@ router.all('/scrape', async function (req: express.Request, res: express.Respons
         const { terms, count } = req.body
 
         var count_number = Number(count)
-        var terms_list = terms.replace(/\r\n/g, ',') //TODO also very bad idea, messy.
-
-        test_message = "You posted a form!"
+        //var terms_list = terms.replace(/\r\n/g, ',') //TODO also very bad idea, messy.
+        var terms_list = terms
+        test_message = "You posted a form"
 
         console.log(req.body)
 
@@ -73,7 +73,7 @@ router.all('/scrape_accounts', async function (req: express.Request, res: expres
         const { accounts, count } = req.body
 
         var count_number = Number(count)
-        var accounts_list = accounts.replace(/\r\n/g, ',') //TODO also very bad idea, messy.
+        var accounts_list = accounts(/\r\n/g, ',')
 
         test_message = "You posted a form!"
 
