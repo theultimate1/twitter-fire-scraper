@@ -81,10 +81,7 @@ script:
   - pushd coding
 
   - echo "Testing twitter fire scraper"
-  - pushd twitter-fire-scraper
-  - ruby build.rb
-  - ruby test-localwheel-install.rb
-  - popd
+  - bash coding/setup-scripts/test-tfs.sh
 
   - echo "Testing twitter fire scraper web API"
   - pushd twitter-fire-scraper-webapi
