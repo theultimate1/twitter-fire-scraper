@@ -55,12 +55,6 @@ deploy:
   run:
     - pushd coding
 
-    - echo "Testing twitter fire scraper"
-    - bash setup-scripts/test-tfs.sh
-
-    - echo "Testing twitter fire scraper web API"
-    - bash setup-scripts/test-tfs-webapi.sh
-
     - echo "twitter-fire-scraper-dashboard is starting up."
     - echo "Starting up Web API..."
     - bash setup-scripts/start-tfs-webapi.sh
@@ -120,18 +114,18 @@ script:
 
   - pushd coding
 
-#  - echo "Testing twitter fire scraper"
-#  - bash setup-scripts/test-tfs.sh
-#
-#  - echo "Testing twitter fire scraper web API"
-#  - bash setup-scripts/test-tfs-webapi.sh
-#
-#  - echo "twitter-fire-scraper-dashboard is starting up."
-#  - echo "Starting up Web API..."
-#  - bash setup-scripts/start-tfs-webapi.sh
-#
-#  - echo "Starting dashboard..."
-#  - bash setup-scripts/start-tfs-dashboard.sh
+  - echo "Testing twitter fire scraper"
+  - bash setup-scripts/test-tfs.sh
+
+  - echo "Testing twitter fire scraper web API"
+  - bash setup-scripts/test-tfs-webapi.sh
+
+  - echo "twitter-fire-scraper-dashboard is starting up."
+  - echo "Starting up Web API..."
+  - bash setup-scripts/start-tfs-webapi.sh
+
+  - echo "Starting dashboard..."
+  - bash setup-scripts/start-tfs-dashboard.sh
 
   - popd
 
