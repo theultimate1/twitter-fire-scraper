@@ -34,6 +34,22 @@ addons:
 services:
   - mongodb
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: "OjuK8pjGy8e5En7c/szffYhTnE0PrKnD+m8iSx+SG5WxQpFWytwKzCwbN46kMkN1C0ayuxZfMuTMD1Lhc1cUZnlxKBhxfZZY2EwApdP9pK6az1mxvkAtIOdQg093INhZ2dVHbA1/22XxXi/2577gzcVHFcNGFIT+fpwagyAsHx6Y0RWXm4PMCYZsgqql6FMFR+S4PeFgZhA2pqWVzznCMEJVD9XzNCwimOTVPB0qGRsVFPoO546/HC9NH5Rlh1mZD6Qk4EnfjJTEUjY+4S4fkZ/1afkn6JVsUQoTCCkkEbDvWYZ1ajLDLYyekM9VdwyON9a1fzByAHhNZzuo1k4lR6W8HikhvJlnNvZZCW3vQnpvajaxYm93YfbZo64/m6SFqwSuc8wvdDZxJH9eyO/sQpaenBeUcp/6i9K90uTa+lgJ80Aq0jvK14Fr07NOlcOTLRBe2/r9WptWp3k7Ie1Gr3a1oL2z/b4nPs0EiezZA3ZF4TqTlfaPWQuNW18c4Ol2mCDXk+6AKSe2zk9oCuvzv9sI0njXx9nBV4ujr3HZ2ODg5T1jC2p4kgTj27dOZy5mMTGSd3xdQguG7kXWO31gUpS9P+cnvONVVTVKMqIxg5hF6KBx5duUAlOPqFFNTWXNFEycdfXeZAXiC5RcaXKspPcEYA1QJhexrO797/SguWo="
+  run:
+    - pushd coding
+
+    - echo "twitter-fire-scraper-dashboard is starting up."
+    - echo "Starting up Web API..."
+    - bash setup-scripts/start-tfs-webapi.sh
+
+    - echo "Starting dashboard..."
+    - bash setup-scripts/start-tfs-dashboard.sh
+
+    - popd
+
 before_install:
 
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
@@ -62,11 +78,11 @@ before_install:
       source venv/bin/activate
       # A manual check that the correct version of Python is running.
       python --version
-      
+
       pip -V
-      
+
       pip install pipenv
-      
+
     fi
 
   - echo "Decrypting twitter API keys..."
