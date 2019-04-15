@@ -1,5 +1,15 @@
 language: python
 
+cache:
+
+  - pip
+  - npm
+
+  - directories:
+      - ${HOME}/virtualenv/
+      - ${HOME}/.npm
+      - ${HOME}/.cache/
+
 matrix:
 
   fast_finish: true
