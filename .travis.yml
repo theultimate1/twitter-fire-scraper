@@ -81,7 +81,7 @@ script:
   - pushd coding
 
   - echo "Testing twitter fire scraper"
-  - bash coding/setup-scripts/test-tfs.sh
+  - bash setup-scripts/test-tfs.sh
 
   - echo "Testing twitter fire scraper web API"
   - pushd twitter-fire-scraper-webapi
