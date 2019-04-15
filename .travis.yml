@@ -62,6 +62,11 @@ before_install:
       source venv/bin/activate
       # A manual check that the correct version of Python is running.
       python --version
+      
+      pip -V
+      
+      pip install pipenv
+      
     fi
 
   - echo "Decrypting twitter API keys..."
