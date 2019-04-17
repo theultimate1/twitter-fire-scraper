@@ -39,11 +39,11 @@ class TestFileSaving(unittest.TestCase):
 
     def testSaveCSVSmall(self):
         """Tests that the scraper can produce small CSV files."""
-        tweets = CachedTweets.tweets_small()
+        tweets = CachedTweets.tweets_small_geo()
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_small.csv')
 
-        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
@@ -56,13 +56,33 @@ class TestFileSaving(unittest.TestCase):
         # We should have as many tweets as there are lines in the file, plus one for the header.
         assert (total_lines == total_statuses + 1)
 
+    def testSaveCSVNoRetweets(self):
+        """Tests that the scraper can produce a CSV file with absolutely no retweets."""
+        tweets = CachedTweets.tweets_medium_no_retweets()
+
+        tweets_csv_path = os.path.join(self.csv_folder, 'tweets_medium_noretweets.csv')
+
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
+
+        total_lines = 0
+        with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=Scraper.CSV_DELIMITER)
+            for row in csv_reader:
+                total_lines += 1
+
+        total_statuses = self.count_statuses(tweets)
+
+        # We should have as many tweets as there are lines in the file, plus one for the header.
+        assert (total_lines == (total_statuses + 1))
+
+
     def testSaveCSVLarge(self):
         """Tests that the scraper can produce large CSV files."""
-        tweets = CachedTweets.tweets_large()
+        tweets = CachedTweets.tweets_large_geo()
 
         tweets_csv_path = os.path.join(self.csv_folder, 'tweets_large.csv')
 
-        Scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True)
 
         total_lines = 0
         with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:

@@ -28,11 +28,11 @@ If you want to see a list of available commands, run `npm run`.
 
 1.  Run `npm install` to install packages that the project depends upon.
 
-2.  Run `npm run-script build` to compile the TypeScript into JavaScript.
+2.  Run `npm run-script build` to compile the TypeScript into JavaScript (debug error simultaneously). 
 
 	Alternatively, you can run `npm run-script watch-tsc` to auto-build TypeScript into JavaScript when the TypeScript changes.
 
-3.  Then, run `npm run-script start` to start the web application.
+3.  Then, run `npm run-script start` to start the web application (run in a separate command prompt).
 
 	Alternatively, you can run `npm run-script watch-node` to auto-reload the Node.js web app.
 
