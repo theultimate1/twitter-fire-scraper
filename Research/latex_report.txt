@@ -68,6 +68,13 @@
 \section{Introduction}
 \hspace{0.5 cm}The American Red Cross (ARC) is an organization has provided emergency assistance, disaster relief, and disaster preparedness and education across the United States since its founding in 1881. On average, the American Red Cross responds to more than 62,000 disasters a year, which is around one disaster every 8 minutes, 90 percent of which are home fires. The truly remarkable fact is that of their entire workforce that goes out of their way to help others in need, 95 percent of their workers are volunteers. In the Northern Illinois region, the ARC has received over 6,000 calls in the past 5 years and have responded to approximately 75 percent of those incidents.
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{pics/in_response.png}
+\caption{The running count of incidents the ARC has in their records up until August 2018. We notice that despite some fluctuations in number of reported responses by month, they stay fairly steady. However, the number of incidents that the ARC did not respond to has gradually increased over this time period and additionally the ARC is unaware of many incidents in the Chicago area. Our goal is to have the ARC to be aware of more of these incidents.}
+\label{fig:incident_response}
+\end{figure}
+
 \hspace{0.5 cm}Past IPRO groups who have worked for the ARC through their representative, Jim McGowan, and our instructors, Bo Rodda and Matt Robison, have given them useful insights into the data that the ARC has collected. The summer of 2018 IPRO group has shown that the fires in the City of Chicago are spatially correlated with each other. The fall of 2018 IPRO group built a fairly accurate model in predicting fires at the neighborhood level using demographic data from the Census Bureau and the City of Chicago Data Portal. This gave the ARC useful insights to answer questions such as, ``which neighborhoods should we focus our education efforts in?'' and ``which groups of people should we be targeting to better prepare them for fires?''
 
 \hspace{0.5 cm} Despite some early exploration into the past project groups' models, there was a different point that piqued our research groups' interest. Mr. McGowan mentioned that a majority of the incidents that the ARC learns about come from social media, with specific emphasis on Twitter. During a visit on March 5th, 2019, Mr. McGowan noted that around 44 percent of the ARC's reported incidents come from Twitter. This led us to ask multiple questions. How does the ARC identify reliable sources on these social media platforms? Is it possible to evaluate the reliability of their social media sources? Can we identify new sources that report incidents, or find where fires are occurring before they are reported on more official sources? After a brainstorming session, our group came up with a potentially useful tool: a program that goes through geo-tagged tweets on Twitter and identifies those that are useful to the disaster response efforts of the ARC.
@@ -301,7 +308,7 @@ where $\lambda$ is a parameter that weights the trade-off of increasing the marg
 \section{Data Sources}
 
 \subsection{Classified Tweets}
-\hspace{0.5 cm}In order to train this model we needed collect reliably classified tweets. In order to do this, we gained access to a dataset of approximately 2.5 million classified tweets from Axel Schulz and Christian Guckelsberger which had classified  tweets into multiple categories, ``fire'', ``shooting'', ``crash'', and ``no'' for neutral. We used a subset of these tweets that were associated with locations in Chicago, New York, Boston, Memphis, and Seattle, as the types of incidents could be assumed to be similar across these 4 metropolitan areas and the local vernacular for describing these incidents should vary a great deal across these American cities. 
+\hspace{0.5 cm}In order to train this model we needed collect reliably classified tweets. In order to do this, we gained access to a dataset of approximately 2.5 million classified tweets from Axel Schulz and Christian Guckelsberger which had classified  tweets into multiple categories, ``fire'', ``shooting'', ``crash'', and ``no'' for neutral. We used a subset of these tweets that were associated with locations in Chicago, New York, Boston, Memphis, and Seattle, as the types of incidents could be assumed to be similar across these 4 metropolitan areas and the local vernacular for describing these incidents should vary a great deal across these American cities. Due to an imbalance in the number of incidents in the ''crash'' and ''flood'' categories, we decided to focus on classifying the ''NO'', ''fire'', and ''flood'' categories.
 \citep{CT.2015}
 
 \subsection{Twitter API}
@@ -314,28 +321,52 @@ where $\lambda$ is a parameter that weights the trade-off of increasing the marg
 \section{Results: Text Classification Performance}
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{pics/classfied_tweet_count.jpg}
+\includegraphics[scale=0.8]{pics/tw_po_by_cat.jpg}
 \caption{Number of tweets in each category used in training the model.}
 \label{fig:classified_tweet_count}
 \end{figure}
+
 \subsection{Scraper Alone}
 \hspace{0.5 cm}In early April 2019, Henry Post used our Twitter scraping tool to pull over 1,100 tweets geo-tagged 20 miles around Chicago without re-tweets in the dataset that keyword searched ''fire'', ''house fire'', ''mudslide'', ''landslide'', and ''emergency''. We eliminated ''landslide'' and ''mudslide'' from the dataset as Chicago is at an extremely low risk of having these events occur so close to Chicago. After eliminating this data, we manually parsed through every tweet to determine if it was a viable incident that the ARC could respond to. After over an hour of work, only a handful of tweets were classified as one of the categories used in the models. Although this did not take a significant amount of time or human-power to finish the task, if you remove the geo-tagged restriction on the scraped tweets this task becomes unfeasible.
 \subsection{Comparing Model Performance}
-\hspace{0.5 cm}We then evaluated the data we received from Schulz and Guckelsberger \citep{CT.2015} along with the UC-Irvine dataset \citep{UCI.2016} to train a model using each of the three methods described earlier in the paper using an 80/20 split of training data and test data from these datasets. We additionally used a random forest classifier to try to classify the tweets.\\
+
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{pics/model_results.png}
+\includegraphics[scale=0.5]{pics/results_large_text.png}
 \caption{Results depicting the accuracy of the 4 classification models tested.}
 \label{fig:model_results}
 \end{figure}\\
-There were four different types of models that were under consideration. Clearly, the random forest classifier was the least accurate classifier of the four models tested. The LinearSVC model showed the highest accuracy, and thus we will choose to use the LinearSVC model.(\ref{fig:model_results})\\
+
+\hspace{0.5 cm}We then evaluated the data we received from Schulz and Guckelsberger \citep{CT.2015} along with the UC-Irvine dataset \citep{UCI.2016} to train a model using each of the three methods described earlier in the paper using an 80/20 split of training data and test data from these datasets. We additionally used a random forest classifier to try to classify the tweets.\\
+
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.2]{pics/confusion-matrix2.png}
-\caption{The confusion matrix for the dataset being run through the model.}
+\includegraphics[scale=0.5]{pics/confusion.png}
+\caption{The confusion matrix for the dataset being run through the model. The squares in the upper right represent the number of false negatives for each classification, the bottom left squares represent the false positives for each of the classifications, and the squares on the diagonal represent the number of true positives/negatives for each classification.}
 \label{fig:confusion_matrix}
 \end{figure}\\
+
+There were four different types of models that were under consideration. Clearly, the random forest classifier was the least accurate classifier of the four models tested. The LinearSVC model showed the highest accuracy, and thus we will choose to use the LinearSVC model to classify the tweets into the incident categories. (\ref{fig:model_results})\\
+
  The confusion matrix (\ref{fig:confusion_matrix}) shows not only the accuracy of the model, but also where the models misclassified the most, and what categories the models misclassified to. These results are based off tweets the model has never seen before. The model reads the text and outputs a prediction for that text, the bottom side labeled Predicted; either ''fire'', ''flood'', or ''NO''. Then it compares it to its actual label, the left side that says Actual. The matrix shows that out of all the tweets in the test data set, the model correctly classified 108 as ''fire'', 115 as ''flood'', and 412 as ''NO'', our neutral class.\\
+ 
+ \begin{figure}[h!]
+\begin{center}
+\begin{tabu} to 0.9\textwidth { | X[c] | X[c] |X[c] |X[c] |}
+ \hline
+  Actual $\downarrow$/ Predicted $\rightarrow$& Fire & Flood & NO/Neutral \\
+ \hline
+  Fire & 108 & 2 & 38  \\
+ \hline 
+ Flood & 1 & 115 & 11 \\
+ \hline
+ NO/Neutral & 0 & 0 & 412 \\
+ \hline
+\end{tabu}
+\end{center}
+\caption{We see that the the LinearSVC model does well correctly classifying fire and flood social media posts. However, there is some difficulty in the classification of the neutral class.}
+\end{figure}
+ 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{pics/stats.png}
@@ -343,7 +374,13 @@ There were four different types of models that were under consideration. Clearly
 \label{fig:stats}
 \end{figure}\\
 
-We chose to analyze the precision and recall scores of the models as these essentially measure the true positive rate of the model (\ref{fig:stats}). Precision is equal to the true positive results over the actual results. While recall is the true positive over the predicted results. Precision means the percentage of your results which are relevant. On the other hand, recall refers to the percentage of total relevant results correctly classified by our algorithm. The F1-score is simply the harmonic mean of precision and recall. Overall the model performs decently given the current scores and the f1-score. A way to maximize the recall would be to perform the active learning part of the project, meaning it will begin to correctly classify tweets that are more similar to the ones the ARC would see, than just generic ones from our dataset. 
+We chose to analyze the precision and recall scores of the models as these essentially measure the true positive rate of the model (\ref{fig:stats}). Precision is equal to the true positive results over the divided by the number of true positive and false positive results, in other words the total number of correctly classified tweets over total number of predicted positive tweets. Precision gives an indication of the what percentage of tweets are returned by the model that are actually relevant to the search. Recall is the true positive over the total number of true positive and false negative results, or the number of correctly classified tweets over the total number of tweets that were actual positives. On the other hand, recall refers to the percentage of total relevant results correctly classified by our algorithm. 
+
+\hspace{0.5 cm}The F1-score is defined to be:
+\begin{equation}
+    F_1 = 2 * \frac{precision * recall}{precision+recall}
+\end{equation}
+simply the harmonic mean of precision and recall. It could be seen as a weighted accuracy score, as it weights the accuracy if the categories are not balanced, which in this case they are. Overall the model performs decently given the current scores and the f1-score. A way to maximize the recall would be to perform the active learning part of the project, meaning it will begin to correctly classify tweets that are more similar to the ones the ARC would see, than just generic ones from our dataset. 
 
 \section{Conclusion}
 \hspace{0.5 cm}Over the course of the semester, this IPRO group was able to build a tool that could keyword search or account search Twitter to find potentially relevant tweets that the ARC could use for their incident response. Despite having the power of this tool, it was found to have too many irrelevant tweets to manually parse through to be useful on its own. The research groups' work of finding machine learning classification algorithms to implement into the scraper proved successful in accurately and precisely analyzing social media posts from Twitter and placing them in the correct category. The analysis of the models that were tested led the group to select the `LinearSVC` classifier to analyze the tweets.
