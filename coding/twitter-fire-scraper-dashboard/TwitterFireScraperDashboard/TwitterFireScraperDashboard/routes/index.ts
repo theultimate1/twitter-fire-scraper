@@ -50,14 +50,12 @@ router.all('/scrape', async function (req: express.Request, res: express.Respons
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
 
-        test_message = "You are just sending a GET request."
     } else {
         return res.status(405).send(`The ${req.method} method for the "${req.originalUrl}" route is not supported.`);
     }
 
     return res.render('scrape', {
         title: 'Scrape new tweets',
-        test_message: test_message,
         statusdict: statuses
     })
 });
@@ -71,7 +69,7 @@ router.all('/scrape_accounts', async function (req: express.Request, res: expres
         // Retrieve tweets and display them
 
         const { accounts, count } = req.body
-        
+
         var count_number = Number(count)
         //var accounts_list = accounts.replace(/\r\n/g, ',')
         //var s = pair[1].replace(/\+/g, " ");
@@ -95,14 +93,12 @@ router.all('/scrape_accounts', async function (req: express.Request, res: expres
     } else if (req.method === "GET") {
         // Do nothing, nothing to populate.
 
-        test_message = "You are just sending a GET request."
     } else {
         return res.status(405).send(`The ${req.method} method for the "${req.originalUrl}" route is not supported.`);
     }
 
     return res.render('scrape_accounts', {
-        title: 'Scrape new tweets',
-        test_message: test_message,
+        title: 'Scrape accounts',
         statusdict: statuses
     })
 });
