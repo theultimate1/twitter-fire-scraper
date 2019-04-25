@@ -135,7 +135,7 @@ def info():  # function: check webapi is running or not
 
 @app.route('/')
 def index():
-    return jsonify({'json': 'hacked'})
+    return jsonify({'info': 'Welcome. This is the twitter-fire-scraper-webapi. This is a Web API, and not meant to be viewed in your browser.'})
 
 
 @app.route('/add/<int:x>/<int:y>', methods=['GET'])
