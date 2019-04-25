@@ -39,7 +39,7 @@ export class ApiLibrary {
                 }
 
                 if (body === "twitter-fire-scraper-webapi") {
-                    console.log("It's the real API.")
+                    console.log("API OK!")
                     resolve(true)
                 }
                 else {
@@ -51,7 +51,7 @@ export class ApiLibrary {
 
     scrape_terms(terms: Array<String>, count: Number): Promise<JSON> {
         var uri: URL = this.construct_uri()
-        
+
         uri.pathname = "scrape_terms"
 
         var args: string = querystring.stringify({ terms: terms, count: count });
@@ -88,7 +88,7 @@ export class ApiLibrary {
         var args: string = querystring.stringify({ accounts: accounts, count: count });
         console.log(args)
         var query_string = uri.href + "?" + args // TODO this is insecure.
-        
+
         console.log("our query string:")
 
         console.log(query_string)
