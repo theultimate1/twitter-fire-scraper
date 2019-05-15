@@ -1,6 +1,6 @@
 import setuptools
 
-with open("../README.md", 'r') as f:
+with open("README.md", 'r') as f:
     long_description = f.read()
 
 with open("VERSION", 'r') as f:
@@ -17,7 +17,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
 
-    url="https://github.com/raaraa/IPRO497-Analytics-Team/tree/master/coding/twitter-fire-scraper",
+    url="https://github.com/twitter-fire-scraper-analytics/twitter-fire-scraper",
 
     package_data = {
         'twitter-fire-scraper': [

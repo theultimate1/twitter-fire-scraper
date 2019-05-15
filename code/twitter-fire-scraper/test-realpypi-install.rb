@@ -1,3 +1,6 @@
+#! /usr/bin/ruby
+# frozen_string_literal: true
+
 # This file will attempt to download, install, and run tests on the uploaded REAL PACKAGE from REAL PyPI.
 #
 # This is to confirm that the REAL, LIVE, PRODUCTION package works.

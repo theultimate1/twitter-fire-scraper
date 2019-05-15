@@ -1,3 +1,6 @@
+#! /usr/bin/ruby
+# frozen_string_literal: true
+
 # This file will attempt to install and run tests on the highest-versioned local .whl file that is built.
 #
 # It does NOT build for you.
@@ -21,7 +24,7 @@ config.clean_temp
 config.setup_venv
 
 # Folder that contains the wheel.
-wheel_folder = File.join(config.root_folder, "src", "dist")
+wheel_folder = config.wheel_dir
 
 puts "Searching in #{wheel_folder}:"
 

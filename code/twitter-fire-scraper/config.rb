@@ -9,6 +9,16 @@ class Config
     'twitter_fire_scraper'
   end
 
+  # Directory that holds wheel files.
+  def wheel_dir
+    File.join(self.root_folder, "dist")
+  end
+
+  # File glob that specifies all folders inside the wheel dir.
+  def wheel_dir_glob
+    File.join(self.wheel_dir, "*")
+  end
+
   def windows_python_install_dir
 
     candidates = %W(C:\\Python3 C:\\Python34 C:\\Python35 C:\\Python36 C:\\Python37)
@@ -101,7 +111,7 @@ class Config
 
     # Create virtual environment to download test package
     puts "Creating virtual environment..."
-    system("#{self.python_exe} -m virtualenv \"#{self.venv_folder}\"")
+    system("#{self.python_exe} -m virtualenv -p python3 \"#{self.venv_folder}\"")
 
     # Path to venv Python executable.
     virtual_python_exe = File.join(self.venv_folder_bin, "python")

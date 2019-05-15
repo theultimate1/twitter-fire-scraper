@@ -177,7 +177,7 @@ There are a series of [Ruby](https://www.ruby-lang.org/en/) scripts (cross-platf
 
 ## Uploading
 
-You'll need to bump the version in `./src/VERSION` when uploading a new version.
+You'll need to bump the version in `./VERSION` when uploading a new version.
 
 ### To the test site (test.pypi.org)
 

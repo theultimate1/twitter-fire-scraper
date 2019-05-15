@@ -1,3 +1,6 @@
+#! /usr/bin/ruby
+# frozen_string_literal: true
+
 # This file will attempt to download, install, and run tests on the uploaded TEST package from PyPI.
 #
 # This is meant for testing what the person downloading your package would see (if this actually uploaded it to the

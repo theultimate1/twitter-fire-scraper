@@ -1,9 +1,10 @@
+#! /usr/bin/ruby
+# frozen_string_literal: true
+
 require './detect-python'
 
 require './config'
 config = Config.new
-
-Dir.chdir("src")
 
 # Ensure wheel is installed.
 system("#{config.python_exe} -m pip install wheel setuptools")

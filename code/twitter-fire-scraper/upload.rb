@@ -7,8 +7,6 @@ require './detect-python'
 require './config'
 config = Config.new
 
-dist_dir = "src/dist/*"
-
 # Handle parsing command line arguments
 options = {}
 OptionParser.new do |opts|
@@ -45,7 +43,7 @@ system("#{config.python_exe} -m pip install twine")
 
 if options[:test]
   puts "Uploading `dist/*` to TEST PyPI package repository."
-  system("#{config.python_exe} -m twine upload --repository-url https://test.pypi.org/legacy/ #{dist_dir}")
+  system("#{config.python_exe} -m twine upload --repository-url https://test.pypi.org/legacy/ #{config.wheel_dir_glob}")
 elsif options[:deploy]
   puts "Uploading `dist/` to REAL PyPI package repository."
 
@@ -69,5 +67,5 @@ elsif options[:deploy]
 
   end
 
-  system("#{config.python_exe} -m twine upload #{dist_dir}")
+  system("#{config.python_exe} -m twine upload #{config.wheel_dir_glob}")
 end
