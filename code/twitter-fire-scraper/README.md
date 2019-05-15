@@ -4,17 +4,14 @@
 
 This is a Python Twitter "Fire event" scraper/listener.
 
-It is an application that will listen for or scrape data relating to house fires 
+It is an application that will listen for or scrape data relating to house fires
 (Chicago specifically) in order to analyze how people use Twitter as a platform
 to report and talk about disasters.
 
 # How will this use Twitter data?
 
-This application is to help the American Red Cross analyze data about house fires
-for an Illinois Institute of Technology Interprofessional Project class.
-
-This data collected will not be sold or marketed at all and is only going to be
-used to understand house fires in Chicago.
+This application allows one to analyze, collect, and collate data about house
+fires and other disasters on Twitter.
 
 # How do I install this?
 
@@ -96,14 +93,14 @@ Follow [this tutorial](https://docs.mongodb.com/v3.2/tutorial/) on how to instal
 
 ### Setting up Pipenv
 
-You can install Pipenv by executing 
-    
+You can install Pipenv by executing
+
     pip install pipenv
 
 You can then install all packages (including dev packages like `twisted`) in this folder's `./Pipenv` by executing
 
     pipenv install --dev
-    
+
 Then, you can run tests by executing
 
     pipenv run python /src/twitter-fire-scraper/tests/test/__main__.py
@@ -137,7 +134,7 @@ Commit `2fb844e8c081c1dc31cfb4760e3a80cefb6a0eee` was used.
 
 # There's got to be a better way to run this than from the command line!
 
-There is! Use an IDE (like PyCharm, which I use) that preferably integrates with 
+There is! Use an IDE (like PyCharm, which I use) that preferably integrates with
 Python to show you import errors, syntax errors, etc. Go google "Python IDE" and
 pick one you like.
 
@@ -156,7 +153,7 @@ Copy this path and open Pycharm.
 
 Go into `files -> settings` and expand the `Project: fire-scraper-twitter`. In the drop down,
 go into `Project Interpreter`. Go to the top and click the gear and select `add`, as we will
-be adding a new interpreter. 
+be adding a new interpreter.
 
 Select `Existing environment` and click the three dots to the right. Copy your path at the top,
 then OK everything.
