@@ -1,3 +1,6 @@
+from typing import Tuple
+
+
 class Point(object):
     """A 2d point.
     Has x and y."""
@@ -19,6 +22,6 @@ class Point(object):
         )
 
     def flatten(self):
-        # type: (Point) -> tuple[float, float]
+        # type: (Point) -> Tuple[float, float]
         """Flattens a point into (x,y) coords, respectively."""
         return self.x, self.y
