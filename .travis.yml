@@ -98,7 +98,7 @@ before_install:
   - echo "Installing npm..."
   - |
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      bash coding/setup-scripts/install-npm.sh
+      bash continuous-integration/setup-scripts/install-npm.sh
     fi
 
 script:
