@@ -105,20 +105,12 @@ script:
 
   - echo "I am script!"
 
-  - pushd code
-
-  - pushd twitter-fire-scraper
-
   - echo "Testing the Twitter Fire Scraper."
-  - bash setup-scripts/test-tfs.sh
+  - bash continuous-integration/setup-scripts/test-tfs.sh
 
   - echo "The Twitter Fire Scraper Web API is starting up."
   - echo "Starting up Web API..."
-  - bash setup-scripts/start-tfs-webapi.sh
-
-  - popd
-
-  - popd
+  - bash continuous-integration/setup-scripts/start-tfs-webapi.sh
 
 after_failure:
 
