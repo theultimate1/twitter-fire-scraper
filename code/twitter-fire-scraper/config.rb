@@ -44,12 +44,12 @@ class Config
 
   def python_exe
     begin
-      return detect_python_exe(version: 3)
+      return detect_python_exe(true, 3)
     rescue
       puts "Looks like Python 3 isn't installed. Let's try to install it."
       try_install_python(3)
 
-      return detect_python_exe(version: 3)
+      return detect_python_exe(true, 3)
     end
   end
 
