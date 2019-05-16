@@ -1,6 +1,4 @@
-pushd twitter-fire-scraper
+#!/usr/bin/env bash
 
 ruby build.rb
 ruby test-localwheel-install.rb
-
-popd

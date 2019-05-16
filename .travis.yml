@@ -105,20 +105,18 @@ script:
 
   - echo "I am script!"
 
-  - pushd coding
+  - pushd code
 
-  - echo "Testing twitter fire scraper"
+  - pushd twitter-fire-scraper
+
+  - echo "Testing the Twitter Fire Scraper."
   - bash setup-scripts/test-tfs.sh
 
-  - echo "Testing twitter fire scraper web API"
-  - bash setup-scripts/test-tfs-webapi.sh
-
-  - echo "twitter-fire-scraper-dashboard is starting up."
+  - echo "The Twitter Fire Scraper Web API is starting up."
   - echo "Starting up Web API..."
   - bash setup-scripts/start-tfs-webapi.sh
 
-  - echo "Starting dashboard..."
-  - bash setup-scripts/start-tfs-dashboard.sh
+  - popd
 
   - popd
 
@@ -129,7 +127,6 @@ after_failure:
 
   - echo "Error log of twitter-fire-scraper-webapi:"
   - cat /tmp/flask.error.log
-
 
   - echo "Log of twitter-fire-scraper-dashboard:"
   - cat /tmp/node.log
