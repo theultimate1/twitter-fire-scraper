@@ -117,7 +117,13 @@ There is a web API that is included with the `twitter-fire-scraper` package.
 
 It exposes functions of the `twitter-fire-scraper` over HTTP. <!-- TODO Use HTTPS! -->
 
-You can run it after installing it with `pip` by typing
+## From source
+
+You can run the web API from the live source code with `pipenv run python twitter_fire_scraper/app.py`.
+
+## Using PyPI
+
+You can run the Web API after installing it with `pip` by typing
 
 ```
 python -m twitter_fire_scraper.app
