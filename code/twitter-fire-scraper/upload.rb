@@ -1,4 +1,7 @@
+#! /usr/bin/ruby
+
 # This is a command-line tool to assist in uploading a Python package.
+# frozen_string_literal: true
 
 require 'optparse'
 
