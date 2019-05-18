@@ -46,6 +46,8 @@ setuptools.setup(
         "pymongo",
         "typing",
         "pyyaml",
+        "flask_pymongo",
+        "dnspython",
     ],
 
     classifiers=[
