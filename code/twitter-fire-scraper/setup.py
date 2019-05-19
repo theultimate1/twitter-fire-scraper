@@ -48,6 +48,8 @@ setuptools.setup(
         "pyyaml",
         "flask_pymongo",
         "dnspython",
+        "chardet",
+        "certifi",
     ],
 
     classifiers=[
