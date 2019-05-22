@@ -38,8 +38,23 @@ class TwitterAuthentication(object):
             print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
             print(auth_filepath)
 
-            print("Either initialize {} with API keys, or make the file located at the above path.".format(
+            print("Either initialize a {} object with API keys, or make the file located at the above path.".format(
                 TwitterAuthentication.__name__))
+
+            print("Here is a more concrete example: Make the following file exist and insert the following data into it:")
+
+            print("File: {}".format(auth_filepath))
+            print("Data: ")
+            print("+"*20)
+            print("""
+{
+  "consumer_key": "ABCDEFGREPLACEME",
+  "consumer_secret": "ABCDEFGREPLACEME",
+  "access_token": "ABCDEFGREPLACEME",
+  "access_token_secret": "ABCDEFGREPLACEME"
+}
+            """)
+            print("+"*20)
 
             raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
         else:  # Path to auth file exists.
