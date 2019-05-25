@@ -6,6 +6,7 @@ _trial_temp*/
 *.egg-info/
 build/
 dist/
+.eggs/
 
 # Temp folders
 tmp/
