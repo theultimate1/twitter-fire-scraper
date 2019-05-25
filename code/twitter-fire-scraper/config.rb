@@ -142,15 +142,18 @@ class Config
     puts status
 
     if stderr.include? 'FAILED'
-      raise 'Failed test cases! Detected from stderr.'
+      print 'Failed test cases! Detected from stderr.'
+      exit 1
     end
 
     if stdout.include? 'FAILED'
-      raise 'Failed test cases! Detected from stdout.'
+      print 'Failed test cases! Detected from stdout.'
+      exit 1
     end
 
     unless status.to_s.include? 'exit 0'
-      raise "#{status} Didn't exit with code 0! Something is wrong!"
+      print "#{status} Didn't exit with code 0! Something is wrong!"
+      exit 1
     end
 
 
