@@ -11,17 +11,21 @@ class Config
 
   # Directory that holds wheel files.
   def wheel_dir
-    File.join(self.root_folder, "dist")
+    File.join(self.root_folder, 'dist')
   end
 
   # File glob that specifies all folders inside the wheel dir.
   def wheel_dir_glob
-    File.join(self.wheel_dir, "*")
+    File.join(self.wheel_dir, '*')
   end
 
   def windows_python_install_dir
 
-    candidates = %W(C:\\Python3 C:\\Python34 C:\\Python35 C:\\Python36 C:\\Python37)
+    candidates = %w[C:\\Python3
+                    C:\\Python34
+                    C:\\Python35
+                    C:\\Python36
+                    C:\\Python37]
 
     candidates.each {|python_dir|
       if Dir.exist? python_dir
@@ -35,11 +39,11 @@ class Config
   end
 
   def windows_python_installer_url
-    "https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi"
+    'https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi'
   end
 
   def windows_python_installer_location
-    File.join(CONFIG.root_folder, "python-3.4.4.msi")
+    File.join(CONFIG.root_folder, 'python-3.4.4.msi')
   end
 
   def python_exe
@@ -60,17 +64,17 @@ class Config
 
   # Folder to hold temporary files.
   def temp_folder
-    File.absolute_path(File.join(self.root_folder, "tmp"))
+    File.absolute_path(File.join(self.root_folder, 'tmp'))
   end
 
   # Folder to hold the virtual environment.
   def venv_folder
-    File.absolute_path(File.join(self.temp_folder, "env"))
+    File.absolute_path(File.join(self.temp_folder, 'env'))
   end
 
   # Detect Python virtual environment folder location
   def venv_folder_bin
-    venv_python_bin = File.join(self.venv_folder, "Scripts")
+    venv_python_bin = File.join(self.venv_folder, 'Scripts')
 
     # It's windows if /Scripts/ exists
     if File.exist? venv_python_bin
@@ -79,13 +83,13 @@ class Config
 
     # Might be Linux/OSX if "Scripts" doesn't exist.
     unless File.exist? venv_python_bin
-      venv_python_bin = File.join(self.venv_folder, "bin")
+      venv_python_bin = File.join(self.venv_folder, 'bin')
       puts "Using /bin/ in #{self.venv_folder}, *NIX user."
     end
 
     # Still doesn't exist? Exit.
     unless File.exist? venv_python_bin
-      puts "Could not detect `Scripts` or `bin` folder. Something is terribly wrong."
+      puts 'Could not detect `Scripts` or `bin` folder. Something is terribly wrong.'
       exit(1)
     end
 
@@ -96,9 +100,9 @@ class Config
   # Venv python binary.
   def virtual_python_exe
     if is_windows
-      File.join(self.venv_folder_bin, "python.exe")
+      File.join(self.venv_folder_bin, 'python.exe')
     else
-      File.join(self.venv_folder_bin, "python")
+      File.join(self.venv_folder_bin, 'python')
     end
 
   end
@@ -106,20 +110,20 @@ class Config
   # Set up a clean virtual environment.
   def setup_venv
 
-    puts "Ensuring deps are satisfied for virtual environments..."
+    puts 'Ensuring deps are satisfied for virtual environments...'
     system("#{self.python_exe} -m pip install virtualenv")
 
     # Create virtual environment to download test package
-    puts "Creating virtual environment..."
+    puts 'Creating virtual environment...'
     system("#{self.python_exe} -m virtualenv -p python3 \"#{self.venv_folder}\"")
 
     # Path to venv Python executable.
-    virtual_python_exe = File.join(self.venv_folder_bin, "python")
+    virtual_python_exe = File.join(self.venv_folder_bin, 'python')
 
     # Print venv Python version for sanity.
-    puts "Python version: "
+    puts 'Python version: '
     system("#{virtual_python_exe} -V")
-    puts ""
+    puts ''
 
     nil
 
@@ -128,21 +132,21 @@ class Config
   # Run tests on our virtualenv, assuming our project (twitter-fire-scraper) is installed.
   def run_venv_dist_tests
 
-    puts "Running tests on installed module in venv."
+    puts 'Running tests on installed module in venv.'
 
     # Invoke __main__ of automated tests module
-    stdout, stderr, status = Open3.capture3("#{self.virtual_python_exe}", "-m", "#{self.app_name}.tests.test")
+    stdout, stderr, status = Open3.capture3("#{self.virtual_python_exe}", '-m', "#{self.app_name}.tests.test")
 
     puts stdout
     puts stderr
     puts status
 
     if stderr.include? 'FAILED'
-      raise "Failed test cases! Detected from stderr."
+      raise 'Failed test cases! Detected from stderr.'
     end
-    
+
     if stdout.include? 'FAILED'
-      raise "Failed test cases! Detected from stdout."
+      raise 'Failed test cases! Detected from stdout.'
     end
 
     unless status.to_s.include? 'exit 0'

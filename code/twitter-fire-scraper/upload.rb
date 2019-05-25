@@ -16,10 +16,10 @@ OptionParser.new do |opts|
 
   opts.banner = "Usage: #{File.basename(__FILE__)} [options]"
 
-  opts.on('-t', '--test', "Deploy to test PyPI site (test.pypi.org)") do |value|
+  opts.on('-t', '--test', 'Deploy to test PyPI site (test.pypi.org)') do |value|
     options[:test] = value
   end
-  opts.on('-d', '--deploy', "Deploy to REAL PyPI site (pypi.org)!") do |value|
+  opts.on('-d', '--deploy', 'Deploy to REAL PyPI site (pypi.org)!') do |value|
     options[:deploy] = value
   end
 
@@ -33,7 +33,7 @@ end
 
 # Neither true?
 if not options[:test] and not options[:deploy]
-  puts("Choose whether to upload package to test PyPI or real PyPI.")
+  puts('Choose whether to upload package to test PyPI or real PyPI.')
   puts("Run `#{File.basename(__FILE__)} --help` for help.")
   exit(1)
 end
@@ -45,27 +45,27 @@ puts("I'm not malicious, but can you prove it? ;)")
 system("#{config.python_exe} -m pip install twine")
 
 if options[:test]
-  puts "Uploading `dist/*` to TEST PyPI package repository."
+  puts 'Uploading `dist/*` to TEST PyPI package repository.'
   system("#{config.python_exe} -m twine upload --repository-url https://test.pypi.org/legacy/ #{config.wheel_dir_glob}")
 elsif options[:deploy]
-  puts "Uploading `dist/` to REAL PyPI package repository."
+  puts 'Uploading `dist/` to REAL PyPI package repository.'
 
   puts "Hold on! You're about to upload a package that ANYONE can install with `pip install`! "
-  puts "Are you sure? (yes/no)"
-  print " > "; STDOUT.flush
+  puts 'Are you sure? (yes/no)'
+  print ' > '; STDOUT.flush
 
   input = nil
-  while (input != "yes") do
+  while (input != 'yes') do
     input = gets.chomp
 
-    if input == "no"
-      puts "Aborted upload."
+    if input == 'no'
+      puts 'Aborted upload.'
       exit(1)
     end
 
-    if input != "yes"
+    if input != 'yes'
       puts "Enter 'yes' or 'no'."
-      print " > "; STDOUT.flush
+      print ' > '; STDOUT.flush
     end
 
   end

@@ -20,7 +20,7 @@ end
 
 def try_install_python(version = 3)
 
-  puts "Is windows?"
+  puts 'Is windows?'
   puts is_windows
 
   if is_windows
@@ -36,7 +36,7 @@ def try_install_python(version = 3)
     end
 
     if File.exist? CONFIG.windows_python_installer_location
-      puts "Installing Python from downloaded Windows installer."
+      puts 'Installing Python from downloaded Windows installer.'
 
       Dir.chdir CONFIG.root_folder
 
@@ -50,14 +50,14 @@ def try_install_python(version = 3)
       puts stderr
       puts status
 
-      raise "PATH setting on windows fails. Make sure to set it manually."
+      raise 'PATH setting on windows fails. Make sure to set it manually.'
 
     else
-      raise "Failed to download Python windows installer!"
+      raise 'Failed to download Python windows installer!'
     end
 
-  elsif find_executable("apt")
-    stdout, stderr, status = Open3.capture3("apt", "install", "-y", "python#{version}")
+  elsif find_executable('apt')
+    stdout, stderr, status = Open3.capture3('apt', 'install', '-y', "python#{version}")
 
     puts stdout
     puts stderr
@@ -72,7 +72,7 @@ def detect_python_exe(verbose = nil, version = nil)
 # If `python` exists,
   if find_executable('python')
 
-    stdout, stderr, status = Open3.capture3("python -V")
+    stdout, stderr, status = Open3.capture3('python -V')
     python_version_info = stdout + stderr
     puts python_version_info
     puts status
@@ -120,8 +120,8 @@ def detect_python_exe(verbose = nil, version = nil)
     puts "`python#{version}` command doesn't exist"
   end
 
-  if is_windows and File.exist? File.join(CONFIG.windows_python_install_dir, "python.exe")
-    return File.join(CONFIG.windows_python_install_dir, "python.exe")
+  if is_windows and File.exist? File.join(CONFIG.windows_python_install_dir, 'python.exe')
+    return File.join(CONFIG.windows_python_install_dir, 'python.exe')
   end
 
   raise "Python #{version} detection failed!"

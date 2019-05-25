@@ -28,11 +28,11 @@ wheel_folder = config.wheel_dir
 
 puts "Searching in #{wheel_folder}:"
 
-wheels = Dir.glob(File.join(wheel_folder, "*.whl"))
+wheels = Dir.glob(File.join(wheel_folder, '*.whl'))
 wheels = wheels.sort.reverse
 
 if wheels.length == 0
-  puts "No wheels. Did you forget to build one?"
+  puts 'No wheels. Did you forget to build one?'
   exit 1
 end
 
@@ -51,7 +51,7 @@ if is_windows
   stdout, stderr, status = Open3.capture3("start /WAIT \"\" \"#{(config.virtual_python_exe)}\" -m pip install \"#{wheels[0]}\"")
   # stdout, stderr, status = Open3.capture3("start", "\"\"", "\"#{config.virtual_python_exe}\"", "-m", "pip", "install", "\"#{wheels[0]}\"")
 else
-  stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe.shellescape}", "-m", "pip", "install", wheels[0].shellescape)
+  stdout, stderr, status = Open3.capture3("#{config.virtual_python_exe.shellescape}", '-m', 'pip', 'install', wheels[0].shellescape)
 end
 
 # Install test package from WHL file
