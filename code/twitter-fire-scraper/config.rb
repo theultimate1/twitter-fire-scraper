@@ -138,7 +138,11 @@ class Config
     puts status
 
     if stderr.include? 'FAILED'
-      raise "Failed test cases!"
+      raise "Failed test cases! Detected from stderr."
+    end
+    
+    if stdout.include? 'FAILED'
+      raise "Failed test cases! Detected from stdout."
     end
 
     unless status.to_s.include? 'exit 0'
