@@ -37,7 +37,7 @@ This README assumes all commands take place in the same folder as this README fi
 
 Examples of how to use this package can be found in [this examples folder](python_example_code) and also in [our internal test suites](src/twitter_fire_scraper/tests).
 
-These should give you a good idea of how to use our scraper, and can be considered a 'living standard' of how our code works. 
+ These should give you a good idea of how to use our scraper, and can be considered a 'living standard' of how our code works.
 
 <!-- TODO write a wiki!!! -->
 
@@ -153,7 +153,7 @@ Commit `2fb844e8c081c1dc31cfb4760e3a80cefb6a0eee` was used.
 
 There is! Use an IDE (like PyCharm, which I use) that preferably integrates with Python to show you import errors, syntax errors, etc. Go google "Python IDE" and pick one you like.
 
-# Adding the location of Venv to your IDE 
+# Adding the location of Venv to your IDE
 
 <!-- TODO this section needs some polish! -->
 
