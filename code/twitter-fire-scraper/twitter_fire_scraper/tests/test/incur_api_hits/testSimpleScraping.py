@@ -18,13 +18,13 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape_terms({"fire"}, count=1)
 
-        assert('fire' in results)
+        self.assertIn('fire', results)
 
-        assert(isinstance(results['fire'], list))
+        self.assertIsInstance(results['fire'], list)
 
-        assert (len(results.keys()) == 1)
+        self.assertEqual(len(results.keys()), 1)
 
-        assert (isinstance(get_status_text(results['fire'][0]), str))
+        self.assertIsInstance(get_status_text(results['fire'][0]), str)
 
     def testCanScrapeAccount(self):
         """Tests that scraper can scrape one account."""
@@ -34,13 +34,13 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape_accounts({"@RedCross"}, count=1)
 
-        assert ('@RedCross' in results)
+        self.assertIn('@RedCross', results)
 
-        assert (len(results.keys()) == 1)
+        self.assertEqual(len(results.keys()), 1)
 
-        assert(isinstance(results['@RedCross'], list))
+        self.assertIsInstance(results['@RedCross'], list)
 
-        assert (isinstance(get_status_text(results['@RedCross'][0]), str))
+        self.assertIsInstance(get_status_text(results['@RedCross'][0]), str)
 
     def testCanScrapeMethod(self):
         """Tests that the Scraper's `scrape` method works."""
@@ -51,13 +51,13 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape(terms={"fire"}, accounts={"@RedCross"})
 
-        assert('fire' in results.keys())
-        assert('@RedCross' in results.keys())
+        self.assertIn('fire', results.keys())
+        self.assertIn('@RedCross', results.keys())
 
-        assert(len(results.keys()) == 2)
+        self.assertEqual(len(results.keys()), 2)
 
-        assert(isinstance(results['fire'], list))
-        assert(isinstance(results['@RedCross'], list))
+        self.assertIsInstance(results['fire'], list)
+        self.assertIsInstance(results['@RedCross'], list)
 
     def testCanScrapeAndSave(self):
         """Tests if the Scraper can both scrape and save the results to a MongoDB database"""
@@ -74,13 +74,13 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape_and_save(terms={"fire"}, count=1, dbname="testdb")
 
-        assert ('fire' in results.keys())
+        self.assertIn('fire', results.keys())
 
-        assert (len(results.keys()) == 1)
+        self.assertEqual(len(results.keys()), 1)
 
-        assert (isinstance(results['fire'], list))
+        self.assertIsInstance(results['fire'], list)
 
-        assert (test_client[test_db].get_collection("fire").count() == 1)
+        self.assertEqual(test_client[test_db].get_collection("fire").count(), 1)
         test_client.drop_database(test_db)
 
     def _disabled_testLotsOfTweets(self):
@@ -91,11 +91,10 @@ class TestSimpleScraping(unittest.TestCase):
 
         results = scraper.scrape(terms={"fire"}, count=1000)
 
-        assert ('fire' in results.keys())
+        self.assertIn('fire', results.keys())
 
-        assert (len(results.keys()) == 1)
+        self.assertEqual(len(results.keys()), 1)
 
-        assert (isinstance(results['fire'], list))
+        self.assertIsInstance(results['fire'], list)
 
-        assert (len(results['fire']) == 1000)
-
+        self.assertEqual(len(results['fire']), 1000)

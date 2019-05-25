@@ -54,7 +54,7 @@ class TestFileSaving(unittest.TestCase):
         total_statuses = self.count_statuses(tweets)
 
         # We should have as many tweets as there are lines in the file, plus one for the header.
-        assert (total_lines == total_statuses + 1)
+        self.assertEqual(total_lines, total_statuses + 1)
 
     def testSaveCSVNoRetweets(self):
         """Tests that the scraper can produce a CSV file with absolutely no retweets."""
@@ -75,7 +75,6 @@ class TestFileSaving(unittest.TestCase):
         # We should have as many tweets as there are lines in the file, plus one for the header.
         assert (total_lines == (total_statuses + 1))
 
-
     def testSaveCSVLarge(self):
         """Tests that the scraper can produce large CSV files."""
         tweets = CachedTweets.tweets_large_geo()
@@ -93,4 +92,4 @@ class TestFileSaving(unittest.TestCase):
         total_statuses = self.count_statuses(tweets)
 
         # We should have as many tweets as there are lines in the file, plus one for the header.
-        assert (total_lines == (total_statuses + 1))
+        self.assertEqual(total_lines, (total_statuses + 1))

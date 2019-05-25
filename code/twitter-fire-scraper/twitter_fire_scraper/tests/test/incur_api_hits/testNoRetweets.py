@@ -12,8 +12,8 @@ class TestNoRetweets(unittest.TestCase):
 
         for term, statuses in results.items():
             for status in statuses:
-                assert (status.retweeted == False)
+                self.assertFalse(status.retweeted)
 
                 # Author of original tweet and person posting MUST be the same.
                 # If not, it is a retweet.
-                assert (status.author.id == status.user.id)
+                self.assertEqual(status.author.id, status.user.id)

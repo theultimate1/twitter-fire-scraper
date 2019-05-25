@@ -32,4 +32,4 @@ class TestInvalidCredentials(unittest.TestCase):
             failure = True
 
         if not failure:
-            raise Exception("Credentials should fail to validate.")
+            self.fail("Credentials should fail to validate.")
