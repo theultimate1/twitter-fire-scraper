@@ -1,8 +1,12 @@
 import json
 import os
 
+
 class Config:
     DEFAULT_MONGODB_CONNECTION_STRING = "mongodb://localhost:27017/"
+
+    SECRETS_DATAFILE_PATH = os.path.expanduser("~/.twitterfirescraper/secrets.json")
+
 
 def try_get(object, key):
     """Tries to get the value of a key in an object, and politely notifies you if it cannot find it."""
@@ -35,4 +39,4 @@ class DataConfig:
     # US states datafile location.
     US_STATES_DATA_PATH = os.path.join(DATA_PATH, "USStates.yml")
 
-    TWITTER_ACCOUNTS_DATA_PATH=os.path.join(DATA_PATH, "TwitterAccounts.yml")
+    TWITTER_ACCOUNTS_DATA_PATH = os.path.join(DATA_PATH, "TwitterAccounts.yml")

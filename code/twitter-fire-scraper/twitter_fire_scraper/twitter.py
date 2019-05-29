@@ -35,7 +35,7 @@ class TwitterAuthentication(object):
         })
 
     @staticmethod
-    def autodetect_twitter_auth(auth_filepath="~/.twitterfirescraper/secrets.json"):
+    def autodetect_twitter_auth(auth_filepath=Config.SECRETS_DATAFILE_PATH):
         # type: (str) -> TwitterAuthentication
         """
         Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
@@ -44,12 +44,8 @@ class TwitterAuthentication(object):
         """
         print("WARNING: API key autodetection is inadvisable.")
 
-        auth_filename = os.path.basename(auth_filepath)
-        auth_filepath = os.path.expanduser(auth_filepath)
-
         if not os.path.isfile(auth_filepath):
-            print("Auto-detection of {} failed. Searched this path for {}:".format(auth_filename, auth_filename))
-            print(auth_filepath)
+            print("Searched for {} but it did not exist.".format(auth_filepath))
 
             print("Either initialize a {} object with API keys, or make the file located at the above path.".format(
                 TwitterAuthentication.__name__))
