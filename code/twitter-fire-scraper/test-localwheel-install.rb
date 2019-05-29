@@ -31,7 +31,7 @@ puts "Searching in #{wheel_folder}:"
 wheels = Dir.glob(File.join(wheel_folder, '*.whl'))
 wheels = wheels.sort.reverse
 
-if wheels.length == 0
+if wheels.empty?
   puts 'No wheels. Did you forget to build one?'
   exit 1
 end
@@ -39,7 +39,7 @@ end
 puts "#{wheels.length} wheels available:"
 
 wheels.each do |wheel|
-  puts (File.basename (wheel))
+  puts(File.basename(wheel))
 end
 
 puts "Installing #{wheels[0]}."
