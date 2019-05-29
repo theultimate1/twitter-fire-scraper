@@ -22,7 +22,20 @@ class TwitterAuthentication(object):
     """
 
     @staticmethod
-    def autodetect_twitter_auth(auth_filepath="~/secrets.json"):
+    def example_json():
+        # type: () -> str
+        """
+        :return: An example of what the configuration file should look like.
+        """
+        return json.dumps({
+            'consumer_key': 'ABCDEFG_REPLACEME',
+            'consumer_secret': 'ABCDEFG_REPLACEME',
+            'access_token': 'ABCDEFG_REPLACEME',
+            'access_token_secret': 'ABCDEFG_REPLACEME',
+        })
+
+    @staticmethod
+    def autodetect_twitter_auth(auth_filepath="~/.twitterfirescraper/secrets.json"):
         # type: (str) -> TwitterAuthentication
         """
         Attempts to autodetect Twitter API keys from a file called 'secrets.json'.
@@ -45,16 +58,9 @@ class TwitterAuthentication(object):
 
             print("File: {}".format(auth_filepath))
             print("Data: ")
-            print("+"*20)
-            print("""
-{
-  "consumer_key": "ABCDEFGREPLACEME",
-  "consumer_secret": "ABCDEFGREPLACEME",
-  "access_token": "ABCDEFGREPLACEME",
-  "access_token_secret": "ABCDEFGREPLACEME"
-}
-            """)
-            print("+"*20)
+            print("+" * 20)
+            print(TwitterAuthentication.example_json())
+            print("+" * 20)
 
             raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
         else:  # Path to auth file exists.

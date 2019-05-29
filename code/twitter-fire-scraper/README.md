@@ -64,7 +64,7 @@ You will need:
 
 - A twitter handle you're authorized to make queries on behalf of
 
-You are to put these into a file called `secrets.json` in your home folder (For example, mine is `C:\Users\henryfbp\secrets.json`.)
+You are to put these into a file called `secrets.json` in your home folder under `.twitterfirescraper/` (For example, mine is `C:/Users/henryfbp/.twitterfirescraper/secrets.json`.)
 
 An example file is provided for you to base your file off of, called `secrets.example.json`.
 
