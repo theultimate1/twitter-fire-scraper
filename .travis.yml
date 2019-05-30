@@ -20,18 +20,20 @@ matrix:
 
     - os: linux
       dist: xenial
-      python: "3.4"
-
-    - os: linux
-      dist: xenial
       python: "3.7"
 
-    - os: osx
-      language: generic
-      env: PYTHON=3.4.4
+# Temporarily suspending these extra builds to cut down on API queries. -Henry
 
-  allow_failures:
-    - os: osx
+#    - os: linux
+#      dist: xenial
+#      python: "3.4"
+
+#    - os: osx
+#      language: generic
+#      env: PYTHON=3.4.4
+
+#  allow_failures:
+#    - os: osx
 
 addons:
   apt:
