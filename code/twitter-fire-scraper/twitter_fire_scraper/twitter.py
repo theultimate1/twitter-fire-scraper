@@ -22,19 +22,6 @@ class TwitterAuthentication(object):
     """
 
     @staticmethod
-    def example_json():
-        # type: () -> str
-        """
-        :return: An example of what the configuration file should look like.
-        """
-        return json.dumps({
-            'consumer_key': 'ABCDEFG_REPLACEME',
-            'consumer_secret': 'ABCDEFG_REPLACEME',
-            'access_token': 'ABCDEFG_REPLACEME',
-            'access_token_secret': 'ABCDEFG_REPLACEME',
-        })
-
-    @staticmethod
     def autodetect_twitter_auth(auth_filepath=Config.SECRETS_DATAFILE_PATH):
         # type: (str) -> TwitterAuthentication
         """
@@ -50,13 +37,10 @@ class TwitterAuthentication(object):
             print("Either initialize a {} object with API keys, or make the file located at the above path.".format(
                 TwitterAuthentication.__name__))
 
-            print("Here is a more concrete example: Make the following file exist and insert the following data into it:")
+            Config.create_example_secrets()
 
-            print("File: {}".format(auth_filepath))
-            print("Data: ")
-            print("+" * 20)
-            print(TwitterAuthentication.example_json())
-            print("+" * 20)
+            print("See {} for an example of a valid configuration file:".format(
+                Config.SECRETS_DATAFILE_EXAMPLE_PATH))
 
             raise ValueError("No API keys in {} initializer".format(TwitterAuthentication.__name__))
         else:  # Path to auth file exists.
@@ -153,7 +137,7 @@ class MongoDBStreamListener(tweepy.StreamListener):
         return False
 
     def __init__(self, database_name="MongoDBStreamListener",
-                 database_connection_string=Config.DEFAULT_MONGODB_CONNECTION_STRING):
+                 database_connection_string=Config.Defaults.MONGODB_CONNECTION_STRING):
         super(MongoDBStreamListener, self).__init__()
 
         # MongoDB client.
