@@ -2,7 +2,16 @@
 
 pushd code/twitter-fire-scraper/
 
+    echo "Building..."
     ruby build.rb
-    ruby test-localwheel-install.rb || echo "FAILED ruby test scripts!" && exit 1
+
+    echo "Installing local .whl file and running tests..."
+    ruby test-localwheel-install.rb
+    if [ $? -eq 0 ]; then
+        echo "Tests passed."
+    else
+        echo "Tests failed."
+        exit 1
+    fi
 
 popd
