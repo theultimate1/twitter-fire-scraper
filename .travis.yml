@@ -9,6 +9,7 @@ cache:
       - ${HOME}/virtualenv/
       - ${HOME}/.npm
       - ${HOME}/.cache/
+      - ${HOME}/.sonar/cache/
       - ${HOME}/Library/Caches/Homebrew
 
 
@@ -36,14 +37,21 @@ matrix:
 #    - os: osx
 
 addons:
+
   apt:
     packages:
       - curl
       - build-essential
+
   homebrew:
     packages:
       - npm
       - mongodb
+
+  sonarcloud:
+    organization: "twitter-fire-scraper-analytics"
+    token:
+      secure: "lWDlebTSw50K4Cii3HlZIM11AnllrWW8AnAYs1J3L6BlLzXORximAR2Pi0hhCV0YDW7y+tyuq7seVBEgNlh9BLjYQ1dWpYGJ3bhhbfju2hd/PeMXmE9GL8DwZMXe7VvtFZo5WgSCHjj2K3Roo4M1BEZwRVFC9ZZ+LBPmGOR1JejTeVL2kd2/d0GZzVm6TlbusV/9DSIwR2T+erMatUL3AzD+X6NYvFaFSy5anSyHfIPDCKjQd89Z5oaYPkzFImhtcmPd+2mOjXpILpANwYZUQdif2MXz5mxs6wA4sAe6wbvjw8jDw67ebMMw6VSA4PlamSraN97nDz3dDBtcEXBpDlSbQCn2QFHgg5oRAIPIHTELkVX4m4xk6GlMucHVtKEZcPC8ua0UWHOCszm5+RXuYkgoAjwz54mqzDv2ez+gKotOE92zZo1fUG5ntucefHT4GSVhKx2k+MnFf3Q/ObM5PaYJggs6Q7bNzF9VfOc4bf0txnNV4/VTKLyCpVPMY16neZoRphVAAcNOzIQpcdP50cFt+yXwssFtNXokRgIE3A/i1WMmv7nqt7d+8RiNBxDHHPvonie8NoSlngsE78eqJ8kTY8hBqkKixlZXSSf3SbrEs79KBDc9QJZ/QWaU7TLEAjcmYvv8M5P6Y9hyDISwHrwQimvqPPXgnwSMJddQRo0="
 
 services:
   - mongodb
@@ -107,6 +115,8 @@ before_install:
 script:
 
   - echo "I am script!"
+
+  - sonar-scanner
 
   - echo "Testing the Twitter Fire Scraper."
   - bash continuous-integration/setup-scripts/test-tfs.sh
