@@ -50,6 +50,8 @@ setuptools.setup(
         "dnspython",
         "chardet",
         "certifi",
+        "numpy",
+        "matplotlib",
     ],
 
     classifiers=[
