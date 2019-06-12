@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask, request, jsonify, abort
 from flask_pymongo import PyMongo
 # from flask.ext.pymongo import PyMongo
