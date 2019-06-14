@@ -115,7 +115,7 @@ class Config
 
     # Create virtual environment to download test package
     puts 'Creating virtual environment...'
-    system("#{self.python_exe} -m virtualenv -p python3 \"#{self.venv_folder}\"")
+    system("#{self.python_exe} -m virtualenv -p python \"#{self.venv_folder}\"")
 
     # Path to venv Python executable.
     virtual_python_exe = File.join(self.venv_folder_bin, 'python')
