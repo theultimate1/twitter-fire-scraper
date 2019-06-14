@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append("..")
+
 name = "twitter_fire_scraper"
 
 import twitter_fire_scraper.twitter
