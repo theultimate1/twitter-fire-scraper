@@ -37,6 +37,32 @@ class TestFileSaving(unittest.TestCase):
         print("Saved CSV files from test cases can be found at:")
         print(self.temp_folder)
 
+    def testSaveCSVRelevantColumn(self):
+        """Tests that the scraper can produce a CSV file with a 'relevant' column for hand-categorizing."""
+        tweets = CachedTweets.tweets_small_geo()
+
+        tweets_csv_path = os.path.join(self.csv_folder, 'tweets_relevant_column.csv')
+
+        self.scraper.save_statusdict_to_csv(tweets, tweets_csv_path, overwrite=True, relevant_column=True)
+
+        total_lines = 0
+        with open(tweets_csv_path, 'r', encoding='utf-16') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=Scraper.CSV_DELIMITER)
+
+            for row in csv_reader:
+
+                if total_lines == 0:  # Header.
+                    self.assertIn("relevant", row)
+                else:  # Data rows. Should not be categorized.
+                    self.assertIn("UNCATEGORIZED", row)
+
+                total_lines += 1
+
+        total_statuses = self.count_statuses(tweets)
+
+        # We should have as many tweets as there are lines in the file, plus one for the header.
+        self.assertEqual(total_lines, total_statuses + 1)
+
     def testSaveCSVSmall(self):
         """Tests that the scraper can produce small CSV files."""
         tweets = CachedTweets.tweets_small_geo()

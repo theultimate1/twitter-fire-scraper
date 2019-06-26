@@ -157,11 +157,14 @@ class Scraper:
 
         return results
 
-    def save_statusdict_to_csv(self, statusdict, filepath, overwrite=False):
+    def save_statusdict_to_csv(self, statusdict, filepath, overwrite=False, relevant_column=False):
         # type: (Scraper, Dict[str, List[Status]], str, bool) -> str
         """Save a status dict to a CSV file.
         :param statusdict A {str: [Status, Status, ...]} dictionary.
-        :param filepath A path to the file to output to."""
+        :param filepath A path to the file to output to.
+        :param overwrite Should we overwrite `filepath` if it exists?
+        :param relevant_column Should we insert an extra column for hand-categorizing in Excel?
+        """
 
         dirname = os.path.dirname(filepath)
 
@@ -183,6 +186,9 @@ class Scraper:
             'place_name', 'place_type'
         ]
 
+        if relevant_column:
+            fieldnames.append("relevant")
+
         with open(filepath, 'w', encoding='utf-16', newline='') as file:
             fileWriter = csv.DictWriter(file, delimiter=Scraper.CSV_DELIMITER, quotechar='"', quoting=csv.QUOTE_ALL,
                                         fieldnames=fieldnames)
@@ -200,6 +206,11 @@ class Scraper:
                         "date": status.created_at,
                         'retweet_count': status.retweet_count,
                     }
+
+                    if relevant_column:
+                        data.update({
+                            'relevant': "UNCATEGORIZED"
+                        })
 
                     if status.geo:
                         data.update({
