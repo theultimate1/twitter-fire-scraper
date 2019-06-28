@@ -1,8 +1,8 @@
 import unittest
 
 # noinspection PyUnresolvedReferences
-from models import Point
-from util import flatten_points, geobox_to_geocode
+from twitter_fire_scraper.models import Point
+from twitter_fire_scraper.util import flatten_points, geobox_to_geocode
 
 
 class TestGeoLib(unittest.TestCase):

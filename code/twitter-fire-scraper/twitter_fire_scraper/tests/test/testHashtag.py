@@ -1,10 +1,7 @@
 # coding=utf-8
 import unittest
 
-# noinspection PyUnresolvedReferences
-import __init__
-from hashtags import contains_hashtag, extract_hashtags
-
+from twitter_fire_scraper.hashtags import contains_hashtag, extract_hashtags
 
 class TestHashtags(unittest.TestCase):
 
