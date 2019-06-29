@@ -18,6 +18,9 @@ class Config(object):
         API_PORT = 3620
         """The port the HTTP API exposing the Scraper object's functions operates in."""
 
+        WEB_PORT = 443
+        """The port the website runs on."""
+
     @staticmethod
     def example_secrets_json():
         # type: () -> str
