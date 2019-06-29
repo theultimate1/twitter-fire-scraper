@@ -69,6 +69,7 @@ class FlaskConfig:
     """The location of the SSL key."""
 
     SECRET_KEY = "you will never guess :)"
+    """A secret value Flask uses to encrypt session variables. Essentially an encryption key."""
 
     # If in prod,
     if DEBUG == False:

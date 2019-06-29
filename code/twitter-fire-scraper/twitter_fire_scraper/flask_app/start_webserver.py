@@ -30,6 +30,7 @@ def index():
 def scrape():
     return render_template('scrape.html')
 
+
 if __name__ == "__main__":
 
     app_kwargs = {
@@ -50,11 +51,16 @@ if __name__ == "__main__":
             "ssl_context": "adhoc",
         })
 
-    else: # Not debug mode, production mode.
+    else:  # Not debug mode, production mode.
 
         # Use SSL cert + key loaded from a file.
         app_kwargs.update({
             "ssl_context": (FlaskConfig.SSL_CERTIFICATE_PATH, FlaskConfig.SSL_KEY_PATH),
         })
+
+    # Update app's config no matter what.
+    app.config.update({
+        'SECRET_KEY': FlaskConfig.SECRET_KEY,
+    })
 
     app.run(**app_kwargs)
