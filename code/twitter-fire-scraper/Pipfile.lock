@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d67512ec16e1c6b5e3cd7a86ea83a84409caf4db2178da0e3d1c6a75b2a2b5b7"
+            "sha256": "068a32c03f869d4b433330c1401b70f7b954ad8c7ad2cdbc2ece12e4094ac013"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -135,6 +135,14 @@
             ],
             "index": "pypi",
             "version": "==2.3.0"
+        },
+        "flask-wtf": {
+            "hashes": [
+                "sha256:5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36",
+                "sha256:d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"
+            ],
+            "index": "pypi",
+            "version": "==0.14.2"
         },
         "idna": {
             "hashes": [
@@ -320,7 +328,6 @@
         },
         "pycparser": {
             "hashes": [
-                "sha256:8fe55f109049903c3b3af2c78b5266792676573e319c8b0bc4304e1dde43f812",
                 "sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3"
             ],
             "version": "==2.19"
@@ -557,6 +564,13 @@
             ],
             "index": "pypi",
             "version": "==0.15.4"
+        },
+        "wtforms": {
+            "hashes": [
+                "sha256:0cdbac3e7f6878086c334aa25dc5a33869a3954e9d1e015130d65a69309b3b61",
+                "sha256:e3ee092c827582c50877cdbd49e9ce6d2c5c1f6561f849b3b068c1b8029626f1"
+            ],
+            "version": "==2.2.1"
         }
     },
     "develop": {
