@@ -29,9 +29,19 @@ def index():
 
 if __name__ == "__main__":
 
+    app_kwargs = {
+        "host": "127.0.0.1",
+        "port": Config.Defaults.WEB_PORT,
+    }
+
     if app.debug:
         app.config.update({
-            "EXPLAIN_TEMPLATE_LOADING": True,
+            "EXPLAIN_TEMPLATE_LOADING": True,  # Verbose template loading.
         })
 
-    app.run(host="127.0.0.1", port=Config.Defaults.WEB_PORT)
+        app_kwargs.update({
+            "ssl_context": "adhoc"
+            # Use ad-hoc SSL. This prevents us from having to create an SSL cert in development but still encrypts the connection.
+        })
+
+    app.run(**app_kwargs)

@@ -37,8 +37,9 @@ matplotlib = "*"
 pandas = "*"
 sklearn = "*"
 # Only for Windows, fixes CSV not working.
-pypiwin32 = {version = "*", os_name = "=='nt'"}
-pywin32 = {version = "*", os_name = "=='nt'"}
+pypiwin32 = {version = "*",os_name = "=='nt'"}
+pywin32 = {version = "*",os_name = "=='nt'"}
+pyopenssl = "*"
 
 [dev-packages]
 twine = "*"
