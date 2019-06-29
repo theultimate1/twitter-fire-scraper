@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     app_kwargs = {
         "host": "127.0.0.1",
-        "port": Config.Defaults.WEB_PORT,
+        "port": FlaskConfig.WEB_PORT,
     }
 
     if FlaskConfig.DEBUG:
