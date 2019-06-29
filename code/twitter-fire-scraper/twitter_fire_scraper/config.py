@@ -7,7 +7,7 @@ class Config(object):
     This class stores configuration information like config file paths, default values, etc.
     """
 
-    class Defaults(object):
+    class Defaults:
         """
         This class stores default values for configuration.
         """
@@ -48,12 +48,6 @@ class Config(object):
     CONFIG_FOLDER = os.path.abspath(os.path.expanduser("~/.twitterfirescraper"))
     """The folder that configuration files, secrets, etc. get stored in."""
 
-    SSL_CERTIFICATE_PATH = os.path.join(CONFIG_FOLDER, "cert.pem")
-    """The location of the SSL certificate."""
-
-    SSL_KEY_PATH = os.path.join(CONFIG_FOLDER, "key.pem")
-    """The location of the SSL key."""
-
     SECRETS_DATAFILE_PATH = os.path.join(CONFIG_FOLDER, "secrets.json")
     """The file that stores Twitter API keys."""
 
@@ -62,6 +56,29 @@ class Config(object):
 
     CONFIG_FILE = os.path.join(CONFIG_FOLDER, "config.json")
     """The file that stores configuration such as rate limiting, API ports, etc."""
+
+
+class FlaskConfig:
+    DEBUG = True
+    """Whether or not the app is in DEBUG mode. Should never be TRUE in prod."""
+
+    SSL_CERTIFICATE_PATH = os.path.join(Config.CONFIG_FOLDER, "cert.pem")
+    """The location of the SSL certificate."""
+
+    SSL_KEY_PATH = os.path.join(Config.CONFIG_FOLDER, "key.pem")
+    """The location of the SSL key."""
+
+    SECRET_KEY = "you will never guess :)"
+
+    # If in prod,
+    if DEBUG == False:
+
+        SECRET_KEY = os.environ.get("FLASK_SECRET_KEY")
+
+        # If there is no flask secret key,
+        if SECRET_KEY is None:
+            raise ValueError(
+                "No environment variable called `FLASK_SECRET_KEY`! This is required for secure sessions and forms!")
 
 
 def try_get(object, key):

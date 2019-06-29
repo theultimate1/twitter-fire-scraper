@@ -7,7 +7,7 @@ import os
 
 from flask import Flask, jsonify, render_template
 
-from twitter_fire_scraper.config import Config
+from twitter_fire_scraper.config import Config, FlaskConfig
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
 
@@ -17,7 +17,7 @@ template_folder = os.path.join(current_folder, 'templates')
 
 app = Flask(__name__, static_url_path='/static', template_folder=template_folder, static_folder=static_folder)
 
-app.debug = True
+app.debug = FlaskConfig.DEBUG
 
 scraper = Scraper(twitter_authentication=TwitterAuthentication.autodetect_twitter_auth())
 
@@ -27,6 +27,9 @@ def index():
     return render_template('index.html')
 
 
+def scrape():
+    return render_template('scrape.html')
+
 if __name__ == "__main__":
 
     app_kwargs = {
@@ -34,7 +37,7 @@ if __name__ == "__main__":
         "port": Config.Defaults.WEB_PORT,
     }
 
-    if app.debug:
+    if FlaskConfig.DEBUG:
 
         # Verbose template loading.
         app.config.update({
@@ -51,7 +54,7 @@ if __name__ == "__main__":
 
         # Use SSL cert + key loaded from a file.
         app_kwargs.update({
-            "ssl_context": (Config.SSL_CERTIFICATE_PATH, Config.SSL_KEY_PATH),
+            "ssl_context": (FlaskConfig.SSL_CERTIFICATE_PATH, FlaskConfig.SSL_KEY_PATH),
         })
 
     app.run(**app_kwargs)
