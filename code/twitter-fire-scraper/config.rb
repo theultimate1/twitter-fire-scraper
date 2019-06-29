@@ -107,6 +107,14 @@ class Config
 
   end
 
+  # Set up for code coverage.
+  def setup_coverage
+
+    puts 'Ensuring deps are satisfied for code coverage...'
+    system("#{self.python_exe} -m pip install coverage")
+
+  end
+
   # Set up a clean virtual environment.
   def setup_venv
 
