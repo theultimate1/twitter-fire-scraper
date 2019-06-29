@@ -7,7 +7,7 @@ import os
 
 from flask import Flask, jsonify, render_template, redirect
 
-from flask_app.forms import ScrapeTermForm
+from twitter_fire_scraper.flask_app.forms import ScrapeTermForm
 from twitter_fire_scraper.config import Config, FlaskConfig
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
