@@ -17,7 +17,11 @@ config.setup_coverage
 
 Dir.chdir(config.root_folder)
 
-stdout, stderr, status = Open3.capture3("#{config.python_exe}", '-m', 'coverage', 'run', '-m', 'twitter_fire_scraper.tests.test')
+system("coverage erase")
+
+stdout, stderr, status = Open3.capture3("#{config.python_exe}", '-m', 'coverage', 'run', '-m', 'twitter_fire_scraper.tests.test', '-o', 'twitter_fire_scraper_coverage.xml')
+
+system("coverage xml -i")
 
 puts stdout
 puts stderr

@@ -2,11 +2,8 @@
 
 pushd code/twitter-fire-scraper/
 
-    echo "Building..."
-    ruby build.rb
-
-    echo "Installing local .whl file and running tests..."
-    ruby test-localwheel-install.rb
+    echo "Testing from source and generating code coverage..."
+    ruby test-livecode-tests.rb
     if [ $? -eq 0 ]; then
         echo "Tests passed."
     else
