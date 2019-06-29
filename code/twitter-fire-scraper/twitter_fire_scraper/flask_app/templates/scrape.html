@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+On this page you can gather a number of tweets about one single term.
+
+<form method="POST" action="{{ url_for('scrape_term') }}">
+
+    {{ form.csrf_token }}
+    <ul>
+        <li>
+            {{ form.term.label }} {{ form.term(size=20) }}
+        </li>
+        <li>
+            {{ form.amount.label }} {{ form.amount }}
+        </li>
+    </ul>
+
+    <input type="submit" value="Go"/>
+
+</form>
+
+{% if tweets %}
+<aside>
+
+    <ul>
+        {% for key, value in tweets.items() %}
+        <li>
+            <h2>{{ key }}</h2>
+            <ul>
+                {% for tweet in value %}
+                <li><p>{{ tweet.full_text }}</p></li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+
+</aside>
+{% endif %}
+
+<aside>
+    {% for field in form.errors %}
+    {% for error in form.errors[field] %}
+    <div class="alert alert-error">
+        <strong>Error:</strong> {{error}}
+    </div>
+    {% endfor %}
+    {% endfor %}
+</aside>
+
+
+{% endblock %}

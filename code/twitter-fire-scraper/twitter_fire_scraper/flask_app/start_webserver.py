@@ -5,8 +5,9 @@ This file starts the web server.
 """
 import os
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, redirect
 
+from flask_app.forms import ScrapeTermForm
 from twitter_fire_scraper.config import Config, FlaskConfig
 from twitter_fire_scraper.scraper import Scraper
 from twitter_fire_scraper.twitter import TwitterAuthentication
@@ -27,8 +28,21 @@ def index():
     return render_template('index.html')
 
 
-def scrape():
-    return render_template('scrape.html')
+@app.route("/success")
+def success():
+    return "Whatever you just tried worked. Congrats :)"
+
+
+@app.route('/scrape_term', methods=("GET", "POST"))
+def scrape_term():
+    form = ScrapeTermForm()
+
+    tweets = None
+
+    if form.validate_on_submit():
+        tweets = scraper.scrape_terms(terms={form.term.data}, count=form.amount.data)
+
+    return render_template('scrape.html', form=form, tweets=tweets)
 
 
 if __name__ == "__main__":
