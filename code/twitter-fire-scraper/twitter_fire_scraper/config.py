@@ -48,6 +48,12 @@ class Config(object):
     CONFIG_FOLDER = os.path.abspath(os.path.expanduser("~/.twitterfirescraper"))
     """The folder that configuration files, secrets, etc. get stored in."""
 
+    SSL_CERTIFICATE_PATH = os.path.join(CONFIG_FOLDER, "cert.pem")
+    """The location of the SSL certificate."""
+
+    SSL_KEY_PATH = os.path.join(CONFIG_FOLDER, "key.pem")
+    """The location of the SSL key."""
+
     SECRETS_DATAFILE_PATH = os.path.join(CONFIG_FOLDER, "secrets.json")
     """The file that stores Twitter API keys."""
 

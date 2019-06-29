@@ -35,13 +35,23 @@ if __name__ == "__main__":
     }
 
     if app.debug:
+
+        # Verbose template loading.
         app.config.update({
-            "EXPLAIN_TEMPLATE_LOADING": True,  # Verbose template loading.
+            "EXPLAIN_TEMPLATE_LOADING": True,
         })
 
+        # Use ad-hoc SSL.
+        # This prevents us from having to create an SSL cert in development but still encrypts the connection.
         app_kwargs.update({
-            "ssl_context": "adhoc"
-            # Use ad-hoc SSL. This prevents us from having to create an SSL cert in development but still encrypts the connection.
+            "ssl_context": "adhoc",
+        })
+
+    else: # Not debug mode, production mode.
+
+        # Use SSL cert + key loaded from a file.
+        app_kwargs.update({
+            "ssl_context": (Config.SSL_CERTIFICATE_PATH, Config.SSL_KEY_PATH),
         })
 
     app.run(**app_kwargs)
