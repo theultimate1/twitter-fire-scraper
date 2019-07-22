@@ -6,7 +6,7 @@ from pymongo.errors import DuplicateKeyError
 from tweepy import Status
 from typing import Dict, List
 
-from twitter_fire_scraper.models import Point
+from models import Point
 
 
 def get_status_text(status):

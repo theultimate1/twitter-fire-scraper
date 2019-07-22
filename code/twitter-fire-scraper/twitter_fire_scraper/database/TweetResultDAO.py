@@ -1,6 +1,6 @@
 from flask_pymongo import PyMongo, MongoClient
 
-from twitter_fire_scraper.database import TweetResult
+from database import TweetResult
 
 class TweetResultDAO(object):
 

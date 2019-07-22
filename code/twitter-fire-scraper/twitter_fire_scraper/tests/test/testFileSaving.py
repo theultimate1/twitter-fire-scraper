@@ -5,8 +5,8 @@ import tempfile
 import unittest
 
 import twitter_fire_scraper
-from twitter_fire_scraper.scraper import Scraper
-from twitter_fire_scraper.tests.test.incur_api_hits.cached_tweets import CachedTweets
+from scraper import Scraper
+from tests.test.incur_api_hits.cached_tweets import CachedTweets
 
 
 class TestFileSaving(unittest.TestCase):

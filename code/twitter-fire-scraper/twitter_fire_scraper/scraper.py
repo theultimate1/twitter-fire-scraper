@@ -6,8 +6,8 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import Status
 
-from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb, get_status_text
+from twitter import TwitterAuthentication
+from util import merge_status_dict, save_statuses_dict_to_mongodb, get_status_text
 
 
 class Scraper:
