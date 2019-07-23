@@ -41,3 +41,6 @@ class TestDaoSimple(unittest.TestCase):
 
         # delete it now
         dao.delete_by_id(result.get_id())
+
+        # it should be None
+        self.assertEqual(dao.get_by_id("test_id"), None)
