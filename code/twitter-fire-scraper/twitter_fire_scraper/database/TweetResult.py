@@ -1,7 +1,7 @@
 from enum import Enum
 
 from tweepy import Status
-from typing import Set
+from typing import Set, Dict
 
 
 class ERelevancy(Enum):
@@ -20,7 +20,7 @@ class TweetResult(object):
 
     def get_id(self):
         """The ID of a Tweet. This is unique."""
-        return self.data.id
+        return self.data['id']
 
     def get_text(self):
         """The content of a tweet.
@@ -38,8 +38,18 @@ class TweetResult(object):
     def serialize_to_dict(self):
         """Serialize this TweetResult object to a JSON-like object that can be saved to a MongoDB database"""
         return {
+            # Base attributes, these are needed to fully reconstruct the object.
             'data': self.data,
-            '_id': self.get_id(),
             'tags': self.tags,
-            'relevancy': self.relevancy
+            'relevancy': self.relevancy,
+
+            # Derived attributes, these are inferred or created from the base attributes.
+            '_id': self.get_id(),
         }
+
+    @classmethod
+    def deserialize(cls, dict: Dict):
+        """Deserialize a JSON-like object to a TweetResult. Like the opposite of serializing."""
+        return TweetResult(data=dict['data'],
+                           tags=dict['tags'],
+                           relevancy=dict['relevancy'])
