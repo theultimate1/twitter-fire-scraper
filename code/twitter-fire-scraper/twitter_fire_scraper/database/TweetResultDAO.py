@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
+from typing import Union
 
 from config import Config
 from database.TweetResult import TweetResult, ERelevancy
@@ -24,11 +25,14 @@ class TweetResultDAO(object):
         """Save a single TweetResult object."""
         self.collection.insert_one(tweetresult)
 
-    def get_by_id(self, id) -> TweetResult:
+    def get_by_id(self, id) -> Union[TweetResult, None]:
+        """Return a tweet by ID.
+
+        Returns None if no tweet is found."""
         cursor = self.collection.find({"_id": id})
 
         if cursor.count() == 0:
-            raise ValueError("No tweet by that ID exists!")
+            return None
 
         result = cursor.next()
 
@@ -38,31 +42,3 @@ class TweetResultDAO(object):
 
     def delete_by_id(self, id):
         self.collection.delete_one({"_id": id})
-
-
-# testing
-if __name__ == '__main__':
-    # connect to localhost
-    client = MongoClient(Config.Defaults.MONGODB_CONNECTION_STRING)
-
-    # make a DAO with our connection
-    dao = TweetResultDAO(client, collection_name="test")
-
-    # delete if it somehow exists
-    if dao.get_by_id('test_id') is not None:
-        dao.delete_by_id('test_id')
-
-    # save a tweetresult
-    dao.save_one(
-        TweetResult(
-            data={
-                "id": "test_id",
-                "full_text": "hello!"
-            },
-
-            tags={"test"},
-            relevancy=ERelevancy.IRRELEVANT)
-            .serialize()
-    )
-
-    print(dao.get_by_id("test_id"))
