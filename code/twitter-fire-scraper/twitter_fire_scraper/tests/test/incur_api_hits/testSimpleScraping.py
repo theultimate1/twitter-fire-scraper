@@ -1,7 +1,7 @@
 import unittest
 
-from twitter_fire_scraper.scraper import Scraper
-from twitter_fire_scraper.twitter import TwitterAuthentication
+from scraper import Scraper
+from twitter import TwitterAuthentication
 from pymongo import MongoClient
 
 from util import get_status_text

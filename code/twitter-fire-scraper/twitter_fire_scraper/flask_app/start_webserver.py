@@ -4,10 +4,12 @@
 This file starts the web server.
 """
 import os
+import sys
+sys.path.append("..")
 
 from flask import Flask, jsonify, render_template, redirect
 
-from flask_app.forms import ScrapeTermForm
+from forms import ScrapeTermForm
 from config import Config, FlaskConfig
 from scraper import Scraper
 from twitter import TwitterAuthentication

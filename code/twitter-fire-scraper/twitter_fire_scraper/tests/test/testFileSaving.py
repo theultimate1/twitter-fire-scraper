@@ -4,7 +4,6 @@ import shutil
 import tempfile
 import unittest
 
-import twitter_fire_scraper
 from scraper import Scraper
 from tests.test.incur_api_hits.cached_tweets import CachedTweets
 
@@ -21,7 +20,7 @@ class TestFileSaving(unittest.TestCase):
 
     def setUp(self):
         # Temp folder for CSV files
-        self.temp_folder = os.path.join(tempfile.gettempdir(), twitter_fire_scraper.__name__, TestFileSaving.__name__)
+        self.temp_folder = os.path.join(tempfile.gettempdir(), "twitter_fire_scraper", TestFileSaving.__name__)
 
         # Scraper for scraping
         self.scraper = CachedTweets.scraper

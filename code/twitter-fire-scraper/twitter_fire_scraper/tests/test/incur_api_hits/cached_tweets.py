@@ -10,10 +10,10 @@ This is not strictly necessary, but will decrease API calls significantly if you
 from typing import Dict, List
 
 from tweepy import Status
-from twitter_fire_scraper.util import geobox_to_geocode
+from util import geobox_to_geocode
 
-from twitter_fire_scraper.twitter import GEOBOX_CHICAGO
-from twitter_fire_scraper.scraper import TwitterAuthentication, Scraper
+from twitter import GEOBOX_CHICAGO
+from scraper import TwitterAuthentication, Scraper
 
 from functools import lru_cache
 

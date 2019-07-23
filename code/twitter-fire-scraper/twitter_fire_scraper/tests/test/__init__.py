@@ -6,5 +6,5 @@ import os
 import sys
 import unittest
 
-# Append parent directory to enhance portability.
+# Append parent's parent directory to enhance portability.
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
