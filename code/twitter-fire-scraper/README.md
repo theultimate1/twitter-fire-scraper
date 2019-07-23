@@ -45,7 +45,7 @@ Examples of how to use this package can be found in [this examples folder](pytho
 
 This secrets file is only used for the demos. When using this library, it is up to you to manage how you store and retrieve your API keys.
 
-More specifically, if the `Scraper` object is not initialized with a `TwitterAuthentication` object, it will search for a file called `~/secrets.json` for API keys as a fallback.
+More specifically, if the `Scraper` object is not initialized with a `TwitterAuthentication` object, it will search for a file called `~/.twitterfirescraper/secrets.json` for API keys as a fallback.
 
 This is to make the demonstrations work and not recommended usage when using the library.
 
