@@ -9,17 +9,26 @@ from database.TweetResultDAO import TweetResultDAO
 
 class TestDaoSimple(unittest.TestCase):
 
-    def testSimple(self):
-        """Tests that the DAO can successfully insert and delete a single record"""
+    def setUp(self) -> None:
         # connect to localhost
-        client = MongoClient(Config.Defaults.MONGODB_CONNECTION_STRING)
+        self.client = MongoClient(Config.Defaults.MONGODB_CONNECTION_STRING)
 
         # make a DAO with our connection
-        dao = TweetResultDAO(client, collection_name="test")
+        self.dao = TweetResultDAO(self.client, collection_name=self.__class__.__name__)
+
+    def tearDown(self) -> None:
+        self.client.close()
+
+    def testRealData(self):
+        """Tests that the DAO can successfully insert and delete a few real records."""
+        self.assertTrue(True) #TODO
+
+    def testMockData(self):
+        """Tests that the DAO can successfully insert and delete a single mock record."""
 
         # delete if it somehow exists
-        if dao.get_by_id('test_id') is not None:
-            dao.delete_by_id('test_id')
+        if self.dao.get_by_id('test_id') is not None:
+            self.dao.delete_by_id('test_id')
 
         # mock tweetresult
         tweetResult = TweetResult(
@@ -32,15 +41,15 @@ class TestDaoSimple(unittest.TestCase):
             relevancy=ERelevancy.IRRELEVANT)
 
         # save a tweetresult
-        dao.save_one(tweetResult.serialize())
+        self.dao.save_one(tweetResult.serialize())
 
-        result = dao.get_by_id("test_id")
+        result = self.dao.get_by_id("test_id")
 
         self.assertNotEqual(result, None)
         self.assertIsInstance(result, TweetResult)
 
         # delete it now
-        dao.delete_by_id(result.get_id())
+        self.dao.delete_by_id(result.get_id())
 
         # it should be None
-        self.assertEqual(dao.get_by_id("test_id"), None)
+        self.assertEqual(self.dao.get_by_id("test_id"), None)
