@@ -28,7 +28,7 @@ On this page you can gather a number of tweets about one single term.
             <h2>{{ key }}</h2>
             <ul>
                 {% for tweet in value %}
-                <li><p>{{ tweet.full_text }}</p></li>
+                <li><p>{{ tweet.get_text() }}</p></li>
                 {% endfor %}
             </ul>
         </li>
