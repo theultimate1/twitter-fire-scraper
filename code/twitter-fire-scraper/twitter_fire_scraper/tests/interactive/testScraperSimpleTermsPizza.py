@@ -3,8 +3,6 @@ This file demonstrates the Scraper class' ability to scrape small amounts of twe
 'pizza', '#pizza', 'cat', and '#cat'.
 """
 
-import __init__
-
 from pprint import pprint
 
 from twitter_fire_scraper.scraper import Scraper

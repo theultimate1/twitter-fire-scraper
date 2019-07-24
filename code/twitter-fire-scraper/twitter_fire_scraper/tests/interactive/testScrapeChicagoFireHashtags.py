@@ -3,19 +3,16 @@ Demonstrates the ability to scrape tweets regarding chicago fires, and store the
 
 This does NOT use the Scraper object.
 """
-# noinspection PyUnresolvedReferences
-from pymongo import MongoClient
-from pymongo.errors import DuplicateKeyError
-
-import __init__
-
 import argparse
 import os
 
 import tweepy
+import yaml
+# noinspection PyUnresolvedReferences
+from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
 from tweepy import Status
 
-import yaml
 from twitter_fire_scraper.config import DataConfig, Config
 from twitter_fire_scraper.twitter import TwitterAuthentication, GEOBOX_CHICAGO
 from twitter_fire_scraper.util import geobox_to_geocode, status_to_url, get_status_text

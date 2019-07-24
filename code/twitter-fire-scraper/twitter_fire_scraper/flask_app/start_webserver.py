@@ -7,10 +7,10 @@ import os
 import sys
 sys.path.append("..")
 
-from flask import Flask, jsonify, render_template, redirect
+from flask import Flask, render_template
 
 from forms import ScrapeTermForm
-from config import Config, FlaskConfig
+from config import FlaskConfig
 from scraper import Scraper
 from twitter import TwitterAuthentication
 

@@ -8,7 +8,7 @@ from tweepy import Status
 
 from database.TweetResult import TweetResult, ERelevancy
 from twitter import TwitterAuthentication
-from util import merge_status_dict, save_statuses_dict_to_mongodb, get_status_text
+from util import merge_status_dict, save_statuses_dict_to_mongodb
 
 
 class Scraper:

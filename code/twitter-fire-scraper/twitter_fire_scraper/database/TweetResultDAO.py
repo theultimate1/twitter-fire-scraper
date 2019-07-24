@@ -1,10 +1,10 @@
+from typing import Union
+
 from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
-from typing import Union
 
-from config import Config
-from database.TweetResult import TweetResult, ERelevancy
+from database.TweetResult import TweetResult
 
 
 class TweetResultDAO(object):

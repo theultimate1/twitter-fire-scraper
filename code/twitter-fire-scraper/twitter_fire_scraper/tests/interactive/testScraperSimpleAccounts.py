@@ -2,8 +2,6 @@
 This file demonstrates the Scraper class' ability to scrape small amounts of tweets from a list of accounts.
 """
 
-import __init__
-
 from pprint import pprint
 
 import yaml
