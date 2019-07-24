@@ -11,9 +11,9 @@ from util import status_from_dict
 
 class ERelevancy(Enum):
     """An enumeration that represents if something is uncategorized, relevant, or irrelevant."""
-    UNCATEGORIZED = 1
-    RELEVANT = 2
-    IRRELEVANT = 3
+    UNCATEGORIZED = "UNCATEGORIZED"
+    RELEVANT = "RELEVANT"
+    IRRELEVANT = "IRRELEVANT"
 
 
 class TweetResult(object):
