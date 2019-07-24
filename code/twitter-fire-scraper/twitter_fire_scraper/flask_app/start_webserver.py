@@ -9,7 +9,7 @@ sys.path.append("..")
 
 from flask import Flask, render_template
 
-from forms import ScrapeTermForm
+from flask_app.forms import ScrapeSingleTermTestForm
 from config import FlaskConfig
 from scraper import Scraper
 from twitter import TwitterAuthentication
@@ -37,7 +37,7 @@ def success():
 
 @app.route('/scrape_term', methods=("GET", "POST"))
 def scrape_term():
-    form = ScrapeTermForm()
+    form = ScrapeSingleTermTestForm()
 
     tweets = None
 
