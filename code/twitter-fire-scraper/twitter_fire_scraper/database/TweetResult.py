@@ -4,7 +4,7 @@ from enum import Enum
 sys.path.append("..")
 
 from tweepy import Status
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from util import status_from_dict
 
@@ -19,7 +19,18 @@ class ERelevancy(Enum):
 class TweetResult(object):
     """An object representing a single Tweet along with metadata such as tags and relevancy."""
 
-    def __init__(self, data: Status, tags: List[str], relevancy: ERelevancy):
+    def __init__(self,
+                 data: Union[Status, dict],
+                 tags: List[str],
+                 relevancy: ERelevancy):
+
+        # Convert a dict to a Status automatically
+        if isinstance(data, dict):
+            data = status_from_dict(data)
+
+        if not isinstance(data, Status):
+            raise ValueError("You must pass a Status object to the TweetResult constructor!")
+
         self.data = data
         self.tags = tags
         self.relevancy = relevancy

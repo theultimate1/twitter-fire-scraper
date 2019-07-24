@@ -34,11 +34,8 @@ class TestDaoSimple(unittest.TestCase):
 
         # mock tweetresult
         tweetResult = TweetResult(
-            data=status_from_dict({
-                "id": "test_id",
-                "full_text": "hello!"
-            }),
-
+            data={"id": "test_id",
+                  "full_text": "hello!"},
             tags=["test", "deleteme"],
             relevancy=ERelevancy.IRRELEVANT)
 
