@@ -1,7 +1,12 @@
+import sys
 from enum import Enum
 
+sys.path.append("..")
+
 from tweepy import Status
-from typing import Set, Dict, Union
+from typing import Dict, List
+
+from util import status_from_dict
 
 
 class ERelevancy(Enum):
@@ -12,25 +17,31 @@ class ERelevancy(Enum):
 
 
 class TweetResult(object):
+    """An object representing a single Tweet along with metadata such as tags and relevancy."""
 
-    def __init__(self, data: Union[Status, dict], tags: Set[str], relevancy: ERelevancy):
+    def __init__(self, data: Status, tags: List[str], relevancy: ERelevancy):
         self.data = data
         self.tags = tags
         self.relevancy = relevancy
 
+    def get_json(self) -> dict:
+        """The JSON value that the Twitter API returns for this tweet."""
+        return self.data._json
+
     def get_id(self):
         """The ID of a Tweet. This is unique."""
-        return self.data['id']
+        return self.data.id
 
     def get_text(self):
         """The content of a tweet.
 
         Returns either "full_text" or "text", favoring the former as it is longer."""
-        if 'full_text' in self.data:
-            return self.data['full_text']
 
-        elif 'text' in self.data:
-            return self.data['text']
+        if hasattr(self.data, "full_text"):
+            return self.data.full_text
+
+        elif hasattr(self.data, 'text'):
+            return self.data.text
 
         else:
             raise KeyError("Tweet has no text!")
@@ -43,7 +54,7 @@ class TweetResult(object):
 
         return {
             # Base attributes, these are needed to fully reconstruct the object.
-            'data': self.data,
+            'data': self.get_json(),
             'tags': self.tags,
             'relevancy': self.relevancy.value,
 
@@ -54,6 +65,9 @@ class TweetResult(object):
     @classmethod
     def deserialize(cls, dict: Dict):
         """Deserialize a JSON-like object to a TweetResult. Like the opposite of serializing."""
-        return TweetResult(data=dict['data'],
+
+        status = status_from_dict(dict['data'])
+
+        return TweetResult(data=status,
                            tags=dict['tags'],
                            relevancy=ERelevancy(dict['relevancy']))

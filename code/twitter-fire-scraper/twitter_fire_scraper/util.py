@@ -24,13 +24,8 @@ def get_status_text(status):
     raise Exception("Status {} has no text?".format(status))
 
 
-def dict_from_status(status):
-    # type: (Status) -> dict
-    """
-
-    :param status: A Status object.
-    :return: An object ready to be saved into a MongoDB database.
-    """
+def dict_from_status(status: Status) -> dict:
+    """Turn a Status into a dict."""
 
     obj = status._json  # type: dict
 
@@ -38,6 +33,10 @@ def dict_from_status(status):
 
     return obj
 
+
+def status_from_dict(d: dict) -> Status:
+    """Turn a dict into a Status."""
+    return Status().parse(None, d)
 
 def save_statuses_dict_to_json(status_dict, filepath="tweets.json"):
     """
@@ -55,7 +54,7 @@ def save_statuses_dict_to_json(status_dict, filepath="tweets.json"):
 
 
 def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=False):
-    # type: (Dict[str, List[Status]], Database, bool) -> None
+    # type: (Dict[str, List[TweetResult]], Database, bool) -> None
     """
     This is a utility function that saves a Dict[str, List[Status]] to a MongoDB database.
 
@@ -67,7 +66,7 @@ def save_statuses_dict_to_mongodb(status_dict, mongodb, print_on_duplicates=Fals
     """
 
     for category, statuses in status_dict.items():
-        for status in statuses:  # type: Status
+        for status in statuses:  # type: TweetResult
 
             # Create a dict from the status
             obj = dict_from_status(status)
@@ -101,9 +100,9 @@ def save_single_status_to_mongodb(status, mongodb):
 
 
 def merge_status_dict(d1, d2):
-    # type: (Dict[str, List[Status]], Dict[str, List[Status]]) -> Dict[str, List[Status]]
+    # type: (Dict[str, List[TweetResult]], Dict[str, List[TweetResult]]) -> Dict[str, List[TweetResult]]
     """
-    Given two status dictionaries, merge them into one status dictionary.
+    Given two TweetResult dictionaries, merge them into one status dictionary.
     Does not modify either dictionary, and rather makes a new one.
     """
     results = dict()

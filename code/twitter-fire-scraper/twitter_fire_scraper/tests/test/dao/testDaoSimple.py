@@ -5,6 +5,8 @@ from pymongo import MongoClient
 from config import Config
 from database.TweetResult import TweetResult, ERelevancy
 from database.TweetResultDAO import TweetResultDAO
+from tests.test.incur_api_hits.cached_tweets import CachedTweets
+from util import status_from_dict
 
 
 class TestDaoSimple(unittest.TestCase):
@@ -21,7 +23,7 @@ class TestDaoSimple(unittest.TestCase):
 
     def testRealData(self):
         """Tests that the DAO can successfully insert and delete a few real records."""
-        self.assertTrue(True) #TODO
+        self.assertTrue(True)  # TODO
 
     def testMockData(self):
         """Tests that the DAO can successfully insert and delete a single mock record."""
@@ -32,12 +34,12 @@ class TestDaoSimple(unittest.TestCase):
 
         # mock tweetresult
         tweetResult = TweetResult(
-            data={
+            data=status_from_dict({
                 "id": "test_id",
                 "full_text": "hello!"
-            },
+            }),
 
-            tags={"test"},
+            tags=["test", "deleteme"],
             relevancy=ERelevancy.IRRELEVANT)
 
         # save a tweetresult
