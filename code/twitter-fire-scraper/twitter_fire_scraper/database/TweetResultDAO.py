@@ -23,7 +23,7 @@ class TweetResultDAO(object):
 
     def save_one(self, tweetresult: TweetResult):
         """Save a single TweetResult object."""
-        self.collection.insert_one(tweetresult)
+        self.collection.insert_one(tweetresult.serialize())
 
     def get_by_id(self, id) -> Union[TweetResult, None]:
         """Return a tweet by ID.
