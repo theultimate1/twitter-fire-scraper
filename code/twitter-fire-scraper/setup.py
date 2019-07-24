@@ -7,7 +7,7 @@ with open("VERSION", 'r') as f:
     version = f.read()
 
 setuptools.setup(
-    name="twitter-fire-scraper",
+    name="twitter_fire_scraper",
     version=version,
 
     author="Henry Post",
@@ -20,7 +20,7 @@ setuptools.setup(
     url="https://github.com/twitter-fire-scraper-analytics/twitter-fire-scraper",
 
     package_data = {
-        'twitter-fire-scraper': [
+        'twitter_fire_scraper': [
             'data/*.yml',
             'templates/*.html'
         ]

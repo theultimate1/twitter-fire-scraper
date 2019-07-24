@@ -1,13 +1,9 @@
 from __future__ import absolute_import
 
-import os
-from pprint import pprint
-
-import twitter_fire_scraper
-# This is needed to NOT import our source code locally, and force import of installed twitter-fire-scraper from PyPI.
-
 from twitter_fire_scraper.scraper import TwitterAuthentication, Scraper
 from twitter_fire_scraper.util import pretty_print_statuses
+
+# This is needed to NOT import our source code locally, and force import of installed twitter-fire-scraper from PyPI.
 
 twauth = TwitterAuthentication(
     consumer_key="FILL ME IN!",

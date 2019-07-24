@@ -5,9 +5,9 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import OAuthHandler, Status
 
-from twitter_fire_scraper.config import Config
-from twitter_fire_scraper.models import Point
-from twitter_fire_scraper.util import get_status_text
+from config import Config
+from models import Point
+from util import get_status_text
 
 GEOBOX_WORLD = [Point(-180, -90), Point(180, 90)]
 

@@ -1,7 +1,4 @@
-import __init__
-
 import os
-import sys
 import unittest
 
 if __name__ == "__main__":

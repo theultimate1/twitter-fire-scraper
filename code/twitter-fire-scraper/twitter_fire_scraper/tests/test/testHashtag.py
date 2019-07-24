@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
 
-from twitter_fire_scraper.hashtags import contains_hashtag, extract_hashtags
+from hashtags import contains_hashtag, extract_hashtags
 
 class TestHashtags(unittest.TestCase):
 

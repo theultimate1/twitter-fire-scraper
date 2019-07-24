@@ -6,8 +6,9 @@ import tweepy
 from pymongo import MongoClient
 from tweepy import Status
 
-from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import merge_status_dict, save_statuses_dict_to_mongodb, get_status_text
+from database.TweetResult import TweetResult, ERelevancy
+from twitter import TwitterAuthentication
+from util import merge_status_dict, save_statuses_dict_to_mongodb
 
 
 class Scraper:
@@ -32,8 +33,11 @@ class Scraper:
         # Default accounts to scrape.
         # self.accounts = accounts in data/TwitterAccounts.yml
 
-    def scrape_terms(self, terms, count=None, geocode=None, include_retweets=True):
-        # type: (Scraper, Set[str], int, str, bool) -> Dict[str, List[Status]]
+    def scrape_terms(self,
+                     terms: Set[str],
+                     count: int = None,
+                     geocode: str = None,
+                     include_retweets: bool = True) -> Dict[str, List[TweetResult]]:
         """
         Term-scraping method. Can scrape a set of terms.
 
@@ -43,13 +47,13 @@ class Scraper:
         :param terms:  List of terms to search for.
         :param count: Maximum tweets to return per search term.
         :param include_retweets: Should retweets be included?
-        :return: A dictionary containing {'search-term': List[Status]} pairs.
+        :return: A dictionary containing {'search-term': List[TweetResult]} pairs.
         """
 
         if not count:
             count = self.default_count
 
-        results = {}  # type: Dict[str, List[Status]]
+        results: Dict[str, List[TweetResult]] = {}
 
         # For each search term,
         for search_term in terms:
@@ -69,13 +73,16 @@ class Scraper:
                 if search_term not in results:
                     results[search_term] = list()
 
+                result = TweetResult(data=status, tags=[search_term], relevancy=ERelevancy.UNCATEGORIZED)
+
                 # Add the status to a particular search term.
-                results[search_term].append(status)
+                results[search_term].append(result)
 
         return results
 
-    def scrape_accounts(self, accounts, count=None):
-        # type: (Scraper, Set[str], int) -> Dict[str, List[Status]]
+    def scrape_accounts(self,
+                        accounts: Set[str],
+                        count: int = None) -> Dict[str, List[TweetResult]]:
         """
         Account-scraping method. Can scrape a set of accounts.
 
@@ -83,7 +90,7 @@ class Scraper:
 
         :param accounts: List of accounts to search in.
         :param count: Maximum tweets to return per account.
-        :return: A dictionary containing {'@Dude123': List[Status]} pairs.
+        :return: A dictionary containing {'@AccountName': List[TweetResult]} pairs.
         """
 
         if not count:
@@ -92,18 +99,23 @@ class Scraper:
         results = dict()
 
         for account in accounts:
-            statuses = self.api.user_timeline(screen_name=account, count=count)
+            statuses: List[Status] = self.api.user_timeline(screen_name=account, count=count)
 
             if account not in results:
                 results[account] = list()
 
             for status in statuses:
-                results[account].append(status)
+                result = TweetResult(data=status, tags=[account], relevancy=ERelevancy.UNCATEGORIZED)
 
-        return results
+                results[account].append(result)
 
-    def scrape(self, terms=None, accounts=None, count=None, geocode=None, include_retweets=True):
-        # type: (Scraper, Set[str], Set[str], int, str) -> Dict[str, List[Status]]
+                return results
+
+    def scrape(self, terms: Set[str] = None,
+               accounts: Set[str] = None,
+               count: int = None,
+               geocode: str = None,
+               include_retweets: bool = True) -> Dict[str, List[TweetResult]]:
         """
         General-purpose scraping method. Can scrape search terms, and accounts.
 
@@ -116,8 +128,8 @@ class Scraper:
 
         Examples:
             >>> self.scrape(geocode="41.8297855,-87.666775,50mi", terms={"pizza", "waffles"}, count=3)
-            {'pizza': {Status, Status, Status},
-            'waffles': {Status, Status}}
+            {'pizza': {TweetResult, TweetResult, TweetResult},
+            'waffles': {TweetResult, TweetResult}}
         """
         if not count:
             count = self.default_count
@@ -140,11 +152,15 @@ class Scraper:
 
         return results
 
-    def scrape_and_save(self, terms=None, accounts=None, count=None, geocode=None, dbname='scraper_tweets'):
-        # type: (Scraper, Set[str], Set[str], int, str, str) -> Dict[str, List[Status]]
+    def scrape_and_save(self,
+                        terms: Set[str] = None,
+                        accounts: Set[str] = None,
+                        count: int = None,
+                        geocode: str = None,
+                        dbname='scraper_tweets'):
 
         # First, retrieve search results via scrape
-        results = self.scrape(terms=terms, accounts=accounts, geocode=geocode, count=count)
+        results = self.scrape(terms=terms, accounts=accounts, count=count, geocode=geocode)
 
         # Establish connection to the host
         client = MongoClient()
@@ -157,10 +173,13 @@ class Scraper:
 
         return results
 
-    def save_statusdict_to_csv(self, statusdict, filepath, overwrite=False, relevant_column=False):
-        # type: (Scraper, Dict[str, List[Status]], str, bool) -> str
+    def save_statusdict_to_csv(self,
+                               statusdict: Dict[str, List[TweetResult]],
+                               filepath: str,
+                               overwrite: bool = False,
+                               relevant_column: bool = False):
         """Save a status dict to a CSV file.
-        :param statusdict A {str: [Status, Status, ...]} dictionary.
+        :param statusdict A {str: [TweetResult, TweetResult, ...]} dictionary.
         :param filepath A path to the file to output to.
         :param overwrite Should we overwrite `filepath` if it exists?
         :param relevant_column Should we insert an extra column for hand-categorizing in Excel?
@@ -197,14 +216,14 @@ class Scraper:
 
             for keyword, statuses in statusdict.items():
 
-                for status in statuses:  # type: Status
+                for status in statuses:
 
                     data = {
                         "category": keyword,
-                        "tweet_id": status.id,
-                        "text": get_status_text(status),
-                        "date": status.created_at,
-                        'retweet_count': status.retweet_count,
+                        "tweet_id": status,
+                        "text": status.get_text(),
+                        "date": status.data.created_at,
+                        'retweet_count': status.data.retweet_count,
                     }
 
                     if relevant_column:
@@ -212,27 +231,27 @@ class Scraper:
                             'relevant': "UNCATEGORIZED"
                         })
 
-                    if status.geo:
+                    if status.data.geo:
                         data.update({
-                            "geo": ','.join(str(x) for x in status.geo['coordinates']),
+                            "geo": ','.join(str(x) for x in status.data.geo['coordinates']),
                         })
 
-                    if status.coordinates:
+                    if status.data.coordinates:
                         data.update({
-                            'coordinates': ','.join(str(x) for x in status.coordinates['coordinates']),
+                            'coordinates': ','.join(str(x) for x in status.data.coordinates['coordinates']),
                         })
 
                     # If the status has a place, then add its data!
-                    if status.place:
+                    if status.data.place:
                         data.update({
-                            'place_id': status.place.id,
+                            'place_id': status.data.place.id,
                             # We have to use the API for this one to look it up.
-                            'place_centroid': ','.join(str(x) for x in self.api.geo_id(status.place.id).centroid),
-                            'place_country': status.place.country,
-                            'place_country_code': status.place.country_code,
-                            'place_full_name': status.place.full_name,
-                            'place_name': status.place.name,
-                            'place_type': status.place.place_type,
+                            'place_centroid': ','.join(str(x) for x in self.api.geo_id(status.data.place.id).centroid),
+                            'place_country': status.data.place.country,
+                            'place_country_code': status.data.place.country_code,
+                            'place_full_name': status.data.place.full_name,
+                            'place_name': status.data.place.name,
+                            'place_type': status.data.place.place_type,
                         })
 
                     # Write all the data we've collected so far.

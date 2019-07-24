@@ -4,13 +4,15 @@
 This file starts the web server.
 """
 import os
+import sys
+sys.path.append("..")
 
-from flask import Flask, jsonify, render_template, redirect
+from flask import Flask, render_template
 
-from twitter_fire_scraper.flask_app.forms import ScrapeTermForm
-from twitter_fire_scraper.config import Config, FlaskConfig
-from twitter_fire_scraper.scraper import Scraper
-from twitter_fire_scraper.twitter import TwitterAuthentication
+from flask_app.forms import ScrapeSingleTermTestForm
+from config import FlaskConfig
+from scraper import Scraper
+from twitter import TwitterAuthentication
 
 current_folder = os.path.abspath(os.path.dirname(__file__))
 static_folder = os.path.join(current_folder, 'static')
@@ -35,7 +37,7 @@ def success():
 
 @app.route('/scrape_term', methods=("GET", "POST"))
 def scrape_term():
-    form = ScrapeTermForm()
+    form = ScrapeSingleTermTestForm()
 
     tweets = None
 

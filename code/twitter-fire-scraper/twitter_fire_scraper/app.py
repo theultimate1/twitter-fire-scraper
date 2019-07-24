@@ -2,11 +2,12 @@
 
 from flask import Flask, request, jsonify, abort
 from flask_pymongo import PyMongo
+
 # from flask.ext.pymongo import PyMongo
-from twitter_fire_scraper.config import Config
-from twitter_fire_scraper.scraper import Scraper
-from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import jsonify_status_dict, save_single_status_to_mongodb
+from config import Config
+from scraper import Scraper
+from twitter import TwitterAuthentication
+from util import jsonify_status_dict
 
 app = Flask(__name__, static_url_path="/static")
 

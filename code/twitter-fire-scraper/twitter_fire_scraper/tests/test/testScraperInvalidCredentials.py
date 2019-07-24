@@ -2,13 +2,12 @@
 This file tests that the scraper fails correctly with invalid credentials.
 """
 import unittest
-from pprint import pprint
 
 from tweepy import TweepError
 
-from twitter_fire_scraper.scraper import Scraper
-from twitter_fire_scraper.twitter import TwitterAuthentication
-from twitter_fire_scraper.util import flatten_status_dict
+from scraper import Scraper
+from twitter import TwitterAuthentication
+
 
 class TestInvalidCredentials(unittest.TestCase):
 
